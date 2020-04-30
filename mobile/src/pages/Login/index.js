@@ -1,11 +1,19 @@
 import React from 'react';
 import { View, TouchableOpacity, TextInput, Text, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import logo from '../../assets/logoLogin.png';
 
 import styles from './styles';
 
 export default function Login() {
+
+    const navigation = useNavigation();
+
+    function navigateToRegister() {
+        navigation.navigate('Register');
+    }
+
     return(
         <View style={styles.container}>
             <View style={styles.login}>
@@ -27,7 +35,9 @@ export default function Login() {
             <TouchableOpacity style={styles.buttonLogin}>
                 <Text style={styles.textButtonLogin}>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonRegister}>
+            <TouchableOpacity 
+                style={styles.buttonRegister}
+                onPress={navigateToRegister}>
                 <Text style={styles.textButtonRegister}>Não sou cadastrado. CLIQUE AQUI</Text>
             </TouchableOpacity>
         </View>
