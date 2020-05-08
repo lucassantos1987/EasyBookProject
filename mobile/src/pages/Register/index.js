@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import styles from './style';
@@ -16,6 +16,12 @@ export default function Register() {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.textHeader}>Antes de usar nossa plataforma, precisamos conhecer um pouco sobre você.</Text>
+            </View>
+            <View style={styles.content}>
+                <TextInput
+                        style={styles.inputContent}
+                        placeholder="Digite seu email"
+                        returnKeyType="next"/>
             </View>
             <View style={styles.next}>
                 <TouchableOpacity 

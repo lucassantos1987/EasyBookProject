@@ -20,8 +20,13 @@ export default function RegisterStepTwo() {
             <View style={styles.content}>
                 <TextInput
                     style={styles.inputContent}
-                    placeholder="Digite seu nome completo"
+                    placeholder="Digite seu nome"
                     returnKeyType="next"/>
+                <TextInput
+                    style={styles.inputContent}
+                    placeholder="Digite seu sobrenome"
+                    returnKeyType="next"/>
+
             </View>
             <View style={styles.next}>
                 <TouchableOpacity 

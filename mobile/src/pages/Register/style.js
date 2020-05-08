@@ -13,6 +13,19 @@ export default StyleSheet.create({
         fontSize: 40,
         fontWeight: 'bold'
     },
+    content: {
+        top: 80,
+        justifyContent: 'center',
+        paddingHorizontal: 15
+    },
+    inputContent: {
+        height: 70,
+        marginTop: 10,
+        borderBottomColor : '#9b59b6',
+        borderBottomWidth: 2,
+        fontSize: 16,
+        paddingLeft: 10
+    },
     next: {
         position: 'absolute',
         left: 0,

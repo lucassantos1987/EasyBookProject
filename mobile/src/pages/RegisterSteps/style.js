@@ -10,7 +10,7 @@ export default StyleSheet.create({
         paddingHorizontal: 15
     },
     textHeader: {
-        fontSize: 40,
+        fontSize: 35,
         fontWeight: 'bold'
     },
     content: {
@@ -32,11 +32,22 @@ export default StyleSheet.create({
     inputContent: {
         height: 70,
         marginTop: 10,
-        borderRadius: 20,
-        borderColor: '#9b59b6',
-        borderWidth: 1,
+        borderBottomColor : '#9b59b6',
+        borderBottomWidth: 2,
         fontSize: 20,
-        padding: 20
+        paddingLeft: 10
+    },
+    buttonContent: {
+        backgroundColor: '#8e44ad',
+        marginTop: 10,
+        height: 50,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    textButtonContent: {
+        color: '#FFFFFF',
+        fontSize: 15,
     },
     next: {
         position: 'absolute',

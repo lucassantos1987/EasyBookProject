@@ -14,6 +14,10 @@ export default function Login() {
         navigation.navigate('Register');
     }
 
+    function navigateToMenu() {
+        navigation.navigate('Menu');
+    }
+
     return(
         <View style={styles.container}>
             <View style={styles.login}>
@@ -32,7 +36,9 @@ export default function Login() {
                     returnKeyType="go"
                     autoCapitalize="none"/>
             </View>
-            <TouchableOpacity style={styles.buttonLogin}>
+            <TouchableOpacity 
+                style={styles.buttonLogin}
+                onPress={navigateToMenu}>
                 <Text style={styles.textButtonLogin}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity 

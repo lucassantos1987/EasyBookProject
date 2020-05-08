@@ -20,14 +20,6 @@ export default function RegisterStepOne() {
             </View>
             <View style={styles.content}>
                 <Text style={styles.textContent}>Eu sou</Text>
-                <RNPickerSelect
-                    style={styles.selectContent}
-                    items={[
-                        { label: 'Cliente', value: 'C' },
-                        { label: 'Profissional', value: 'P' },
-                        { label: 'Cliente/Profissinal', value: 'A' },
-                    ]}
-                />
             </View>
             <View style={styles.next}>
                 <TouchableOpacity 

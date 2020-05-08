@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import styles from './style';
 
@@ -11,11 +11,17 @@ export default function RegisterStepFour() {
                 <Text style={styles.textHeader}>Deixe sua linda foto</Text>
             </View>
             <View style={styles.content}>
+                <TouchableOpacity style={styles.buttonContent}>
+                    <Text style={styles.textButtonContent}>Selecionar Foto</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonContent}>
+                    <Text style={styles.textButtonContent}>Tirar Foto</Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.next}>
                 <TouchableOpacity 
                     style={styles.buttonNext}>
-                    <Text style={styles.textButtonNext}>Próximo</Text>
+                    <Text style={styles.textButtonNext}>Gravar</Text>
                 </TouchableOpacity>
             </View>
         </View>
