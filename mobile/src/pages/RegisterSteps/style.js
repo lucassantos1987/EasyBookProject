@@ -37,6 +37,15 @@ export default StyleSheet.create({
         fontSize: 20,
         paddingLeft: 10
     },
+    user: {
+        top: -12,
+        alignItems: 'center'
+    },
+    imageUser: {
+        width: 200,
+        height: 200,
+        borderRadius: 200/2
+    },
     buttonContent: {
         backgroundColor: '#8e44ad',
         marginTop: 10,
@@ -54,7 +63,7 @@ export default StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: '#9b59b6',
+        backgroundColor: '#8e44ad',
         height: 70,
         paddingHorizontal: 7,
     },

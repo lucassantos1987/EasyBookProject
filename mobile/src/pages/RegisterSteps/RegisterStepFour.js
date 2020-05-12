@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 
+import user from '../../assets/user2.jpg';
 import styles from './style';
 
 export default function RegisterStepFour() {
@@ -11,6 +12,9 @@ export default function RegisterStepFour() {
                 <Text style={styles.textHeader}>Deixe sua linda foto</Text>
             </View>
             <View style={styles.content}>
+                <View style={styles.user}>
+                    <Image source={user} style={styles.imageUser}/>
+                </View>    
                 <TouchableOpacity style={styles.buttonContent}>
                     <Text style={styles.textButtonContent}>Selecionar Foto</Text>
                 </TouchableOpacity>
