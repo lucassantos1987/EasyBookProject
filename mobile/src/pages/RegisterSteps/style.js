@@ -64,13 +64,13 @@ export default StyleSheet.create({
         right: 0,
         bottom: 0,
         backgroundColor: '#8e44ad',
-        height: 70,
+        height: 60,
         paddingHorizontal: 7,
     },
     buttonNext: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: 70
+        height: 60
     },
     textButtonNext: {
         color: '#FFFFFF',

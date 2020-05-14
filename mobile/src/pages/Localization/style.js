@@ -9,6 +9,7 @@ export default StyleSheet.create({
         alignContent: 'center'
     },
     title: {
+        marginTop: -100,
         justifyContent: 'center',
     },
     textTitle: {

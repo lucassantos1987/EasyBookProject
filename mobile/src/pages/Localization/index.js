@@ -1,9 +1,17 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import styles from './style';
 
 export default function Location() {
+
+    const navigation = useNavigation();
+
+    function navigateToRequestCategory() {
+        navigation.navigate('RequestCategory');
+    }
+
     return(
         <View style={styles.container}>
             <View style={styles.title}>
@@ -19,7 +27,9 @@ export default function Location() {
                 <TextInput style={styles.inputLocalization}/>
             </View>
             <View style={styles.toSearch}>
-                <TouchableOpacity style={styles.buttonToSearch}>
+                <TouchableOpacity 
+                    style={styles.buttonToSearch}
+                    onPress={navigateToRequestCategory}>
                     <Text style={styles.textButtonToSearch}>Solicitar Profissional</Text>
                 </TouchableOpacity>
             </View>
