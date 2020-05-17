@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import Menu from './pages/Menu';
 import Localization from './pages/Localization';
 import RequestCategory from './pages/RequestProvider/Category';
+import RequestSpeciality from './pages/RequestProvider/Speciality';
 import RequestProvider from './pages/RequestProvider/Provider';
 import RegisterStepOne from './pages/RegisterSteps/RegisterStepOne';
 import RegisterStepTwo from './pages/RegisterSteps/RegisterStepTwo';
@@ -24,6 +25,7 @@ export default function Routes() {
                 <AppStatck.Screen name="Menu" component={Menu}/>
                 <AppStatck.Screen name="Localization" component={Localization}/>
                 <AppStatck.Screen name="RequestCategory" component={RequestCategory}/>
+                <AppStatck.Screen name="RequestSpeciality" component={RequestSpeciality}/>
                 <AppStatck.Screen name="RequestProvider" component={RequestProvider}/>
                 <AppStatck.Screen name="RegisterStepOne" component={RegisterStepOne}/>
                 <AppStatck.Screen name="RegisterStepTwo" component={RegisterStepTwo}/>

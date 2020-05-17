@@ -9,14 +9,14 @@ export default function Category() {
 
     const navigation = useNavigation();
 
-    function navigateToSpeciality() {
-        navigation.navigate('RequestSpeciality');
+    function navigateToProvider() {
+        navigation.navigate('RequestProvider');
     }
 
     return(
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.textHeader}>Selecione a Categoria</Text>
+                <Text style={styles.textHeader}>Selecione a Especialidade</Text>
             </View>
             <FlatList
                 style={styles.listCategory}
@@ -24,11 +24,12 @@ export default function Category() {
                 keyExtractor={category => String(category)}
                 renderItem={() => (
                     <View style={styles.category}>
-                        <Text style={styles.textCategory}>Categoria</Text>
+                        <Text style={styles.textCategory}>Especialidade</Text>
+                        <Text style={styles.textCount}>1 profissional encontrado</Text>
                         <TouchableOpacity
                             style={styles.buttonDetails}
-                            onPress={navigateToSpeciality}>
-                            <Text style={styles.textButtonDetails}>Ver Especialidades</Text>
+                            onPress={navigateToProvider}>
+                            <Text style={styles.textButtonDetails}>Ver Profissionais</Text>
                         </TouchableOpacity>
                     </View>
                 )}
