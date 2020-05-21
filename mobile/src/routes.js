@@ -11,6 +11,7 @@ import Localization from './pages/Localization';
 import RequestCategory from './pages/RequestProvider/Category';
 import RequestSpeciality from './pages/RequestProvider/Speciality';
 import RequestProvider from './pages/RequestProvider/Provider';
+import InfoProvider from './pages/RequestProvider/InfoProvider';
 import RegisterStepOne from './pages/RegisterSteps/RegisterStepOne';
 import RegisterStepTwo from './pages/RegisterSteps/RegisterStepTwo';
 import RegisterStepThree from './pages/RegisterSteps/RegisterStepThree';
@@ -27,6 +28,7 @@ export default function Routes() {
                 <AppStatck.Screen name="RequestCategory" component={RequestCategory}/>
                 <AppStatck.Screen name="RequestSpeciality" component={RequestSpeciality}/>
                 <AppStatck.Screen name="RequestProvider" component={RequestProvider}/>
+                <AppStatck.Screen name="InfoProvider" component={InfoProvider}/>
                 <AppStatck.Screen name="RegisterStepOne" component={RegisterStepOne}/>
                 <AppStatck.Screen name="RegisterStepTwo" component={RegisterStepTwo}/>
                 <AppStatck.Screen name="RegisterStepThree" component={RegisterStepThree}/>

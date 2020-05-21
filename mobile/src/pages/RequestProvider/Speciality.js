@@ -1,6 +1,6 @@
 import React from 'react';
 import { Feather }  from '@expo/vector-icons';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 
 import styles from './styles';
@@ -17,6 +17,9 @@ export default function Category() {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.textHeader}>Selecione a Especialidade</Text>
+                <TextInput
+                    style={styles.inputSearch}
+                    placeholder="Digite aqui para pesquisar..."/>
             </View>
             <FlatList
                 style={styles.listCategory}

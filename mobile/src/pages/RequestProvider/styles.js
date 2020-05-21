@@ -7,14 +7,28 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center'
     },
-    header: {
-        top: 50,
+    containerInfo: {
+        flex: 1,
         justifyContent: 'center',
-        paddingHorizontal: 15
+        alignContent: 'center'
+    },
+    header: {
+        top: 80,
+        justifyContent: 'center',
+        paddingHorizontal: 15,
+        height: 100,
     },
     textHeader: {
+        marginTop: -60,
         fontSize: 20,
         color: '#FFF'
+    },
+    inputSearch: {
+        top: 20,
+        height: 50,
+        backgroundColor: '#FFF',
+        borderRadius: 10,
+        padding: 10,
     },
     listCategory: {
         marginTop: 80,
@@ -90,5 +104,22 @@ export default StyleSheet.create({
         width: 100,
         height: 100,
         borderRadius: 100/2
-    },    
+    },
+    infoContainer: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    info: {
+        marginTop: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    providerImg: {
+        width: 200,
+        height: 200,
+        borderRadius: 200/ 2,
+    },
+    textInfo: {
+        fontSize: 20,
+    }
 })
