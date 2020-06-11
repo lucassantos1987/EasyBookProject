@@ -4,8 +4,7 @@
     "slug": "easybook",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,7 +21,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.easybook.easybook"
+    },
+    "android": {
+      "package": "com.easybook.easybook"
     }
   }
 }
