@@ -1,16 +1,21 @@
 const express = require('express');
-
+const connection = require('./database/connection');
 const routes = express.Router();
 
-routes.post('/category', (request, response) => {
+routes.get('/category', async(request, response) => {
+    const category = await connection('category').select('*');
 
-    const body = request.body;
+    return response.json(category);
+});
 
-    console.log(body);
+routes.post('/category', async(request, response) => {
+    const { name } = request.body;
 
-    return response.json({
-        description: 'Eletricista'
+    await connection('category').insert({
+        name,
     });
+
+    return response.json();
 });
 
 module.exports = routes;
