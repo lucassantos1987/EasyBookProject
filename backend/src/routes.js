@@ -1,21 +1,12 @@
 const express = require('express');
-const connection = require('./database/connection');
+const CategoryController = require('./controllers/CategoryController');
+const SpecialityController = require('./controllers/SpecialityController');
 const routes = express.Router();
 
-routes.get('/category', async(request, response) => {
-    const category = await connection('category').select('*');
+routes.get('/category', CategoryController.index);
+routes.post('/category', CategoryController.create);
 
-    return response.json(category);
-});
-
-routes.post('/category', async(request, response) => {
-    const { name } = request.body;
-
-    await connection('category').insert({
-        name,
-    });
-
-    return response.json();
-});
+routes.get('/speciality', SpecialityController.index);
+routes.post('/speciality', SpecialityController.create);
 
 module.exports = routes;
