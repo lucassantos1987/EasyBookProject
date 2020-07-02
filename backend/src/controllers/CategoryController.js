@@ -15,8 +15,6 @@ module.exports = {
             name,
         });
     
-        const id = result[0];
-
         return response.json({ result });
     }
 }

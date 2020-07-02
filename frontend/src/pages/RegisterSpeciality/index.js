@@ -1,8 +1,17 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
+import api from '../../services/api';
 import './styles.css';
 
 export default function RegisterCategory() {
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        api.get('category').then(response => {
+            setCategories(response.data);
+        });
+
+    });
+
     return(
         <div className="register-container">
             <div className="content">
@@ -12,11 +21,11 @@ export default function RegisterCategory() {
                 <form>
                     <select>
                         <option value="">Selecione a Categoria</option>
-                        <option value="1">Eletricista</option>
-                        <option value="2">Pedreiro</option>
-                        <option value="3">Marcenaria</option>
-                        <option value="4">Carpintaria</option>
-                        <option value="4">Jardinagem</option>
+                        {
+                            categories.map(category => (
+                                <option value="{categoy.id}">{category.name}</option>                                    
+                            ))
+                        }
                     </select>
                     <input placeholder="Digite o nome da Especialidade"/>
                     <button className="button" type="submit">Cadastrar</button>
