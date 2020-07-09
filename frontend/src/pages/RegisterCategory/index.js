@@ -51,12 +51,10 @@ export default function RegisterCategory() {
                         <TabPanel>
                             <table className="grid">
                                 <tr>
-                                    <th className="colId">Código</th>
                                     <th className="colName">Nome</th>
                                 </tr>
                                 {categories.map(category => (
                                     <tr>
-                                        <td>{category.id}</td>
                                         <td>{category.name}</td>
                                     </tr>
                                     ))

@@ -3,7 +3,9 @@ const connection = require('../database/connection');
 module.exports = {
 
     async index(request, response) {
-        const category = await connection('category').select('*');
+        const category = await connection('category')
+        .orderBy('name', 'asc')
+        .select('*');
     
         return response.json(category);
     },
