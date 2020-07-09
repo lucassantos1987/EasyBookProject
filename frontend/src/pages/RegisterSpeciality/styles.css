@@ -8,7 +8,7 @@
 
 .speciality-container .header {
     width: 100%;
-    padding: 50px;
+    padding: 30px;
     background: #f0f0f5;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -37,9 +37,32 @@
 .speciality-container .content section h1 {
     font-size: 24px;
     color: #9b59b6;
+    padding-bottom: 30px;
 }
 
 .speciality-container .content form {
     width: 100%;
     margin-top: 16px;
+}
+
+.grid {
+    width: 100%;
+}
+
+.colId {
+    width: 30%;
+}
+
+.colName {
+    width: 50%;
+}
+
+th {
+    background-color: #9b59b6;
+    height: 50px;
+    color: #FFF;
+}
+
+td {
+    padding: 15px
 }

@@ -66,6 +66,18 @@ select option {
     transition: opacity 0.2s;
 }
 
+.go-link {
+    display: flex;
+    align-items: center;
+    margin-top: 0px;
+    color: #41414d;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s;
+    margin-right: 0;
+}
+
 .back-link svg {
     margin-right: 8px;
 }
