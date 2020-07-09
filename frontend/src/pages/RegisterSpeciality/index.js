@@ -35,27 +35,30 @@ export default function RegisterCategory() {
     }
 
     return(
-        <div className="register-container">
+        <div className="speciality-container">
+            <div className="header">
+                <h1>Painel Administrativo EasyBook</h1>
+            </div>
             <div className="content">
                 <section>
                     <h1>Cadastro de Especialidades</h1>
+                    <form onSubmit={hangleRegiter}>
+                        <select ref={categoryRef}>
+                            <option value="">Selecione a Categoria</option>
+                            {
+                                categories.map(category => (
+                                    <option value={category.id}>{category.name}</option>                                    
+                                ))
+                            }
+                        </select>
+                        <input 
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                            placeholder="Digite o nome da Especialidade"/>
+                        <button className="button" type="submit">Cadastrar</button>
+                    </form>                    
                 </section>
-                <form onSubmit={hangleRegiter}>
-                    <select ref={categoryRef}>
-                        <option value="">Selecione a Categoria</option>
-                        {
-                            categories.map(category => (
-                                <option value={category.id}>{category.name}</option>                                    
-                            ))
-                        }
-                    </select>
-                    <input 
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                        placeholder="Digite o nome da Especialidade"/>
-                    <button className="button" type="submit">Cadastrar</button>
-                </form>
-            </div>
+           </div>
         </div>
     );
 }

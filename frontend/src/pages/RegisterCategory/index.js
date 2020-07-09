@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import './styles.css';
 
@@ -21,20 +22,24 @@ export default function RegisterCategory() {
     }
 
     return(
-        <div className="register-container">
+        <div className="category-container">
+            <div className="header">
+                <h1>Painel Administrativo EasyBook</h1>
+            </div>
             <div className="content">
                 <section>
                     <h1>Cadastro de Categorias</h1>
-                </section>
-                <form onSubmit={handleRegister}>
-                    <input 
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                        placeholder="Digite o nome da Categoria"
-                    />
+                    <form onSubmit={handleRegister}>
+                        <input 
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                            placeholder="Digite o nome da Categoria"/>
 
-                    <button className="button" type="submit">Cadastrar</button>
-                </form>
+                        <button className="button" type="submit">Cadastrar</button>
+                    </form>
+
+                    <Link className="back-link" to="/">Voltar para Menu</Link>
+                </section>
             </div>
         </div>
     );
