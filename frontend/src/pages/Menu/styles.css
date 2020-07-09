@@ -1,0 +1,40 @@
+.menu-container {
+    width: 100%;
+    max-width: 1120px;
+    height: 100vh;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.menu-container .header {
+    width: 100%;
+    top: -100;
+    padding: 50px;
+    background: #f0f0f5;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    align-items: center;
+}
+
+.menu-container .header h1 {
+    font-size: 32px;
+    color: #9b59b6;
+}
+.menu-container .content {
+    width: 100%;
+    padding: 50px;
+    background: #f0f0f5;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.menu-container .content section {
+    width: 100%;
+}
+
+.menu-container .content section h1 {
+    font-size: 24px;
+    color: #9b59b6;
+}

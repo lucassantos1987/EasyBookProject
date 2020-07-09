@@ -2,12 +2,11 @@ import React from 'react';
 
 import './global.css';
 
-import RegisterCategory from './pages/RegisterCategory';
-import RegisterSpeciality from './pages/RegisterSpeciality';
+import Routes from './routes';
 
 function App() {
 	return (
-		<RegisterSpeciality />
+		<Routes />
   	);
 }
 
