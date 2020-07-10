@@ -3,10 +3,21 @@ const connection = require('../database/connection');
 module.exports = {
 
     async index(request, response) {
+
+        const  filterName  = request.query.name;
+
         const category = await connection('category')
         .orderBy('name', 'asc')
-        .select('*');
-    
+        .select('*')
+        .modify(function(queryBuilder) {
+            if (filterName) {
+
+                const filter = "%"+filterName+"%";
+
+                queryBuilder.where('name', 'like', filter);
+            }
+        });
+
         return response.json(category);
     },
 

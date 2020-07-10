@@ -12,13 +12,17 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 export default function RegisterCategory() {
     const [name, setName] = useState('');
+    const [filterName, setFilterName] = useState('');
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    function request(e) {
+    async function request(e) {
         e.preventDefault();
         setLoading(true);
-        api.get('category')
+
+        const filterData = filterName;
+
+        await api.get('category', { params: { name: filterData } })
         .then(response => {
             setLoading(false);
             setCategories(response.data);
@@ -57,12 +61,12 @@ export default function RegisterCategory() {
 
                         <TabPanel>
                             <form>
-                            <input 
-                                    value={name}
-                                    onChange={e => setName(e.target.value)}
-                                    placeholder="Digite o nome da Categoria"/>
+                                <input 
+                                        value={filterName}
+                                        onChange={e => setFilterName(e.target.value)}
+                                        placeholder="Digite o nome da Categoria"/>
 
-                            <button className="button" onClick={request}>Pesquisar</button>
+                                <button className="button" onClick={request}>Pesquisar</button>
                             </form>
                             <table className="grid">
                                 <tr>
