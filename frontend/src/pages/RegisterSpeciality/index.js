@@ -8,33 +8,61 @@ import api from '../../services/api';
 
 import './styles.css';
 import 'react-tabs/style/react-tabs.css';
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 export default function RegisterCategory() {
     const [specialities_categories, setSpecialitiesCategories] = useState([]);
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
-
     const [name, setName] = useState('');
+    const [filterInputName, setFilterInputName] = useState('');
+    const [filterCategories, setFilterCategories] = useState([]);
 
+    useEffect(() => {
+        api.get('category').then(response => {
+            setCategories(response.data);
+            setFilterCategories(response.data);
+        });
+    }, []);
+
+    const categoryRef = useRef();
+    const filterCategoryRef = useRef();
 
     function request(e) {
         e.preventDefault();
 
         setLoading(true);
-        api.get('speciality_category')
-        .then(response => {
-            setLoading(false);
-            setSpecialitiesCategories(response.data);
-        });
 
-        api.get('category').then(response => {
-            setCategories(response.data);
-        });
+        const filterCategory = filterCategoryRef.current.value;
+        const filterName = filterInputName; 
+
+        if (filterCategory && filterName) {
+            api.get('speciality_category', { params: { id_category: filterCategory, name: filterName } })
+            .then(response => {
+                setLoading(false);
+                setSpecialitiesCategories(response.data);
+            });
+        } else if (filterCategory && !filterName) {
+            api.get('speciality_category', { params: { id_category: filterCategory } })
+            .then(response => {
+                setLoading(false);
+                setSpecialitiesCategories(response.data);
+            });
+        } else if (!filterCategory && filterName) {
+            api.get('speciality_category', { params: { name: filterName } })
+            .then(response => {
+                setLoading(false);
+                setSpecialitiesCategories(response.data);
+            });
+        } else {
+            api.get('speciality_category')
+            .then(response => {
+                setLoading(false);
+                setSpecialitiesCategories(response.data);
+            });
+        }
     }
 
-    const categoryRef = useRef();
-    
     async function hangleRegiter(e) {
         e.preventDefault();
 
@@ -73,17 +101,17 @@ export default function RegisterCategory() {
                         <TabPanel>
                             <form>
                             <select 
-                                    ref={categoryRef}>
+                                    ref={filterCategoryRef}>
                                     <option value="">Selecione a Categoria</option>
                                     {
-                                        categories.map(category => (
+                                        filterCategories.map(category => (
                                             <option value={category.id}>{category.name}</option>                                    
                                         ))
                                     }
                                 </select>
                                 <input
-                                    value={name}
-                                    onChange={e => setName(e.target.value)}
+                                    value={filterInputName}
+                                    onChange={e => setFilterInputName(e.target.value)}
                                     placeholder="Digite o nome da Especialidade"/>
                                 <button className="button" onClick={request}>Pesquisar</button>
                             </form>

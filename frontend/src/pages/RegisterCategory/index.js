@@ -8,7 +8,7 @@ import api from '../../services/api';
 
 import './styles.css';
 import 'react-tabs/style/react-tabs.css';
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 export default function RegisterCategory() {
     const [name, setName] = useState('');
