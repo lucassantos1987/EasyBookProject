@@ -14,7 +14,15 @@ export default function RegisterCategory() {
     const [name, setName] = useState('');
     const [filterName, setFilterName] = useState('');
     const [categories, setCategories] = useState([]);
+    const [category, setCategory] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        api.get('category')
+        .then(response => {
+            setCategory(response.data);
+        })
+    }, []);
 
     async function request(e) {
         e.preventDefault();
@@ -32,13 +40,30 @@ export default function RegisterCategory() {
     async function handleRegister(e) {
         e.preventDefault();
 
+        var exists = false;
+
+        for (var i = 0; i < category.length; i++) {
+            var obj = category[i];
+
+            if (obj.name == name) {
+                category.splice(i, 1);
+                exists = true;
+                break;
+            }
+        }
+
         const data = {
             name
         };
 
         try {
-            await api.post('category', data);            
-            alert('Categoria gravada com sucesso.');
+
+            if (!exists) {
+                await api.post('category', data);            
+                alert('Categoria gravada com sucesso.');
+            } else {
+                alert('Categoria já esta cadastrada.');
+            } 
         } catch (err) {
             alert('Erro no cadastro. Tente novamente.');
         }
@@ -62,9 +87,9 @@ export default function RegisterCategory() {
                         <TabPanel>
                             <form>
                                 <input 
-                                        value={filterName}
-                                        onChange={e => setFilterName(e.target.value)}
-                                        placeholder="Digite o nome da Categoria"/>
+                                    value={filterName}
+                                    onChange={e => setFilterName(e.target.value)}
+                                    placeholder="Digite o nome da Categoria"/>
 
                                 <button className="button" onClick={request}>Pesquisar</button>
                             </form>
