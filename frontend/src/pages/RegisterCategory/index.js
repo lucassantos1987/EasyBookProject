@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -17,13 +17,6 @@ export default function RegisterCategory() {
     const [category, setCategory] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        api.get('category')
-        .then(response => {
-            setCategory(response.data);
-        })
-    }, []);
-
     async function request(e) {
         e.preventDefault();
         setLoading(true);
@@ -40,12 +33,16 @@ export default function RegisterCategory() {
     async function handleRegister(e) {
         e.preventDefault();
 
+        api.get('category').then(response => {
+            setCategory(response.data);
+        });
+
         var exists = false;
 
         for (var i = 0; i < category.length; i++) {
             var obj = category[i];
 
-            if (obj.name == name) {
+            if (obj.name === name) {
                 category.splice(i, 1);
                 exists = true;
                 break;
@@ -57,7 +54,6 @@ export default function RegisterCategory() {
         };
 
         try {
-
             if (!exists) {
                 await api.post('category', data);            
                 alert('Categoria gravada com sucesso.');

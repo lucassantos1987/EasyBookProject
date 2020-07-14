@@ -13,6 +13,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 export default function RegisterCategory() {
     const [specialities_categories, setSpecialitiesCategories] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [speciality, setSpeciality] = useState([]);
     const [loading, setLoading] = useState(false);
     const [name, setName] = useState('');
     const [filterInputName, setFilterInputName] = useState('');
@@ -66,9 +67,22 @@ export default function RegisterCategory() {
     async function hangleRegiter(e) {
         e.preventDefault();
 
+        api.get('speciality').then(response => {
+            setSpeciality(response.data);
+        });
+
+        var exists = false;
         const id_category = categoryRef.current.value;
 
-        console.log(id_category);
+        for (var i = 0; i < speciality.length; i++) {
+            var obj = speciality[i];
+
+            if ((obj.id_category === id_category) && (obj.name === name)) {
+                speciality.splice(i, 1);
+                exists = true;
+                break;
+            }
+        }
 
         const data = {
             id_category,
@@ -76,8 +90,13 @@ export default function RegisterCategory() {
         };
 
         try {
-            await api.post('speciality', data);
-            alert('Especialidade gravada com sucesso.');
+
+            if (!exists) {
+                await api.post('speciality', data);
+                alert('Especialidade gravada com sucesso.');
+            } else {
+                alert('Especialidade já esta cadastrada para a categoria.');
+            }
         } catch (err) {
             alert('Erro no cadastro. Tente novamente.');
         }

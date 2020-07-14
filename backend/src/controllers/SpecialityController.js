@@ -25,7 +25,7 @@ module.exports = {
 
             if (filterCategory && filterName) {
                 queryBuilder.where('speciality.id_category', '=', filterCategory)
-                .and('speciality.name', 'like', name);
+                .andWhere('speciality.name', 'like', name);
             } else if (filterCategory && !filterName) {
                 queryBuilder.where('speciality.id_category', '=', filterCategory);
             } else if (!filterCategory && filterName) {
