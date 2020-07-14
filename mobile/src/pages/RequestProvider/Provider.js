@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Feather }  from '@expo/vector-icons';
-import { View, Text, FlatList, TouchableOpacity, Image, TextInput } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Image, TextInput, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 
 import styles from './styles';
 import image from '../../assets/user2.jpg';
 
-export default function Category() {
+export default function Provider() {
 
+    const[whatsApp, setWhatsApp] = useState('+55 19 994699364');
     const navigation = useNavigation();
 
     function navigateToInfoProvider() {
         navigation.navigate('InfoProvider');
+    }
+
+    function whatsapp () {
+        Linking.openURL(`https://api.whatsapp.com/send?phone=${whatsApp}`);
     }
 
     return(
@@ -31,7 +36,8 @@ export default function Category() {
                         <Image source={image} style={styles.imageProvider}/>
                         <Text style={styles.textProvider}>Profissional</Text>
                         <TouchableOpacity
-                            style={styles.buttonChat}>
+                            style={styles.buttonChat}
+                            onPress={whatsapp}>
                             <Text style={styles.textButtonChat}>WhatsApp</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
