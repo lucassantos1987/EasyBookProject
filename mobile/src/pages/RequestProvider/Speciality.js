@@ -29,13 +29,28 @@ export default function Speciality() {
         loadSpecialities();
     }, []);
 
+    function filterSpecialities(text) {
+        const newData = specialities.filter(item => {
+            const itemData = `${item.id} ${item.name}`;
+            const textData= text;
+            return itemData.indexOf(textData) > -1;
+        });
+
+        if (text !== '') {
+            setSpecialities(newData);
+        } else {
+            loadSpecialities();
+        }
+    }
+
     return(
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.textHeader}>Selecione a Especialidade</Text>
                 <TextInput
                     style={styles.inputSearch}
-                    placeholder="Digite aqui para pesquisar..."/>
+                    onChangeText={(text) => filterSpecialities(text)}
+                    placeholder="Digite aqui para pesquisar a especialidade..."/>
             </View>
             <FlatList
                 style={styles.listCategory}

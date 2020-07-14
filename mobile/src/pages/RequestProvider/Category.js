@@ -10,8 +10,10 @@ import styles from './styles';
 export default function Category() {
 
     const[categories, setCategories] = useState([]);
-
+    const[filterName, setFilterName] = useState([]);
     const navigation = useNavigation();
+
+    var arrHolderCategory = [];
 
     function navigateToSpeciality(category) {
         navigation.navigate('RequestSpeciality', { category });
@@ -20,11 +22,26 @@ export default function Category() {
     async function loadCategories() {
         const response = await api.get('category');
         setCategories(response.data);
+        arrHolderCategory = categories;
     }
 
     useEffect(() => {
         loadCategories();
     }, []);
+
+    function filterCategories(text) {
+        const newData = categories.filter(item => {
+            const itemData = `${item.id} ${item.name}`;
+            const textData= text;
+            return itemData.indexOf(textData) > -1;
+        });
+
+        if (text !== '') {
+            setCategories(newData);
+        } else {
+            loadCategories();
+        }
+    }
 
     return(
         <View style={styles.container}>
@@ -32,7 +49,8 @@ export default function Category() {
                 <Text style={styles.textHeader}>Selecione a Categoria</Text>
                 <TextInput
                     style={styles.inputSearch}
-                    placeholder="Digite aqui para pesquisar..."/>
+                    onChangeText={(text) => filterCategories(text)}
+                    placeholder="Digite aqui para pesquisar a categoria..."/>
             </View>
             <FlatList
                 style={styles.listCategory}
