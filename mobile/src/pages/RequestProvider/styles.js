@@ -82,8 +82,7 @@ export default StyleSheet.create({
     },
     textButtonChat: {
         color: '#FFF',
-        fontWeight: 'bold',
-        fontSize: 17
+        fontSize: 15
     },
     buttonInfo: {
         justifyContent: 'center',
@@ -97,8 +96,7 @@ export default StyleSheet.create({
     },
     textButtonInfo: {
         color: '#FFF',
-        fontWeight: 'bold',
-        fontSize: 17
+        fontSize: 15
     },
     imageProvider: {
         width: 100,
@@ -121,5 +119,8 @@ export default StyleSheet.create({
     },
     textInfo: {
         fontSize: 20,
-    }
+    },
+    spinnerTextStyle: {
+        color: '#FFF'
+    },    
 })

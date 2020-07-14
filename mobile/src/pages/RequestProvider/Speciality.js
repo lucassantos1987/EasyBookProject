@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Feather }  from '@expo/vector-icons';
 import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import styles from './styles';
 import api from '../../services/api';
@@ -9,6 +10,7 @@ import api from '../../services/api';
 export default function Speciality() {
 
     const[specialities, setSpecialities] = useState([]);
+    const[loading, setLoading] = useState(false);
     const navigation = useNavigation();
     const route = useRoute();
 
@@ -21,8 +23,10 @@ export default function Speciality() {
     }
 
     async function loadSpecialities() {
+        setLoading(true);
         const response = await api.get('speciality', { params: { id_category: id_category } });
         setSpecialities(response.data);
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -45,6 +49,11 @@ export default function Speciality() {
 
     return(
         <View style={styles.container}>
+            <Spinner
+                visible={loading}
+                textContent={'Carregando...'}
+                textStyle={styles.spinnerTextStyle}
+            />
             <View style={styles.header}>
                 <Text style={styles.textHeader}>Selecione a Especialidade</Text>
                 <TextInput

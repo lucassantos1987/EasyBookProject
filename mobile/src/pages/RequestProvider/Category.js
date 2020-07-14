@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Feather }  from '@expo/vector-icons';
 import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import api from '../../services/api';
 
@@ -11,18 +12,18 @@ export default function Category() {
 
     const[categories, setCategories] = useState([]);
     const[filterName, setFilterName] = useState([]);
+    const[loading, setLoading] = useState(false);
     const navigation = useNavigation();
-
-    var arrHolderCategory = [];
 
     function navigateToSpeciality(category) {
         navigation.navigate('RequestSpeciality', { category });
     }
 
     async function loadCategories() {
+        setLoading(true);
         const response = await api.get('category');
         setCategories(response.data);
-        arrHolderCategory = categories;
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -45,6 +46,11 @@ export default function Category() {
 
     return(
         <View style={styles.container}>
+            <Spinner
+                visible={loading}
+                textContent={'Carregando...'}
+                textStyle={styles.spinnerTextStyle}
+            />
             <View style={styles.header}>
                 <Text style={styles.textHeader}>Selecione a Categoria</Text>
                 <TextInput

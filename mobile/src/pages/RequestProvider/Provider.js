@@ -32,7 +32,7 @@ export default function Category() {
                         <Text style={styles.textProvider}>Profissional</Text>
                         <TouchableOpacity
                             style={styles.buttonChat}>
-                            <Text style={styles.textButtonChat}>Chat</Text>
+                            <Text style={styles.textButtonChat}>WhatsApp</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.buttonInfo}
