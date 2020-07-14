@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Feather }  from '@expo/vector-icons';
 import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
+
+import api from '../../services/api';
 
 import styles from './styles';
 
 export default function Category() {
 
+    const[categories, setCategories] = useState([]);
+
     const navigation = useNavigation();
 
-    function navigateToSpeciality() {
-        navigation.navigate('RequestSpeciality');
+    function navigateToSpeciality(category) {
+        navigation.navigate('RequestSpeciality', { category });
     }
+
+    async function loadCategories() {
+        const response = await api.get('category');
+        setCategories(response.data);
+    }
+
+    useEffect(() => {
+        loadCategories();
+    }, []);
 
     return(
         <View style={styles.container}>
@@ -23,14 +36,14 @@ export default function Category() {
             </View>
             <FlatList
                 style={styles.listCategory}
-                data={[1, 2, 3, 4, 5, 6]}
-                keyExtractor={category => String(category)}
-                renderItem={() => (
+                data={categories}
+                keyExtractor={category => String(category.id)}
+                renderItem={({ item: category }) => (
                     <View style={styles.category}>
-                        <Text style={styles.textCategory}>Categoria</Text>
+                        <Text style={styles.textCategory}>{category.name}</Text>
                         <TouchableOpacity
                             style={styles.buttonDetails}
-                            onPress={navigateToSpeciality}>
+                            onPress={() => navigateToSpeciality(category.id)}>
                             <Text style={styles.textButtonDetails}>Ver Especialidades</Text>
                         </TouchableOpacity>
                     </View>

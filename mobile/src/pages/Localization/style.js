@@ -9,7 +9,7 @@ export default StyleSheet.create({
         alignContent: 'center'
     },
     title: {
-        marginTop: -100,
+        marginTop: -200,
         justifyContent: 'center',
     },
     textTitle: {
@@ -17,7 +17,7 @@ export default StyleSheet.create({
         color: '#FFFFFF',
     },
     localization: {
-        top: 10,
+        top: 30,
     },
     buttonLocalization: {
         backgroundColor: '#8e44ad',

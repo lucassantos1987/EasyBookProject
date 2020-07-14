@@ -15,7 +15,7 @@ export default function Location() {
     return(
         <View style={styles.container}>
             <View style={styles.title}>
-                <Text style={styles.textTitle}>Antes de solicitar um serviço, precisamos saber sua localização.</Text>
+                <Text style={styles.textTitle}>Antes de solicitar o profissional, precisamos saber sua localização.</Text>
             </View>
             <View style={styles.localization}>
                 <TouchableOpacity style={styles.buttonLocalization}>

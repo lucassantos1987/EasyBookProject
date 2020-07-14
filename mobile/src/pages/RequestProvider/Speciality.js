@@ -1,17 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Feather }  from '@expo/vector-icons';
 import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import styles from './styles';
+import api from '../../services/api';
 
-export default function Category() {
+export default function Speciality() {
 
+    const[specialities, setSpecialities] = useState([]);
     const navigation = useNavigation();
+    const route = useRoute();
+
+    const id_category = route.params.category;
+
+    console.log(id_category);
 
     function navigateToProvider() {
         navigation.navigate('RequestProvider');
     }
+
+    async function loadSpecialities() {
+        const response = await api.get('speciality', { params: { id_category: id_category } });
+        setSpecialities(response.data);
+    }
+
+    useEffect(() => {
+        loadSpecialities();
+    }, []);
 
     return(
         <View style={styles.container}>
@@ -23,11 +39,11 @@ export default function Category() {
             </View>
             <FlatList
                 style={styles.listCategory}
-                data={[1, 2, 3, 4, 5, 6]}
-                keyExtractor={category => String(category)}
-                renderItem={() => (
+                data={specialities}
+                keyExtractor={speciality => String(speciality.id)}
+                renderItem={({ item: speciality }) => (
                     <View style={styles.category}>
-                        <Text style={styles.textCategory}>Especialidade</Text>
+                        <Text style={styles.textCategory}>{speciality.name}</Text>
                         <Text style={styles.textCount}>1 profissional encontrado</Text>
                         <TouchableOpacity
                             style={styles.buttonDetails}
