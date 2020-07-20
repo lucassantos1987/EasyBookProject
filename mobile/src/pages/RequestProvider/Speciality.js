@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Feather }  from '@expo/vector-icons';
-import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -24,9 +24,14 @@ export default function Speciality() {
 
     async function loadSpecialities() {
         setLoading(true);
-        const response = await api.get('speciality', { params: { id_category: id_category } });
-        setSpecialities(response.data);
-        setLoading(false);
+        await api.get('speciality', { params: { id_category: id_category } })
+        .then(response => {
+            setSpecialities(response.data);
+            setLoading(false);    
+        })
+        .catch(error => {
+            Alert.alert(error);
+        });
     }
 
     useEffect(() => {
@@ -51,7 +56,7 @@ export default function Speciality() {
         <View style={styles.container}>
             <Spinner
                 visible={loading}
-                textContent={'Carregando...'}
+                textContent={'Carregando Especialidades...'}
                 textStyle={styles.spinnerTextStyle}
             />
             <View style={styles.header}>

@@ -106,15 +106,14 @@ export default function RegisterCategory() {
 
                         <TabPanel>
                             <form onSubmit={handleRegister}>
-                            <input 
-                                required
-                                value={name}
-                                onChange={e => setName(e.target.value)}
-                                placeholder="Digite o nome da Categoria"/>
+                                <input 
+                                    required
+                                    value={name}
+                                    onChange={e => setName(e.target.value)}
+                                    placeholder="Digite o nome da Categoria"/>
 
-                            <button className="button" type="submit">Cadastrar</button>
+                                <button className="button" type="submit">Cadastrar</button>
                             </form>
-
                         </TabPanel>
                     </Tabs>
                     <Link className="back-link" to="/">

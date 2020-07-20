@@ -44,7 +44,7 @@ export default StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        height: 60,
+        height: 160,
     },
     buttonToSearch: {
         alignItems: 'center',
@@ -55,5 +55,20 @@ export default StyleSheet.create({
     textButtonToSearch: {
         color: '#FFFFFF',
         fontSize: 17
-    }
+    },
+    buttonRegister: {
+        backgroundColor: '#9b59b6',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 100,
+        paddingVertical: 20,
+        paddingHorizontal: 10,
+    },
+    textButtonRegister: {
+        fontSize: 18,
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    }    
 })

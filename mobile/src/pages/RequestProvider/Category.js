@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Feather }  from '@expo/vector-icons';
-import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -20,10 +20,15 @@ export default function Category() {
     }
 
     async function loadCategories() {
-        setLoading(true);
-        const response = await api.get('category');
-        setCategories(response.data);
-        setLoading(false);
+            setLoading(true);
+            await api.get('category')
+            .then(response => {
+                setCategories(response.data);
+                setLoading(false);        
+            })
+            .catch(error => {
+                Alert.alert(error);
+            });
     }
 
     useEffect(() => {
@@ -48,7 +53,7 @@ export default function Category() {
         <View style={styles.container}>
             <Spinner
                 visible={loading}
-                textContent={'Carregando...'}
+                textContent={'Carregando Categorias...'}
                 textStyle={styles.spinnerTextStyle}
             />
             <View style={styles.header}>

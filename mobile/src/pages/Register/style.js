@@ -14,34 +14,52 @@ export default StyleSheet.create({
         fontWeight: 'bold'
     },
     content: {
-        top: 80,
+        top: 50,
         justifyContent: 'center',
-        paddingHorizontal: 15
+        paddingHorizontal: 15,
+        paddingBottom: 250,
     },
     inputContent: {
         height: 70,
         marginTop: 10,
         borderBottomColor : '#9b59b6',
-        borderBottomWidth: 2,
+        borderBottomWidth: 1,
         fontSize: 16,
         paddingLeft: 10
     },
-    next: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        bottom: 0,
+    buttonContent: {
+        top: 10,
+        height: 50,
         backgroundColor: '#9b59b6',
-        height: 60,
-        paddingHorizontal: 7,
-    },
-    buttonNext: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: 60
+        borderRadius: 10,
     },
-    textButtonNext: {
-        color: '#FFFFFF',
-        fontSize: 20
-    }
+    textButtonContent: {
+        color: '#FFFFFF'
+    },
+    user: {
+        top: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 20
+    },
+    imageUser: {
+        paddingVertical: 50,
+        width: 200,
+        height: 200,
+        borderRadius: 200/2
+    },
+    buttonContentUserImage: {
+        top: 50,
+        marginTop: 10,
+        height: 50,
+        backgroundColor: '#9b59b6',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10,
+    },
+    spinnerTextStyle: {
+        color: '#FFF'
+    },    
 })

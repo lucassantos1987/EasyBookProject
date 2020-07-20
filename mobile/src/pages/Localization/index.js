@@ -12,6 +12,10 @@ export default function Location() {
         navigation.navigate('RequestCategory');
     }
 
+    function navigateToRegister() {
+        navigation.navigate('Register');
+    }
+
     return(
         <View style={styles.container}>
             <View style={styles.title}>
@@ -27,6 +31,11 @@ export default function Location() {
                 <TextInput style={styles.inputLocalization}/>
             </View>
             <View style={styles.toSearch}>
+                <TouchableOpacity 
+                    style={styles.buttonRegister}
+                    onPress={navigateToRegister}>
+                    <Text style={styles.textButtonRegister}>Sou Profissional e quero cadastrar meus serviços. CLIQUE AQUI</Text>
+                </TouchableOpacity>
                 <TouchableOpacity 
                     style={styles.buttonToSearch}
                     onPress={navigateToRequestCategory}>
