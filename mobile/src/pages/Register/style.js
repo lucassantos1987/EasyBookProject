@@ -35,6 +35,14 @@ export default StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 10,
     },
+    buttonRegister: {
+        top: 100,
+        height: 50,
+        backgroundColor: '#9b59b6',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10,
+    },
     textButtonContent: {
         color: '#FFFFFF'
     },

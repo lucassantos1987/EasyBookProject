@@ -3,32 +3,41 @@ import { View, Text, TouchableOpacity, TextInput, Dimensions, ScrollView, Image,
 import { useNavigation } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import * as ImagePicker from 'expo-image-picker';
+import PasswordInputText from 'react-native-hide-show-password-input';
 
 import styles from './style';
 
 import user from '../../assets/user2.jpg';
 import style from './style';
 
+import api from '../../services/api';
+
 const i_cep = require('awesome-cep');
 
 export default function Register() {
 
     const[name, setName] = useState('');
-    const[whatsApp, setWhatsApp] = useState('');
-    const[cep, setCep] = useState('');
+    const[whatsapp, setWhatsapp] = useState('');
+    const[zip_code, setZip_Code] = useState('');
     const[address, setAddress] = useState('');
     const[number, setNumber] = useState('');
+    const[complement, setComplement] = useState('');
     const[district, setDistrict] = useState('');
     const[city, setCity] = useState('');
     const[state, setState] = useState('');
-    const[photo, setPhoto] = useState(null);
+    const[email, setEmail] = useState('');
+    const[obs, setObs] = useState('');
+    const[photo, setPhoto] = useState('');
+    const[username, setUsername] = useState('');
+    const[password, setPassword] = useState('');
+    const[confirmPassWord, setConfirmPassWord] = useState('');
     const[loading, setLoading] = useState(false);
     const navigation = useNavigation();
 
     function getCep() {
         setLoading(true);
-        if (cep != "") {
-            i_cep.findCEP(cep)
+        if (zip_code != "") {
+            i_cep.findCEP(zip_code)
             .then(response => {
                 setAddress(response.address_type + " " + response.address_name);
                 setDistrict(response.district);
@@ -54,16 +63,32 @@ export default function Register() {
         }
     }
     async function handleRegister() {
-
         const data = {
             name,
-            whatsApp,
-            cep,
+            address,
             number,
+            complement,
             district,
             city,
-            state
+            state,
+            zip_code,            
+            email,
+            whatsapp,
+            obs,
+            photo,
+            username,
+            password
         };
+
+        setLoading(true);
+        await api.post('provider', data)
+        .then(() => {
+            Alert.alert("Cadastro realizado com sucesso.");
+            setLoading(false);
+        }).catch(error => {
+            setLoading(false);
+            Alert.alert(error.message);
+        })
     }
 
     async function _pickImage() {
@@ -104,16 +129,16 @@ export default function Register() {
                         returnKeyType="next"/>
                     <TextInput
                         style={styles.inputContent}
-                        placeholder="WhatsApp DDD 999999999"
-                        value={whatsApp}
-                        onChangeText={(text) => setWhatsApp(text)}
+                        placeholder="WhatsApp +55 DDD 999999999"
+                        value={whatsapp}
+                        onChangeText={(text) => setWhatsapp(text)}
                         returnKeyType="next"
                         keyboardType={'numeric'}/>
                     <TextInput
                         style={styles.inputContent}
                         placeholder="Informe seu Cep"
-                        value={cep}
-                        onChangeText={(text) => setCep(text)}
+                        value={zip_code}
+                        onChangeText={(text) => setZip_Code(text)}
                         returnKeyType="next"
                         keyboardType={'numeric'}
                         maxLength={8}/>
@@ -170,6 +195,28 @@ export default function Register() {
                     <TouchableOpacity style={styles.buttonContentUserImage}>
                         <Text style={styles.textButtonContent}>Tirar Foto</Text>
                     </TouchableOpacity>                    
+                    <View style={{ top: 100}}>
+                        <Text style={{ fontSize: 18 }}>
+                            Registre seus dados de acesso
+                        </Text>
+                        <TextInput
+                            style={styles.inputContent}
+                            placeholder="Digite seu nome de usuário"
+                            value={username}
+                            onChangeText={(text) => setUsername(text)}
+                            autoCapitalize="none"/>
+                        <PasswordInputText
+                            placeholder="Digite sua senha"
+                            value={password}
+                            onChangeText={ (text) => setPassword(text) }/>
+                    </View>
+                    <TouchableOpacity
+                        style={styles.buttonRegister}
+                        onPress={handleRegister}>
+                        <Text style={styles.textButtonContent}>
+                            Cadastrar
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
         </View>
