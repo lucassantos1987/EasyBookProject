@@ -12,7 +12,6 @@ module.exports = {
             city,
             state,
             zip_code,            
-            email,
             whatsapp,
             obs,
             photo,
@@ -29,22 +28,22 @@ module.exports = {
             city,
             state,
             zip_code,            
-            email,
             whatsapp,
             obs,
             photo
-        }).returning('id');
- 
-        console.log(result);
+        })
+        .returning('id');
 
-        var id_provider = parseInt(result);
-        
-        const result2 = await connection('provider_user').insert({
+        const id_provider = result[0];
+
+        console.log(id_provider);
+
+        await connection('provider_user').insert({
             id_provider,
             username,
             password
         });
 
-        return response.json({result2});
+        return response.json({result});
     }
 }

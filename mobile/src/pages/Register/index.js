@@ -63,6 +63,9 @@ export default function Register() {
         }
     }
     async function handleRegister() {
+
+        setEmail(username);
+
         const data = {
             name,
             address,
@@ -186,7 +189,6 @@ export default function Register() {
                         <Text style={{ top: -20, fontSize: 18 }}>
                             Agora selecione uma foto para que os clientes identifique você.
                         </Text>
-                        <Image source={photo != null ? photo : user} style={styles.imageUser}/>
                     </View>    
                     <TouchableOpacity style={styles.buttonContentUserImage}
                         onPress={_pickImage}>

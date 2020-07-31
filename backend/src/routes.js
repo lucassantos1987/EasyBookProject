@@ -12,6 +12,6 @@ routes.get('/speciality', SpecialityController.index);
 routes.get('/speciality_category', SpecialityController.categorySpecilaity);
 routes.post('/speciality', SpecialityController.create);
 
-routes.post('/provider', ProviderController.create)
+routes.post('/provider', ProviderController.create);
 
 module.exports = routes;
