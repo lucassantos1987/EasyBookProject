@@ -2,6 +2,7 @@ const express = require('express');
 const CategoryController = require('./controllers/CategoryController');
 const SpecialityController = require('./controllers/SpecialityController');
 const ProviderController = require('./controllers/ProviderController');
+const ProviderUserController = require('./controllers/ProviderUserController');
 const routes = express.Router();
 
 routes.get('/category', CategoryController.index);
@@ -13,5 +14,6 @@ routes.get('/speciality_category', SpecialityController.categorySpecilaity);
 routes.post('/speciality', SpecialityController.create);
 
 routes.post('/provider', ProviderController.create);
+routes.post('/provider_user', ProviderUserController.create);
 
 module.exports = routes;

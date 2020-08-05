@@ -8,14 +8,13 @@ import PasswordInputText from 'react-native-hide-show-password-input';
 import styles from './style';
 
 import user from '../../assets/user2.jpg';
-import style from './style';
 
 import api from '../../services/api';
 
 const i_cep = require('awesome-cep');
 
 export default function Register() {
-
+    const[id_provider, setId_provider] = useState('');
     const[name, setName] = useState('');
     const[whatsapp, setWhatsapp] = useState('');
     const[zip_code, setZip_Code] = useState('');
@@ -28,9 +27,6 @@ export default function Register() {
     const[email, setEmail] = useState('');
     const[obs, setObs] = useState('');
     const[photo, setPhoto] = useState('');
-    const[username, setUsername] = useState('');
-    const[password, setPassword] = useState('');
-    const[confirmPassWord, setConfirmPassWord] = useState('');
     const[loading, setLoading] = useState(false);
     const navigation = useNavigation();
 
@@ -62,10 +58,12 @@ export default function Register() {
             Alert.alert("Digite o cep");
         }
     }
+
+    function navigateToRegisterUser(idprovider) {
+        navigation.navigate('RegisterUser', { idprovider} );        
+    }
+
     async function handleRegister() {
-
-        setEmail(username);
-
         const data = {
             name,
             address,
@@ -75,23 +73,22 @@ export default function Register() {
             city,
             state,
             zip_code,            
-            email,
             whatsapp,
             obs,
-            photo,
-            username,
-            password
+            photo
         };
 
         setLoading(true);
         await api.post('provider', data)
-        .then(() => {
-            Alert.alert("Cadastro realizado com sucesso.");
+        .then(function(response) {
+            console.log(response.data.result[0]);
+            setId_provider(response.data.result[0]);
             setLoading(false);
-        }).catch(error => {
+            navigateToRegisterUser(response.data.result[0]);
+        }).catch(function(error) {
             setLoading(false);
             Alert.alert(error.message);
-        })
+        });
     }
 
     async function _pickImage() {
@@ -165,7 +162,7 @@ export default function Register() {
                         value={number}
                         onChangeText={(text) => setNumber(text)}/>
                     <TextInput
-                        style={style.inputContent}
+                        style={styles.inputContent}
                         placeholder="Bairro"
                         value={district}
                         onChangeText={(text) => setDistrict(text)}
@@ -197,21 +194,6 @@ export default function Register() {
                     <TouchableOpacity style={styles.buttonContentUserImage}>
                         <Text style={styles.textButtonContent}>Tirar Foto</Text>
                     </TouchableOpacity>                    
-                    <View style={{ top: 100}}>
-                        <Text style={{ fontSize: 18 }}>
-                            Registre seus dados de acesso
-                        </Text>
-                        <TextInput
-                            style={styles.inputContent}
-                            placeholder="Digite seu nome de usuário"
-                            value={username}
-                            onChangeText={(text) => setUsername(text)}
-                            autoCapitalize="none"/>
-                        <PasswordInputText
-                            placeholder="Digite sua senha"
-                            value={password}
-                            onChangeText={ (text) => setPassword(text) }/>
-                    </View>
                     <TouchableOpacity
                         style={styles.buttonRegister}
                         onPress={handleRegister}>

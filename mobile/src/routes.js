@@ -6,6 +6,7 @@ const AppStatck = createStackNavigator();
 
 import Localization from './pages/Localization';
 import Register from './pages/Register';
+import RegisterUser from './pages/RegisterUser';
 import RequestCategory from './pages/RequestProvider/Category';
 import RequestSpeciality from './pages/RequestProvider/Speciality';
 import RequestProvider from './pages/RequestProvider/Provider';
@@ -17,6 +18,7 @@ export default function Routes() {
             <AppStatck.Navigator screenOptions={{ headerShown: false}}>
                 <AppStatck.Screen name="Localization" component={Localization}/>
                 <AppStatck.Screen name="Register" component={Register}/>
+                <AppStatck.Screen name="RegisterUser" component={RegisterUser}/>
                 <AppStatck.Screen name="RequestCategory" component={RequestCategory}/>
                 <AppStatck.Screen name="RequestSpeciality" component={RequestSpeciality}/>
                 <AppStatck.Screen name="RequestProvider" component={RequestProvider}/>
