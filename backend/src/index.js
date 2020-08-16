@@ -1,6 +1,7 @@
 const express = require('express');
 const routes = require('./routes');
 const cors = require('cors');
+const port = 3333;
 
 const app = express();
 
@@ -25,5 +26,4 @@ app.use(function(req, res, next) {
     next();
 });
 
-
-app.listen(3333);
+app.listen(port, () => console.log("Backend executando na porta: " + port));

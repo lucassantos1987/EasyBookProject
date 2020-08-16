@@ -13,7 +13,7 @@ export default function Location() {
     }
 
     function navigateToRegister() {
-        navigation.navigate('Register');
+        navigation.navigate('RegisterProviderSpeciality');
     }
 
     return(

@@ -105,7 +105,7 @@ export default function RegisterCategory() {
     return(
         <div className="speciality-container">
             <div className="header">
-                <h1>Painel Administrativo EasyBook</h1>
+                <h1>Painel Administrativo AZbookApp</h1>
             </div>
             <div className="content">
                 <section>
