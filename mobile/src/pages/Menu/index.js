@@ -20,11 +20,6 @@ export default function Menu() {
                     <Image source={user} style={styles.imageUser}/>
                     <Text style={styles.textUser}>Usuario da Silva</Text>
                 </View>    
-                <TouchableOpacity 
-                    style={styles.buttonMenu}
-                    onPress={navigateToLocalization}>
-                    <Text style={styles.textButtonMenu}>Solicitar Profissional</Text>
-                </TouchableOpacity>
                 <TouchableOpacity style={styles.buttonMenu}>
                     <Text style={styles.textButtonMenu}>Meus Dados</Text>
                 </TouchableOpacity>

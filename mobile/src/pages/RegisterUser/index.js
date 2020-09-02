@@ -6,9 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import PasswordInputText from 'react-native-hide-show-password-input';
 
 import styles from './style';
-
 import user from '../../assets/user2.jpg';
-
 import api from '../../services/api';
 
 export default function RegisterUser() {
@@ -23,6 +21,10 @@ export default function RegisterUser() {
 
     console.log(id_provider);
 
+    function navigateToRegisterProviderCategorySpeciality(idprovider) {
+        navigation.navigate('RegisterProviderSpeciality', { idprovider} );        
+    }
+
     async function handleRegister() {
         const data = {
             id_provider,
@@ -30,16 +32,23 @@ export default function RegisterUser() {
             password
         }
 
-        setLoading(true);
-        await api.post('provider_user', data)
-        .then(() => {
-            Alert.alert("Sucesso");
-            setLoading(false);
-        })
-        .catch(() => {
-            setLoading(false);
-            console.error;
-        });
+        if (username.trim() == '') {
+            Alert.alert("Digite seu Email");
+        } else if (password.trim() == '') {
+            Alert.alert("Digite sua Senha");
+        } else {
+            setLoading(true);
+            await api.post('provider_user', data)
+            .then(() => {
+                console.log("Sucesso");
+                setLoading(false);
+                navigateToRegisterProviderCategorySpeciality(id_provider);
+            })
+            .catch(() => {
+                setLoading(false);
+                console.error;
+            });    
+        }        
     }
 
     return (
@@ -49,7 +58,7 @@ export default function RegisterUser() {
                 textContent={'Carregando...'}
                 textStyle={styles.spinnerTextStyle}/>
             <View style={styles.header}>
-                <Text>
+                <Text style={styles.textHeader}>
                     Registre seus dados de acesso
                 </Text>
             </View>
@@ -68,7 +77,7 @@ export default function RegisterUser() {
                             style={styles.buttonRegister}
                             onPress={handleRegister}>
                             <Text style={styles.textButtonContent}>
-                                Cadastrar
+                                Gravar Informações
                             </Text>
                 </TouchableOpacity>
             </View>

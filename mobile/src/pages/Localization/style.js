@@ -57,12 +57,23 @@ export default StyleSheet.create({
         fontSize: 17
     },
     buttonRegister: {
+        top: -30,
         backgroundColor: '#9b59b6',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        height: 100,
-        paddingVertical: 20,
+        height: 50,
+        paddingBottom: 20,
+        paddingHorizontal: 10,
+    },
+    buttonLogin: {
+        top: -10,
+        backgroundColor: '#9b59b6',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 50,
+        paddingBottom: 20,
         paddingHorizontal: 10,
     },
     textButtonRegister: {

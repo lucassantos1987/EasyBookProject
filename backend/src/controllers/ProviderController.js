@@ -13,7 +13,9 @@ module.exports = {
             zip_code,            
             whatsapp,
             obs,
-            photo
+            photo,
+            latitude,
+            longitude
         } = request.body;
 
         const result = await connection('provider').insert({
@@ -27,7 +29,9 @@ module.exports = {
             zip_code,            
             whatsapp,
             obs,
-            photo
+            photo,
+            latitude,
+            longitude
         })
         .returning('id');
 

@@ -13,8 +13,12 @@ export default function RegisterProviderSpeciality() {
     const[loading, setLoading] = useState(false);
     const[categories, setCategories] = useState([]);
     const[specialities, setSpecialities] = useState([]);
-    
-    const categoryRef = useRef();
+    const[id_category, setId_Category] = useState('');
+    const[id_speciality, setId_Speciality] = useState('');    
+    const navigation = useNavigation();
+    const route = useRoute();
+
+    const id_provider = route.params.idprovider;
 
     useEffect(() => {
         loadCategories();
@@ -32,11 +36,9 @@ export default function RegisterProviderSpeciality() {
         });
     }
 
-    async function loadSpecialities(value) {
-        
+    async function loadSpecialities(value) {        
         const id_category = value;
-
-        console.log(id_category);
+        setId_Category(value);
 
         setLoading(true);
         await api.get('speciality', { params: { id_category: id_category } })
@@ -47,6 +49,35 @@ export default function RegisterProviderSpeciality() {
         .catch(error => {
             Alert.alert(error);
         });
+    }
+
+    async function hangleRegiter() {
+
+        const data = {
+            id_provider,
+            id_category,
+            id_speciality
+        }
+
+        if (id_category == '') {
+            Alert.alert("Selecione sua(s) Categoria(s)");
+        } else if (id_speciality == '') {
+            Alert.alert('Selecione sua(s) Especiadade(s)')
+        }
+        setLoading(true);
+        await api.post('provider_category_speciality', data)
+        .then(() => {
+            Alert.alert("Cadastro reaalizado com sucesso.");
+            setLoading(false);
+            navigation.navigate('Localization');
+        })
+        .catch((error) => {
+            setLoading(false);
+            console.log(error);
+        })
+
+        console.log(id_category);
+        console.log(id_speciality);
     }
 
     const dataListCategories = categories.map(item => ({
@@ -68,27 +99,27 @@ export default function RegisterProviderSpeciality() {
                 textContent={'Carregando...'}
                 textStyle={styles.spinnerTextStyle}/>
             <View style={styles.header}>
-                <Text>
+                <Text style={styles.textHeader}>
                     Informe sua(s) Especialidade(s)
                 </Text>
                 <Text>Selecione a Categoria</Text>
                 <RNPickerSelect
-                    ref={categoryRef}
                     onValueChange={(value) => loadSpecialities(value)}
                     items={dataListCategories}
                 />
                 <Text>Selecione a Especialidade</Text>
                 <RNPickerSelect
                     style={styles.select}
-                    onValueChange={(value) => console.log(value)}
+                    onValueChange={(value) => setId_Speciality(value)}
                     items={dataListSpecialities}
                 />
             </View>
             <View style={styles.content}>
                 <TouchableOpacity
-                    style={styles.buttonRegister}>
+                    style={styles.buttonRegister}
+                    onPress={hangleRegiter}>
                             <Text style={styles.textButtonContent}>
-                                Cadastrar
+                                Gravar Informações
                             </Text>
                 </TouchableOpacity>
             </View>

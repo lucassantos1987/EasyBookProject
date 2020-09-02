@@ -5,6 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 const AppStatck = createStackNavigator();
 
 import Localization from './pages/Localization';
+import Login from './pages/Login';
+import Menu from './pages/Menu';
 import Register from './pages/Register';
 import RegisterUser from './pages/RegisterUser';
 import RegisterProviderSpeciality from './pages/RegisterProviderSpeciality';
@@ -18,6 +20,8 @@ export default function Routes() {
         <NavigationContainer>
             <AppStatck.Navigator screenOptions={{ headerShown: false}}>
                 <AppStatck.Screen name="Localization" component={Localization}/>
+                <AppStatck.Screen name="Login" component={Login}/>
+                <AppStatck.Screen name="Menu" component={Menu}/>
                 <AppStatck.Screen name="Register" component={Register}/>
                 <AppStatck.Screen name="RegisterUser" component={RegisterUser}/>
                 <AppStatck.Screen name="RegisterProviderSpeciality" component={RegisterProviderSpeciality}/>

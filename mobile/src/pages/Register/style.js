@@ -10,7 +10,7 @@ export default StyleSheet.create({
         paddingHorizontal: 15
     },
     textHeader: {
-        fontSize: 40,
+        fontSize: 30,
         fontWeight: 'bold'
     },
     content: {
@@ -54,9 +54,9 @@ export default StyleSheet.create({
     },
     imageUser: {
         paddingVertical: 50,
-        width: 200,
-        height: 200,
-        borderRadius: 200/2
+        width: 250,
+        height: 250,
+        borderRadius: 250/2
     },
     buttonContentUserImage: {
         top: 50,

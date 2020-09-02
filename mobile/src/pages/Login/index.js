@@ -44,7 +44,7 @@ export default function Login() {
             <TouchableOpacity 
                 style={styles.buttonRegister}
                 onPress={navigateToRegister}>
-                <Text style={styles.textButtonRegister}>Não sou cadastrado. CLIQUE AQUI</Text>
+                <Text style={styles.textButtonRegister}>Esqueci minha senha. CLIQUE AQUI</Text>
             </TouchableOpacity>
         </View>
     );

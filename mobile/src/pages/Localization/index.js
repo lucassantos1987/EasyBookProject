@@ -13,7 +13,11 @@ export default function Location() {
     }
 
     function navigateToRegister() {
-        navigation.navigate('RegisterProviderSpeciality');
+        navigation.navigate('Register');
+    }
+
+    function navigateToLogin() {
+        navigation.navigate('Login');
     }
 
     return(
@@ -34,7 +38,12 @@ export default function Location() {
                 <TouchableOpacity 
                     style={styles.buttonRegister}
                     onPress={navigateToRegister}>
-                    <Text style={styles.textButtonRegister}>Sou Profissional e quero cadastrar meus serviços. CLIQUE AQUI</Text>
+                    <Text style={styles.textButtonRegister}>Sou Profissional e não tenho cadastro. CLIQUE AQUI</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={styles.buttonLogin}
+                    onPress={navigateToLogin}>
+                    <Text style={styles.textButtonRegister}>Sou Profissional, e tenho cadastro. CLIQUE AQUI</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
                     style={styles.buttonToSearch}
