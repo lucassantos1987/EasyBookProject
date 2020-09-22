@@ -7,7 +7,7 @@ export default function Menu() {
     return(
         <div className="menu-container">
             <div className="header">
-                <h1>Painel Administrativo AZbookApp</h1>
+                <h1>Painel Administrativo EasyBookApp</h1>
             </div>
             <div className="content">
                 <section>

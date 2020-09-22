@@ -18,8 +18,11 @@ export default function Speciality() {
 
     console.log(id_category);
 
-    function navigateToProvider() {
-        navigation.navigate('RequestProvider');
+    function navigateToProvider(category, speciality) {
+        navigation.navigate('RequestProvider', { 
+            category, 
+            speciality,
+        });
     }
 
     async function loadSpecialities() {
@@ -30,6 +33,7 @@ export default function Speciality() {
             setLoading(false);    
         })
         .catch(error => {
+            setLoading(false);
             Alert.alert(error);
         });
     }
@@ -73,10 +77,9 @@ export default function Speciality() {
                 renderItem={({ item: speciality }) => (
                     <View style={styles.category}>
                         <Text style={styles.textCategory}>{speciality.name}</Text>
-                        <Text style={styles.textCount}>1 profissional encontrado</Text>
                         <TouchableOpacity
                             style={styles.buttonDetails}
-                            onPress={navigateToProvider}>
+                            onPress={() => navigateToProvider(speciality.id_category, speciality.id)}>
                             <Text style={styles.textButtonDetails}>Ver Profissionais</Text>
                         </TouchableOpacity>
                     </View>

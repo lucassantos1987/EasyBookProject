@@ -1,15 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Feather }  from '@expo/vector-icons';
 import { View, Text, FlatList, TouchableOpacity, Image, TextInput, Linking } from 'react-native';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import styles from './styles';
 import image from '../../assets/user2.jpg';
+import api from '../../services/api';
 
 export default function Provider() {
 
+    const[providers, setProviders] = useState([]);
     const[whatsApp, setWhatsApp] = useState('+55 19 994699364');
+    const[loading, setLoading] = useState(false);
     const navigation = useNavigation();
+    const route = useRoute();
+
+    const id_category = route.params.category
+    const id_speciality = route.params.speciality;
+
+    async function loadProviders() {
+        setLoading(true);
+        await api.get('provider_category_speciality', { params: { id_category: id_category, id_speciality: id_speciality } })
+        .then(response => {
+            setProviders(response.data);
+            setLoading(false);
+        })
+        .catch(error => {
+            setLoading(false);
+            Alert.alert(error.message);
+        })
+    }
+
+    useEffect(() => {
+        loadProviders();
+    }, []);
 
     function navigateToInfoProvider() {
         navigation.navigate('InfoProvider');
@@ -21,6 +46,11 @@ export default function Provider() {
 
     return(
         <View style={styles.container}>
+            <Spinner
+                visible={loading}
+                textContent={'Carregando Profissionais...'}
+                textStyle={styles.spinnerTextStyle}
+            />
             <View style={styles.header}>
                 <Text style={styles.textHeader}>Selecione a Profissional</Text>
                 <TextInput
@@ -29,22 +59,22 @@ export default function Provider() {
             </View>
             <FlatList
                 style={styles.listCategory}
-                data={[1, 2, 3, 4, 5, 6]}
-                keyExtractor={category => String(category)}
-                renderItem={() => (
+                data={providers}
+                keyExtractor={ provider => String(provider)}
+                renderItem={({ item: provider }) => (
                     <View style={styles.provider}>
                         <Image source={image} style={styles.imageProvider}/>
-                        <Text style={styles.textProvider}>Profissional</Text>
-                        <TouchableOpacity
-                            style={styles.buttonChat}
-                            onPress={whatsapp}>
-                            <Text style={styles.textButtonChat}>WhatsApp</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.buttonInfo}
-                            onPress={navigateToInfoProvider}>
-                            <Text style={styles.textButtonInfo}>Informações</Text>
-                        </TouchableOpacity>
+                        <Text style={styles.textProvider}>{provider.name}</Text>
+                            <TouchableOpacity
+                                style={styles.buttonChat}
+                                onPress={whatsapp}>
+                                <Text style={styles.textButtonChat}>WhatsApp</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.buttonInfo}
+                                onPress={navigateToInfoProvider}>
+                                <Text style={styles.textButtonInfo}>Informações</Text>
+                            </TouchableOpacity>
                     </View>
                 )}
             />

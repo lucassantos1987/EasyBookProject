@@ -77,8 +77,8 @@ export default StyleSheet.create({
         paddingHorizontal: 20,
         height: 40,
         borderRadius: 10,
-        marginTop: 45,
-        marginLeft: -130,
+        marginTop: 65,
+        marginLeft: -150,
     },
     textButtonChat: {
         color: '#FFF',
@@ -91,7 +91,7 @@ export default StyleSheet.create({
         paddingHorizontal: 20,
         height: 40,
         borderRadius: 10,
-        marginTop: 45,
+        marginTop: 65,
         marginLeft: 5,
     },
     textButtonInfo: {

@@ -27,6 +27,9 @@ export default function RegisterCategory() {
         .then(response => {
             setLoading(false);
             setCategories(response.data);
+        })
+        .catch((error) => {
+            alert(error.message);
         });
     }
 
@@ -68,7 +71,7 @@ export default function RegisterCategory() {
     return(
         <div className="category-container">
             <div className="header">
-                <h1>Painel Administrativo AZbookApp</h1>
+                <h1>Painel Administrativo EasyBookApp</h1>
             </div>
             <div className="content">
                 <section>

@@ -43,9 +43,10 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
+      host: '34.70.25.193',
+      database: 'azbookapp',
+      user:     'postgres',
+      password: 'az2020book'
     },
     pool: {
       min: 2,
