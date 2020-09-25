@@ -12,7 +12,9 @@ const i_cep = require('awesome-cep');
 
 export default function Register() {
     const[name, setName] = useState('');
+    const[last_name, setLast_Name] = useState('');
     const[whatsapp, setWhatsapp] = useState('');
+    const[prefix_whatsapp, setPrefix_WhatsApp] = useState('+55');
     const[zip_code, setZip_Code] = useState('');
     const[address, setAddress] = useState('');
     const[number, setNumber] = useState('');
@@ -69,6 +71,7 @@ export default function Register() {
     async function handleRegister() {
         const data = {
             name,
+            last_name,
             address,
             number,
             complement,
@@ -85,6 +88,8 @@ export default function Register() {
 
         if (name.trim() == '') {
             Alert.alert("Digite seu Nome");
+        } else if (last_name.trim() == '') {
+            Alert.alert("Digite seu Sobrenome");
         } else if (whatsapp.trim() == '') {
             Alert.alert("Digite seu número do WhatsApp");
         } else if (zip_code.trim() == '') {
@@ -155,9 +160,17 @@ export default function Register() {
                 <View style={styles.content}>
                     <TextInput
                         style={styles.inputContent}
+                        maxLength={20}
                         placeholder="Nome"
                         value={name}
                         onChangeText={(text) => setName(text)}
+                        returnKeyType="next"/>
+                    <TextInput
+                        style={styles.inputContent}
+                        maxLength={20}
+                        placeholder="Sobrenome"
+                        value={last_name}
+                        onChangeText={(text) => setLast_Name(text)}
                         returnKeyType="next"/>
                     <TextInputMask
                         style={styles.inputContent}

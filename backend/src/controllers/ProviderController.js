@@ -4,6 +4,7 @@ module.exports = {
     async create(request, response) {
         const {
             name,
+            last_name,
             address,
             number,
             complement,
@@ -20,6 +21,7 @@ module.exports = {
 
         const result = await connection('provider').insert({
             name,
+            last_name,
             address,
             number,
             complement,

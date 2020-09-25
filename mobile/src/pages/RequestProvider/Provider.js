@@ -11,7 +11,7 @@ import api from '../../services/api';
 export default function Provider() {
 
     const[providers, setProviders] = useState([]);
-    const[whatsApp, setWhatsApp] = useState('+55 19 994699364');
+    const[whatsApp, setWhatsApp] = useState('');
     const[loading, setLoading] = useState(false);
     const navigation = useNavigation();
     const route = useRoute();
@@ -40,8 +40,8 @@ export default function Provider() {
         navigation.navigate('InfoProvider');
     }
 
-    function whatsapp () {
-        Linking.openURL(`https://api.whatsapp.com/send?phone=${whatsApp}`);
+    function whatsapp (text) {
+        Linking.openURL(`https://api.whatsapp.com/send?phone=${text}`);
     }
 
     return(
@@ -64,17 +64,17 @@ export default function Provider() {
                 renderItem={({ item: provider }) => (
                     <View style={styles.provider}>
                         <Image source={image} style={styles.imageProvider}/>
-                        <Text style={styles.textProvider}>{provider.name}</Text>
-                            <TouchableOpacity
-                                style={styles.buttonChat}
-                                onPress={whatsapp}>
-                                <Text style={styles.textButtonChat}>WhatsApp</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.buttonInfo}
-                                onPress={navigateToInfoProvider}>
-                                <Text style={styles.textButtonInfo}>Informações</Text>
-                            </TouchableOpacity>
+                        <Text style={styles.textProvider}>{provider.name} {provider.last_name}</Text>
+                        <TouchableOpacity
+                            style={styles.buttonChat}
+                            onPress={() => whatsapp(provider.prefix_whatsapp + " " + provider.whatsapp)}>
+                            <Text style={styles.textButtonChat}>WhatsApp</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.buttonInfo}
+                            onPress={navigateToInfoProvider}>
+                            <Text style={styles.textButtonInfo}>Informações</Text>
+                        </TouchableOpacity>
                     </View>
                 )}
             />

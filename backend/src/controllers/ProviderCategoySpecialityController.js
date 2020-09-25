@@ -27,7 +27,7 @@ module.exports = {
         .join('category', 'category.id', 'provider_category_speciality.id_category')
         .join('speciality', 'speciality.id', 'provider_category_speciality.id_speciality')
         .join('provider', 'provider.id', 'provider_category_speciality.id_provider')
-        .select('provider.name')
+        .select('provider.name', 'provider.last_name', 'provider.prefix_whatsapp', 'provider.whatsapp')
         .where('category.id', '=', filterCategory)
         .andWhere('speciality.id', '=', filterSpeciality);
 
