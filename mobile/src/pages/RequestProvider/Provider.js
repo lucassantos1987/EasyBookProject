@@ -44,6 +44,20 @@ export default function Provider() {
         Linking.openURL(`https://api.whatsapp.com/send?phone=${text}`);
     }
 
+    function filterProviders(text) {
+        const newData = providers.filter(item => {
+            const itemData = `${item.id} ${item.name}`;
+            const textData= text;
+            return itemData.indexOf(textData) > -1;
+        });
+
+        if (text !== '') {
+            setProviders(newData);
+        } else {
+            loadProviders();
+        }
+    }
+
     return(
         <View style={styles.container}>
             <Spinner
@@ -55,7 +69,8 @@ export default function Provider() {
                 <Text style={styles.textHeader}>Selecione a Profissional</Text>
                 <TextInput
                     style={styles.inputSearch}
-                    placeholder="Digite aqui para pesquisar..."/>
+                    placeholder="Digite aqui para pesquisar..."
+                    onChangeText={(text) => filterProviders(text)}/>
             </View>
             <FlatList
                 style={styles.listCategory}

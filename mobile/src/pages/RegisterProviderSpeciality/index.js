@@ -100,7 +100,7 @@ export default function RegisterProviderSpeciality() {
                 textStyle={styles.spinnerTextStyle}/>
             <View style={styles.header}>
                 <Text style={styles.textHeader}>
-                    Informe sua(s) Especialidade(s)
+                    Informe Sua Principal Especialidade.
                 </Text>
                 <Text>Selecione a Categoria</Text>
                 <RNPickerSelect
