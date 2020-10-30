@@ -1,3 +1,4 @@
+const Knex = require('knex');
 const connection = require('../database/connection');
 
 module.exports = {
@@ -16,10 +17,16 @@ module.exports = {
             obs,
             photo,
             latitude,
-            longitude
+            longitude,
+            id_category,
+            id_speciality,
+            username,
+            password
         } = request.body;
 
-        const result = await connection('provider').insert({
+        const trx = await connection.transaction();
+
+        const id_provider = await trx('provider').insert({
             name,
             last_name,
             address,
@@ -37,6 +44,18 @@ module.exports = {
         })
         .returning('id');
 
-        return response.json({result});
+        await trx('provider_category_speciality').insert({
+            id_provider,
+            id_category,
+            id_speciality
+        });
+
+        await connection('provider_user').insert({
+            id_provider,
+            username,
+            password
+        });
+        
+        return response.json({id_provider});
     }
 }

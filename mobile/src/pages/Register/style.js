@@ -13,6 +13,17 @@ export default StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold'
     },
+    textHeaderSpeciality: {
+        marginTop: 90,
+        fontSize: 20,
+        fontWeight: 'bold',
+        paddingBottom: 15
+    },
+    textHeaderUser: {
+        marginTop: 20,
+        fontSize: 20,
+        fontWeight: 'bold'
+    },
     content: {
         top: 50,
         justifyContent: 'center',

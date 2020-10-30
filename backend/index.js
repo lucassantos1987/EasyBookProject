@@ -1,6 +1,24 @@
 const express = require('express');
 const routes = require('./src/routes');
 const cors = require('cors');
+const multer = require('multer');
+
+//var upload = multer({ dest: '/upload' });
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '/upload');
+    },
+    filename: function (req, file, cb) {
+        let ext = '';
+        if (file.originalname.split('.').length > 1) 
+            ext = file.originalname.substring(file.originalname.lastIndexOf('.'), file.originalname.length)
+        cb(null, Date.now() + ext)
+    }
+})
+
+var upload = multer({ storage: storage });
+
+const fs = require('fs');
 const port = 3333;
 
 const app = express();
@@ -25,5 +43,16 @@ app.use(function(req, res, next) {
     }
     next();
 });
+
+app.post('/upload', upload.single('image'), (req, res) => {
+    console.log(req.file);
+    console.log(req.body);
+
+    if (res) {
+        console.log("Sucesso");
+    } else {
+        console.log("Erro");
+    }
+})
 
 app.listen(port, () => console.log("Backend executando na porta: " + port));

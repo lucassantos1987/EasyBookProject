@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Dimensions, ScrollView, Image, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, TextInput, Dimensions, ScrollView, Image, Alert, DevSettings } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import * as ImagePicker from 'expo-image-picker';
 import { TextInputMask } from 'react-native-masked-text';
+import PasswordInputText from 'react-native-hide-show-password-input';
+import RNPickerSelect from 'react-native-picker-select';
 
 import styles from './style';
 import user from '../../assets/user2.jpg';
@@ -26,8 +28,45 @@ export default function Register() {
     const[longitude, setLongitude] = useState('');
     const[obs, setObs] = useState('');
     const[photo, setPhoto] = useState('');
+    const[categories, setCategories] = useState([]);
+    const[specialities, setSpecialities] = useState([]);
+    const[id_category, setId_Category] = useState('');
+    const[id_speciality, setId_Speciality] = useState('');    
+    const[username, setUsername] = useState('');
+    const[password, setPassword] = useState('');
     const[loading, setLoading] = useState(false);
     const navigation = useNavigation();
+
+    useEffect(() => {
+        loadCategories();
+    }, []);
+
+    async function loadCategories() {
+        setLoading(true);
+        await api.get('category')
+        .then(response => {
+            setCategories(response.data);
+            setLoading(false);        
+        })
+        .catch(error => {
+            Alert.alert(error);
+        });
+    }
+
+    async function loadSpecialities(value) {        
+        const id_category = value;
+        setId_Category(value);
+
+        setLoading(true);
+        await api.get('speciality', { params: { id_category: id_category } })
+        .then(response => {
+            setSpecialities(response.data);
+            setLoading(false);    
+        })
+        .catch(error => {
+            Alert.alert(error);
+        });
+    }
 
     function getCep() {
         setLoading(true);
@@ -83,7 +122,11 @@ export default function Register() {
             obs,
             photo,
             latitude,
-            longitude
+            longitude,
+            id_category,
+            id_speciality,
+            username,
+            password
         };
 
         if (name.trim() == '') {
@@ -98,10 +141,19 @@ export default function Register() {
             Alert.alert("Dígite o Número de Endereço");
         } else if (photo == '') {
             Alert.alert("Selecione sua Foto");
+        } else if (id_category == '') {
+            Alert.alert("Selecione sua(s) Categoria(s)");
+        } else if (id_speciality == '') {
+            Alert.alert('Selecione sua(s) Especiadade(s)')
+        }         if (username.trim() == '') {
+            Alert.alert("Digite seu Email");
+        } else if (password.trim() == '') {
+            Alert.alert("Digite sua Senha");
         } else {
             setLoading(true);
             await api.post('provider', data)
             .then(function(response) {
+                uploadPhotoToServer();
                 console.log(response.data.result[0]);
                 setLoading(false);
                 navigateToRegisterUser(response.data.result[0]);
@@ -116,7 +168,7 @@ export default function Register() {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
-            aspect: [4, 3],
+            aspect: [3, 4],
             quality: 1,
         })
         .then((response) => {
@@ -133,8 +185,8 @@ export default function Register() {
     async function _takePhtoPickImage() {
         let result = await ImagePicker.launchCameraAsync({
             allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
+            aspect: [3, 4],
+            quality: 1
         })
         .then((response) => {
             if (!response.cancelled) {
@@ -146,6 +198,52 @@ export default function Register() {
             console.log(error.message);
         });
     }
+
+    async function uploadPhotoToServer() {
+        let localUri = photo;
+        let filename = localUri.split('/').pop();
+
+        console.log(localUri);
+        console.log(filename);
+
+        let match = /\.(\w+)$/.exec(filename);
+        let typefile = match ? `image/${match[1]}` : `image`;
+
+        // Upload the image using the fetch and FormData APIs
+        let formData = new FormData();
+        // Assume "photo" is the name of the form field the server expects
+        formData.append('name', 'avatar');
+        formData.append('image', { 
+            uri: localUri,             
+            type: typefile,
+            name: filename 
+        });
+
+        return await fetch('http://192.168.0.108:3333/upload', {
+            method: 'POST',            
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'multipart/form-data',
+            },
+            body: formData
+        }).then((response) => {
+            console.log(response.text());
+        }).catch(error => {
+            console.log(error.message);
+        });
+    }
+
+    const dataListCategories = categories.map(item => ({
+        label: item.name,
+        value: item.id,
+        key: item.id
+    }))
+
+    const dataListSpecialities = specialities.map(item => ({
+        label: item.name,
+        value: item.id,
+        key: item.id
+    }))
 
     return(
         <View style={styles.container}>
@@ -248,7 +346,46 @@ export default function Register() {
                         style={styles.buttonContentUserImage}
                         onPress={_takePhtoPickImage}>
                         <Text style={styles.textButtonContent}>Tirar Foto</Text>
-                    </TouchableOpacity>                    
+                    </TouchableOpacity>
+
+                    <Text style={styles.textHeaderSpeciality}>
+                        Informe sua principal Especialidade.
+                    </Text>
+                    <Text>Selecione a Categoria</Text>
+                    <RNPickerSelect
+                        onValueChange={(value) => loadSpecialities(value)}
+                        items={dataListCategories}
+                    />
+                    <Text>Selecione a Especialidade</Text>
+                    <RNPickerSelect
+                        style={styles.select}
+                        onValueChange={(value) => setId_Speciality(value)}
+                        items={dataListSpecialities}
+                    />
+
+                    <Text style={styles.textHeaderUser}>
+                        Registre seus dados de acesso
+                    </Text>
+                    <TextInput
+                        style={styles.inputContent}
+                        placeholder="Digite seu nome de usuário"
+                        value={username}
+                        onChangeText={(text) => setUsername(text)}
+                        autoCapitalize="none"/>
+                    <TextInput
+                        style={styles.inputContent}
+                        placeholder="Digite seu Email"
+                        value={username}
+                        onChangeText={(text) => setUsername(text)}
+                        autoCapitalize="none"/>
+                    <PasswordInputText
+                        placeholder="Digite sua senha"
+                        value={password}
+                        onChangeText={ (text) => setPassword(text) }
+                    />
+
+
+
                     <TouchableOpacity
                         style={styles.buttonRegister}
                         onPress={handleRegister}>
