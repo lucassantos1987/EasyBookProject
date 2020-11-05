@@ -8,7 +8,6 @@ import PasswordInputText from 'react-native-hide-show-password-input';
 import RNPickerSelect from 'react-native-picker-select';
 
 import styles from './style';
-import user from '../../assets/user2.jpg';
 import api from '../../services/api';
 const i_cep = require('awesome-cep');
 
@@ -33,6 +32,7 @@ export default function Register() {
     const[id_category, setId_Category] = useState('');
     const[id_speciality, setId_Speciality] = useState('');    
     const[username, setUsername] = useState('');
+    const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
     const[loading, setLoading] = useState(false);
     const navigation = useNavigation();
@@ -126,6 +126,7 @@ export default function Register() {
             id_category,
             id_speciality,
             username,
+            email,
             password
         };
 
@@ -144,8 +145,10 @@ export default function Register() {
         } else if (id_category == '') {
             Alert.alert("Selecione sua(s) Categoria(s)");
         } else if (id_speciality == '') {
-            Alert.alert('Selecione sua(s) Especiadade(s)')
-        }         if (username.trim() == '') {
+            Alert.alert('Selecione sua(s) Especiadade(s)');
+        } else if (username.trim() == '') {
+            Alert.alert('Digite seu Nome de Usuário');
+        } else if (email.trim() == '') {
             Alert.alert("Digite seu Email");
         } else if (password.trim() == '') {
             Alert.alert("Digite sua Senha");
@@ -156,7 +159,6 @@ export default function Register() {
                 uploadPhotoToServer();
                 console.log(response.data.result[0]);
                 setLoading(false);
-                navigateToRegisterUser(response.data.result[0]);
             }).catch(function(error) {
                 setLoading(false);
                 Alert.alert(error.message);
@@ -165,7 +167,7 @@ export default function Register() {
     }
 
     async function _pickImage() {
-        let result = await ImagePicker.launchImageLibraryAsync({
+        await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [3, 4],
@@ -183,7 +185,7 @@ export default function Register() {
     }
 
     async function _takePhtoPickImage() {
-        let result = await ImagePicker.launchCameraAsync({
+        await ImagePicker.launchCameraAsync({
             allowsEditing: true,
             aspect: [3, 4],
             quality: 1
@@ -202,10 +204,6 @@ export default function Register() {
     async function uploadPhotoToServer() {
         let localUri = photo;
         let filename = localUri.split('/').pop();
-
-        console.log(localUri);
-        console.log(filename);
-
         let match = /\.(\w+)$/.exec(filename);
         let typefile = match ? `image/${match[1]}` : `image`;
 
@@ -219,18 +217,21 @@ export default function Register() {
             name: filename 
         });
 
-        return await fetch('http://192.168.0.108:3333/upload', {
+        await fetch('http://192.168.0.108:3333/upload', {
             method: 'POST',            
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'multipart/form-data',
             },
             body: formData
-        }).then((response) => {
-            console.log(response.text());
-        }).catch(error => {
-            console.log(error.message);
-        });
+        })
+        .then(response => response.json())
+        .then(file => {
+            console.log(file.file)
+        })
+        .catch(error => {
+            console.log(error.message)
+        })
     }
 
     const dataListCategories = categories.map(item => ({
@@ -335,7 +336,7 @@ export default function Register() {
                         <Text style={{ top: -20, fontSize: 18 }}>
                             Agora selecione uma foto para que os clientes identifique você.
                         </Text>
-                        <Image source={{ uri: photo }} style={styles.imageUser}/>
+                        <Image source={ photo == '' ? require('../../assets/user2.jpg') : { uri: photo }} style={styles.imageUser}/>
                     </View>    
                     <TouchableOpacity 
                         style={styles.buttonContentUserImage}
@@ -346,6 +347,11 @@ export default function Register() {
                         style={styles.buttonContentUserImage}
                         onPress={_takePhtoPickImage}>
                         <Text style={styles.textButtonContent}>Tirar Foto</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                        style={styles.buttonContentUserImage}
+                        onPress={uploadPhotoToServer}>
+                        <Text style={styles.textButtonContent}>Salvar Foto</Text>
                     </TouchableOpacity>
 
                     <Text style={styles.textHeaderSpeciality}>
@@ -383,18 +389,18 @@ export default function Register() {
                         value={password}
                         onChangeText={ (text) => setPassword(text) }
                     />
-
-
-
-                    <TouchableOpacity
-                        style={styles.buttonRegister}
-                        onPress={handleRegister}>
-                        <Text style={styles.textButtonContent}>
-                            Gravar Informações
-                        </Text>
-                    </TouchableOpacity>
                 </View>
             </ScrollView>
+            <View style={styles.footer}>
+                    <TouchableOpacity
+                        style={styles.buttonFooter}                        
+                        onPress={handleRegister}>
+                        <Text style={styles.textButtonContent}>
+                            Cadastrar
+                        </Text>
+                    </TouchableOpacity> 
+                </View>        
+
         </View>
     );
 }

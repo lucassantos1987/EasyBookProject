@@ -81,4 +81,21 @@ export default StyleSheet.create({
     spinnerTextStyle: {
         color: '#FFF'
     },    
+    footer: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height: 60,
+    },
+    buttonFooter: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 60,
+        backgroundColor: '#8e44ad',
+    },
+    textButtonFooter: {
+        color: '#FFFFFF',
+        fontSize: 17
+    },
 })
