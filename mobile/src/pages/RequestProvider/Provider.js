@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Feather }  from '@expo/vector-icons';
-import { View, Text, FlatList, TouchableOpacity, Image, TextInput, Linking } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Image, TextInput, Linking, ImageSourcePropType } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -23,6 +23,7 @@ export default function Provider() {
         setLoading(true);
         await api.get('provider_category_speciality', { params: { id_category: id_category, id_speciality: id_speciality } })
         .then(response => {
+            console.log(response.data);
             setProviders(response.data);
             setLoading(false);
         })
@@ -58,6 +59,19 @@ export default function Provider() {
         }
     }
 
+    async function getPhotoFromServer(photo) {
+        console.log(photo.replace('/\\', '/'));
+        return await fetch('http://192.168.0.108:3333/upload/' + photo.replace('/\\', '/'), {
+            method: "GET",
+            headers: {
+                'mode': 'no-cors',
+                'pragma': 'no-cache',
+                'cache-control': 'no-cache'
+            },
+            cache: "reload"
+        });
+    }
+
     return(
         <View style={styles.container}>
             <Spinner
@@ -78,7 +92,7 @@ export default function Provider() {
                 keyExtractor={ provider => String(provider)}
                 renderItem={({ item: provider }) => (
                     <View style={styles.provider}>
-                        <Image source={image} style={styles.imageProvider}/>
+                        <Image source={getPhotoFromServer(provider.photo)} style={styles.imageProvider}/>
                         <Text style={styles.textProvider}>{provider.name} {provider.last_name}</Text>
                         <TouchableOpacity
                             style={styles.buttonChat}

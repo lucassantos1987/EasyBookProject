@@ -47,7 +47,7 @@ app.use(function(req, res, next) {
 app.post('/upload', upload.single('image'), (req, res) => {
     /*console.log(req.file);*/
 
-    const { file } = req;
+    const file  = req.file;
 
     if (file) {
         console.log("File Uploaded");
@@ -56,6 +56,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
             success: true
         });
     } else {
+        console.log("File Not Uploaded");
         return res.json({  
             file: "Failed",
             success: false

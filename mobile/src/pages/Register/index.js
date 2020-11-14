@@ -26,7 +26,8 @@ export default function Register() {
     const[latitude, setLatitude] = useState('');
     const[longitude, setLongitude] = useState('');
     const[obs, setObs] = useState('');
-    const[photo, setPhoto] = useState('');
+    //const[photo, setPhoto, getPhoto] = useState('');
+    const[image, setImage] = useState('');
     const[categories, setCategories] = useState([]);
     const[specialities, setSpecialities] = useState([]);
     const[id_category, setId_Category] = useState('');
@@ -35,21 +36,23 @@ export default function Register() {
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
     const[loading, setLoading] = useState(false);
+    //const[success_upload, setSuccess_upload, getSuccess_upload] = useState(false);
     const navigation = useNavigation();
 
     useEffect(() => {
         loadCategories();
     }, []);
 
-    async function loadCategories() {
-        setLoading(true);
+    async function loadCategories() {       
+        setLoading(true);        
         await api.get('category')
         .then(response => {
             setCategories(response.data);
             setLoading(false);        
         })
         .catch(error => {
-            Alert.alert(error);
+            setLoading(false);
+            Alert.alert(error.message);
         });
     }
 
@@ -64,7 +67,8 @@ export default function Register() {
             setLoading(false);    
         })
         .catch(error => {
-            Alert.alert(error);
+            setLoading(false);
+            Alert.alert(error.message);
         });
     }
 
@@ -103,11 +107,45 @@ export default function Register() {
         }
     }
 
-    function navigateToRegisterUser(idprovider) {
-        navigation.navigate('RegisterUser', { idprovider} );        
-    }
-
     async function handleRegister() {
+        
+        setLoading(true);
+        var photo = "";
+        var success_upload = false;
+
+        let localUri = image;
+        let filename = localUri.split('/').pop();
+        let match = /\.(\w+)$/.exec(filename);
+        let typefile = match ? `image/${match[1]}` : `image`;
+
+        // Upload the image using the fetch and FormData APIs
+        let formData = new FormData();
+        // Assume "photo" is the name of the form field the server expects
+        formData.append('name', 'avatar');
+        formData.append('image', { 
+            uri: localUri,             
+            type: typefile,
+            name: filename 
+        });
+
+        await fetch('http://192.168.0.108:3333/upload', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'multipart/form-data',
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(file => {
+            photo = file.file;
+            success_upload = file.success
+        })
+        .catch(error => {
+            success_upload = false;
+            console.log(error.message);
+        });
+
         const data = {
             name,
             last_name,
@@ -128,41 +166,45 @@ export default function Register() {
             username,
             email,
             password
-        };
-
-        if (name.trim() == '') {
-            Alert.alert("Digite seu Nome");
-        } else if (last_name.trim() == '') {
-            Alert.alert("Digite seu Sobrenome");
-        } else if (whatsapp.trim() == '') {
-            Alert.alert("Digite seu número do WhatsApp");
-        } else if (zip_code.trim() == '') {
-            Alert.alert("Digite seu Cep");
-        } else if (number.trim() == '') {
-            Alert.alert("Dígite o Número de Endereço");
-        } else if (photo == '') {
-            Alert.alert("Selecione sua Foto");
-        } else if (id_category == '') {
-            Alert.alert("Selecione sua(s) Categoria(s)");
-        } else if (id_speciality == '') {
-            Alert.alert('Selecione sua(s) Especiadade(s)');
-        } else if (username.trim() == '') {
-            Alert.alert('Digite seu Nome de Usuário');
-        } else if (email.trim() == '') {
-            Alert.alert("Digite seu Email");
-        } else if (password.trim() == '') {
-            Alert.alert("Digite sua Senha");
+        };        
+        
+        if (success_upload) {
+            if (name.trim() == '') {
+                Alert.alert("Digite seu Nome");
+            } else if (last_name.trim() == '') {
+                Alert.alert("Digite seu Sobrenome");
+            } else if (whatsapp.trim() == '') {
+                Alert.alert("Digite seu número do WhatsApp");
+            } else if (zip_code.trim() == '') {
+                Alert.alert("Digite seu Cep");
+            } else if (number.trim() == '') {
+                Alert.alert("Dígite o Número de Endereço");
+            } else if (image == '') {
+                Alert.alert("Selecione sua Foto");
+            } else if (id_category == '') {
+                Alert.alert("Selecione sua(s) Categoria(s)");
+            } else if (id_speciality == '') {
+                Alert.alert('Selecione sua(s) Especiadade(s)');
+            } else if (username.trim() == '') {
+                Alert.alert('Digite seu Nome de Usuário');
+            } else if (email.trim() == '') {
+                Alert.alert("Digite seu Email");
+            } else if (password.trim() == '') {
+                Alert.alert("Digite sua Senha");
+            } else {
+                await api.post('provider', data)
+                .then(function(response) {
+                    console.log(response.data.result[0]);
+                    setLoading(false);
+                    Alert.alert("Cadastro realizado com sucesso.");
+                    navigation.navigate('Localization');
+                }).catch(function(error) {
+                    setLoading(false);
+                    Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
+                });    
+            }
         } else {
-            setLoading(true);
-            await api.post('provider', data)
-            .then(function(response) {
-                uploadPhotoToServer();
-                console.log(response.data.result[0]);
-                setLoading(false);
-            }).catch(function(error) {
-                setLoading(false);
-                Alert.alert(error.message);
-            });    
+            Alert.alert("Não foi possível realizar o cadastro. Tente novamente.")
         }
     }
 
@@ -175,8 +217,8 @@ export default function Register() {
         })
         .then((response) => {
             if (!response.cancelled) {
-                setPhoto(response.uri);
-                console.log(photo);
+                setImage(response.uri);
+                console.log(image);
             }
         })
         .catch(error => {
@@ -192,46 +234,13 @@ export default function Register() {
         })
         .then((response) => {
             if (!response.cancelled) {
-                setPhoto(response.uri);
-                console.log(photo);
+                setImage(response.uri);
+                console.log(image);
             }
         })
         .catch(error => {
             console.log(error.message);
         });
-    }
-
-    async function uploadPhotoToServer() {
-        let localUri = photo;
-        let filename = localUri.split('/').pop();
-        let match = /\.(\w+)$/.exec(filename);
-        let typefile = match ? `image/${match[1]}` : `image`;
-
-        // Upload the image using the fetch and FormData APIs
-        let formData = new FormData();
-        // Assume "photo" is the name of the form field the server expects
-        formData.append('name', 'avatar');
-        formData.append('image', { 
-            uri: localUri,             
-            type: typefile,
-            name: filename 
-        });
-
-        await fetch('http://192.168.0.108:3333/upload', {
-            method: 'POST',            
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'multipart/form-data',
-            },
-            body: formData
-        })
-        .then(response => response.json())
-        .then(file => {
-            console.log(file.file)
-        })
-        .catch(error => {
-            console.log(error.message)
-        })
     }
 
     const dataListCategories = categories.map(item => ({
@@ -336,7 +345,7 @@ export default function Register() {
                         <Text style={{ top: -20, fontSize: 18 }}>
                             Agora selecione uma foto para que os clientes identifique você.
                         </Text>
-                        <Image source={ photo == '' ? require('../../assets/user2.jpg') : { uri: photo }} style={styles.imageUser}/>
+                        <Image source={ image == '' ? require('../../assets/user2.jpg') : { uri: image }} style={styles.imageUser}/>
                     </View>    
                     <TouchableOpacity 
                         style={styles.buttonContentUserImage}
@@ -347,11 +356,6 @@ export default function Register() {
                         style={styles.buttonContentUserImage}
                         onPress={_takePhtoPickImage}>
                         <Text style={styles.textButtonContent}>Tirar Foto</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                        style={styles.buttonContentUserImage}
-                        onPress={uploadPhotoToServer}>
-                        <Text style={styles.textButtonContent}>Salvar Foto</Text>
                     </TouchableOpacity>
 
                     <Text style={styles.textHeaderSpeciality}>
@@ -381,8 +385,8 @@ export default function Register() {
                     <TextInput
                         style={styles.inputContent}
                         placeholder="Digite seu Email"
-                        value={username}
-                        onChangeText={(text) => setUsername(text)}
+                        value={email}
+                        onChangeText={(text) => setEmail(text)}
                         autoCapitalize="none"/>
                     <PasswordInputText
                         placeholder="Digite sua senha"

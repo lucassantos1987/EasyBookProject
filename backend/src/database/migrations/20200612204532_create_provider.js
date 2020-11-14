@@ -5,7 +5,7 @@ exports.up = function(knex) {
         table.string('address', 60).notNullable();
         table.string('number', 10).notNullable();
         table.string('complement', 20);
-        table.string('district', 30).notNullable();
+        table.string('district', 60).notNullable();
         table.string('city', 60).notNullable();
         table.string('state', 2).notNullable();
         table.string('zip_code', 8).notNullable();
