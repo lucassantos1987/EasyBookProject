@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Feather }  from '@expo/vector-icons';
 import { View, Text, FlatList, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { ListItem, Avatar } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -68,14 +69,16 @@ export default function Category() {
                 data={categories}
                 keyExtractor={category => String(category.id)}
                 renderItem={({ item: category }) => (
-                    <View style={styles.category}>
-                        <Text style={styles.textCategory}>{category.name}</Text>
-                        <TouchableOpacity
-                            style={styles.buttonDetails}
-                            onPress={() => navigateToSpeciality(category.id)}>
-                            <Text style={styles.textButtonDetails}>Ver Especialidades</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <ListItem onPress={() => navigateToSpeciality(category.id)}>
+                        <ListItem.Content>
+                            <ListItem.Title>                                
+                                { category.name }
+                            </ListItem.Title>
+                            <ListItem.Subtitle>
+                                { "Clique para ver as especialidades" }
+                            </ListItem.Subtitle>
+                        </ListItem.Content>
+                    </ListItem>
                 )}
             />
         </View>

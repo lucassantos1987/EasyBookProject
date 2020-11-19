@@ -1,5 +1,6 @@
 const Knex = require('knex');
 const connection = require('../database/connection');
+const fetch = require('node-fetch');
 
 module.exports = {    
     async create(request, response) {
@@ -63,5 +64,22 @@ module.exports = {
         trx.commit();
             
         return response.json({result});
+    },
+
+    async indexPhoto(request, response) {
+        const photo = "upload/1605320826069.jpg";
+        
+        const result = await fetch('http://192.168.0.108:3333/' + photo, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                'Content-Type': 'application/json',                
+            },
+        });
+        
+        console.log(result);
+
+        return result;
     }
+
 }

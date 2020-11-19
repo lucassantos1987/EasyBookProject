@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Feather }  from '@expo/vector-icons';
 import { View, Text, FlatList, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { ListItem, Avatar } from 'react-native-elements';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -75,14 +76,16 @@ export default function Speciality() {
                 data={specialities}
                 keyExtractor={speciality => String(speciality.id)}
                 renderItem={({ item: speciality }) => (
-                    <View style={styles.category}>
-                        <Text style={styles.textCategory}>{speciality.name}</Text>
-                        <TouchableOpacity
-                            style={styles.buttonDetails}
-                            onPress={() => navigateToProvider(speciality.id_category, speciality.id)}>
-                            <Text style={styles.textButtonDetails}>Ver Profissionais</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <ListItem onPress={() => navigateToProvider(speciality.id_category, speciality.id)}>
+                        <ListItem.Content>
+                            <ListItem.Title>                                
+                                { speciality.name }
+                            </ListItem.Title>
+                            <ListItem.Subtitle>
+                                { "Clique para ver os profissionais" }
+                            </ListItem.Subtitle>
+                        </ListItem.Content>
+                    </ListItem>
                 )}
             />
         </View>

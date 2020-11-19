@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Feather }  from '@expo/vector-icons';
 import { View, Text, FlatList, TouchableOpacity, Image, TextInput, Linking, ImageSourcePropType } from 'react-native';
+import { ListItem, Avatar } from 'react-native-elements';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -61,14 +62,12 @@ export default function Provider() {
 
     async function getPhotoFromServer(photo) {
         console.log(photo.replace('/\\', '/'));
-        return await fetch('http://192.168.0.108:3333/upload/' + photo.replace('/\\', '/'), {
+        return await fetch('http://192.168.0.108:3333/' + photo.replace('/\\', '/'), {
             method: "GET",
             headers: {
-                'mode': 'no-cors',
-                'pragma': 'no-cache',
-                'cache-control': 'no-cache'
-            },
-            cache: "reload"
+                "Accept": "application/json",
+                'Content-Type': 'application/json',                
+            }
         });
     }
 
@@ -91,20 +90,22 @@ export default function Provider() {
                 data={providers}
                 keyExtractor={ provider => String(provider)}
                 renderItem={({ item: provider }) => (
-                    <View style={styles.provider}>
-                        <Image source={getPhotoFromServer(provider.photo)} style={styles.imageProvider}/>
-                        <Text style={styles.textProvider}>{provider.name} {provider.last_name}</Text>
-                        <TouchableOpacity
-                            style={styles.buttonChat}
-                            onPress={() => whatsapp(provider.prefix_whatsapp + " " + provider.whatsapp)}>
-                            <Text style={styles.textButtonChat}>WhatsApp</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.buttonInfo}
-                            onPress={navigateToInfoProvider}>
-                            <Text style={styles.textButtonInfo}>Informações</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <ListItem>
+                        <Avatar 
+                            size={"large"}
+                            rounded={true}
+                            source={{uri: "http://192.168.0.108:3333/" + provider.photo.replace('/\\', '/')}} 
+                        />
+                        <ListItem.Content>                            
+                            <ListItem.Title>                                
+                                { provider.name + " " + provider.last_name }
+                            </ListItem.Title>
+                            <ListItem.Subtitle>
+                                { "Clique para mais informações" }
+                            </ListItem.Subtitle>
+                        </ListItem.Content>
+                    </ListItem>
+                    
                 )}
             />
         </View>
