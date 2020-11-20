@@ -2,6 +2,7 @@ const express = require('express');
 const routes = require('./src/routes');
 const cors = require('cors');
 const multer = require('multer');
+const path = require('path');
 
 //var upload = multer({ dest: '/upload' });
 var storage = multer.diskStorage({
@@ -17,16 +18,48 @@ var storage = multer.diskStorage({
 })
 
 var upload = multer({ storage: storage });
+var uploadFolder = path.join(__dirname, '..', '..', '..', 'upload');
 
-const fs = require('fs');
 const port = 3333;
-
 const app = express();
 
 app.use(express.json());
 app.use(routes);
 app.use(cors());
 
+app.use('/upload', express.static(uploadFolder))
+
+console.log(uploadFolder);
+
+/*app.get('/upload', function(req, res) {
+    res.sendFile(path.join(uploadFolder, '1605320826069.jpg'), function(err) {
+        if (err) {
+            res.status(500).send(err)
+        } else {
+            console.log("aqui");
+        }
+    })
+});*/
+
+app.post('/upload', upload.single('image'), (req, res) => {
+    const file  = req.file;
+
+    if (file) {
+        console.log("File Uploaded");
+        return res.json({ 
+            file: req.file.path,
+            success: true
+        });
+    } else {
+        console.log("File Not Uploaded");
+        return res.json({  
+            file: "Failed",
+            success: false
+        });
+    }
+})
+
+/*
 app.use(function(req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -44,24 +77,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.post('/upload', upload.single('image'), (req, res) => {
-    /*console.log(req.file);*/
-
-    const file  = req.file;
-
-    if (file) {
-        console.log("File Uploaded");
-        return res.json({ 
-            file: req.file.path,
-            success: true
-        });
-    } else {
-        console.log("File Not Uploaded");
-        return res.json({  
-            file: "Failed",
-            success: false
-        });
-    }
-})
+*/ 
 
 app.listen(port, () => console.log("Backend executando na porta: " + port));

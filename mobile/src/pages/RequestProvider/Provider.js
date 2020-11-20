@@ -61,14 +61,15 @@ export default function Provider() {
     }
 
     async function getPhotoFromServer(photo) {
-        console.log(photo.replace('/\\', '/'));
-        return await fetch('http://192.168.0.108:3333/' + photo.replace('/\\', '/'), {
+        console.log('http://192.168.0.108:3333' + photo.replace(/\\/g, '/'));
+
+        return await fetch('http://192.168.0.108:3333' + photo.replace(/\\/g, '/'), {
             method: "GET",
             headers: {
                 "Accept": "application/json",
                 'Content-Type': 'application/json',                
             }
-        });
+        });    
     }
 
     return(
@@ -94,7 +95,7 @@ export default function Provider() {
                         <Avatar 
                             size={"large"}
                             rounded={true}
-                            source={{uri: "http://192.168.0.108:3333/" + provider.photo.replace('/\\', '/')}} 
+                            source={getPhotoFromServer(provider.photo)} 
                         />
                         <ListItem.Content>                            
                             <ListItem.Title>                                
@@ -111,3 +112,16 @@ export default function Provider() {
         </View>
     );
 }
+
+export const getAquariumImageSource = (photo) => {
+    console.log("");
+    console.log('http://192.168.0.108:3333' + photo.replace('/\\', '/'));
+    return {
+      uri: 'http://192.168.0.108:3333/' + photo.replace('/\\', '/'),
+      method: "GET",
+      headers: {
+        Pragma: "no-cache",
+      },
+      cache: "reload"
+    };
+  };
