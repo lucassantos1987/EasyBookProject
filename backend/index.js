@@ -2,7 +2,10 @@ const express = require('express');
 const routes = require('./src/routes');
 const cors = require('cors');
 const multer = require('multer');
+const sharp = require('sharp');
 const path = require('path');
+const fs = require('fs');
+const { response } = require('express');
 
 //var upload = multer({ dest: '/upload' });
 var storage = multer.diskStorage({
@@ -27,29 +30,35 @@ app.use(express.json());
 app.use(routes);
 app.use(cors());
 
-app.use('/upload', express.static(uploadFolder))
+app.use('/upload', express.static(uploadFolder));
 
-console.log(uploadFolder);
-
-/*app.get('/upload', function(req, res) {
-    res.sendFile(path.join(uploadFolder, '1605320826069.jpg'), function(err) {
-        if (err) {
-            res.status(500).send(err)
-        } else {
-            console.log("aqui");
-        }
-    })
-});*/
-
-app.post('/upload', upload.single('image'), (req, res) => {
-    const file  = req.file;
+app.post('/upload', upload.single('image'), async (req, res) => {
+    const { filename: file } = req.file;
 
     if (file) {
-        console.log("File Uploaded");
-        return res.json({ 
-            file: req.file.path,
-            success: true
-        });
+        await sharp(req.file.path)
+        .resize(500)
+        .jpeg({ quality: 50 })
+        .toFile(
+            path.resolve(req.file.destination, 'resized', file)
+        )
+        .then(response => {          
+            return res.json({ 
+                file: req.file.filename,
+                success: true
+            });
+
+        })
+        .catch(error => {
+            console.log("Error Resized: " + error)
+            return res.json({  
+                file: "Failed",
+                success: false
+            });    
+        })
+
+        fs.unlinkSync(req.file.path);
+
     } else {
         console.log("File Not Uploaded");
         return res.json({  

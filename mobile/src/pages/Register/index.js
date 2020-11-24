@@ -197,7 +197,7 @@ export default function Register() {
                     console.log(response.data.result[0]);
                     setLoading(false);
                     Alert.alert("Cadastro realizado com sucesso.");
-                    navigation.navigate('Localization');
+                    /*navigation.navigate('Localization');*/
                 }).catch(function(error) {
                     setLoading(false);
                     Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
@@ -254,6 +254,39 @@ export default function Register() {
         value: item.id,
         key: item.id
     }))
+
+    async function upload() {
+        let localUri = image;
+        let filename = localUri.split('/').pop();
+        let match = /\.(\w+)$/.exec(filename);
+        let typefile = match ? `image/${match[1]}` : `image`;
+
+        // Upload the image using the fetch and FormData APIs
+        let formData = new FormData();
+        // Assume "photo" is the name of the form field the server expects
+        formData.append('name', 'avatar');
+        formData.append('image', { 
+            uri: localUri,             
+            type: typefile,
+            name: filename 
+        });
+
+        await fetch('http://192.168.0.108:3333/upload', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'multipart/form-data',
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(file => {
+            console.log("Upload")
+        })
+        .catch(error => {
+            console.log("Failed")
+        });
+    }
 
     return(
         <View style={styles.container}>
@@ -356,6 +389,11 @@ export default function Register() {
                         style={styles.buttonContentUserImage}
                         onPress={_takePhtoPickImage}>
                         <Text style={styles.textButtonContent}>Tirar Foto</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                        style={styles.buttonContentUserImage}
+                        onPress={upload}>
+                        <Text style={styles.textButtonContent}>Salvar Foto</Text>
                     </TouchableOpacity>
 
                     <Text style={styles.textHeaderSpeciality}>
