@@ -28,7 +28,7 @@ export default StyleSheet.create({
         top: 50,
         justifyContent: 'center',
         paddingHorizontal: 15,
-        paddingBottom: 250,
+        paddingBottom: 100,
     },
     inputContent: {
         height: 70,
@@ -47,7 +47,6 @@ export default StyleSheet.create({
         borderRadius: 10,
     },
     buttonRegister: {
-        top: 100,
         height: 50,
         backgroundColor: '#9b59b6',
         alignItems: 'center',
@@ -82,7 +81,6 @@ export default StyleSheet.create({
         color: '#FFF'
     },    
     footer: {
-        position: 'absolute',
         left: 0,
         right: 0,
         bottom: 0,

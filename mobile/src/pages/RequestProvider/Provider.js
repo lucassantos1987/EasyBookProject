@@ -24,7 +24,6 @@ export default function Provider() {
         setLoading(true);
         await api.get('provider_category_speciality', { params: { id_category: id_category, id_speciality: id_speciality } })
         .then(response => {
-            console.log(response.data);
             setProviders(response.data);
             setLoading(false);
         })
@@ -38,12 +37,8 @@ export default function Provider() {
         loadProviders();
     }, []);
 
-    function navigateToInfoProvider() {
-        navigation.navigate('InfoProvider');
-    }
-
-    function whatsapp (text) {
-        Linking.openURL(`https://api.whatsapp.com/send?phone=${text}`);
+    function navigateToInfoProvider(provider) {
+        navigation.navigate('InfoProvider', { provider });
     }
 
     function filterProviders(text) {
@@ -77,9 +72,9 @@ export default function Provider() {
             <FlatList
                 style={styles.listCategory}
                 data={providers}
-                keyExtractor={ provider => String(provider)}
+                keyExtractor={ provider => String(provider.id)}
                 renderItem={({ item: provider }) => (
-                    <ListItem>
+                    <ListItem onPress={() => navigateToInfoProvider(provider.id)}>
                         <Avatar 
                             size={"large"}
                             rounded={true}

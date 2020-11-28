@@ -2,7 +2,31 @@ const Knex = require('knex');
 const connection = require('../database/connection');
 const fetch = require('node-fetch');
 
-module.exports = {    
+module.exports = {   
+    
+    async index(request, response) {
+        const id_provider = request.query.id_provider;
+
+        const result = await connection('provider')
+        .select('name', 
+                'last_name', 
+                'address',
+                'number',
+                'district',
+                'city',
+                'state',
+                'zip_code',
+                'photo',
+                'prefix_whatsapp',
+                'whatsapp'
+        )
+        .modify(function(queryBuilder) {
+            queryBuilder.where('id', '=', id_provider);
+        })
+
+        return response.json(result);
+    }, 
+
     async create(request, response) {
         const {
             name,
@@ -64,22 +88,5 @@ module.exports = {
         trx.commit();
             
         return response.json({result});
-    },
-
-    async indexPhoto(request, response) {
-        const photo = "upload/1605320826069.jpg";
-        
-        const result = await fetch('http://192.168.0.108:3333/' + photo, {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                'Content-Type': 'application/json',                
-            },
-        });
-        
-        console.log(result);
-
-        return result;
     }
-
 }

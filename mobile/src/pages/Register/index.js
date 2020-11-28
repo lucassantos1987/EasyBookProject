@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Dimensions, ScrollView, Image, Alert, DevSettings } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, TouchableOpacity, TextInput, Dimensions, ScrollView, Image, Alert, DevSettings, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import * as ImagePicker from 'expo-image-picker';
 import { TextInputMask } from 'react-native-masked-text';
-import PasswordInputText from 'react-native-hide-show-password-input';
 import RNPickerSelect from 'react-native-picker-select';
 
 import styles from './style';
@@ -26,7 +25,6 @@ export default function Register() {
     const[latitude, setLatitude] = useState('');
     const[longitude, setLongitude] = useState('');
     const[obs, setObs] = useState('');
-    //const[photo, setPhoto, getPhoto] = useState('');
     const[image, setImage] = useState('');
     const[categories, setCategories] = useState([]);
     const[specialities, setSpecialities] = useState([]);
@@ -36,10 +34,19 @@ export default function Register() {
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
     const[loading, setLoading] = useState(false);
-    //const[success_upload, setSuccess_upload, getSuccess_upload] = useState(false);
+    const[msg_loading, setMsg_Loading] = useState('');
     const navigation = useNavigation();
 
+    const lastname_input = useRef();
+    const whatsapp_input = useRef();
+    const zipcode_input = useRef();
+    const number_input = useRef();
+    const username_input = useRef();
+    const email_input = useRef();
+    const password_input = useRef();
+
     useEffect(() => {
+        setMsg_Loading("Carregando...");
         loadCategories();
     }, []);
 
@@ -73,6 +80,7 @@ export default function Register() {
     }
 
     function getCep() {
+        setMsg_Loading("Carregando dados do Cep...");
         setLoading(true);
         if (zip_code != "") {
             i_cep.findCEP(zip_code)
@@ -84,6 +92,7 @@ export default function Register() {
                 setLatitude(response.lat);
                 setLongitude(response.lng);
                 setLoading(false);
+                number_input.current.focus();
             })
             .catch (error => {
                 setAddress('');
@@ -104,47 +113,54 @@ export default function Register() {
             setLongitude('');
             setLoading(false);
             Alert.alert("Digite o cep");
+            zipcode_input.current.focus();
         }
     }
 
-    async function handleRegister() {
-        
+    async function handleRegister() {        
         setLoading(true);
         var photo = "";
         var success_upload = false;
 
-        let localUri = image;
-        let filename = localUri.split('/').pop();
-        let match = /\.(\w+)$/.exec(filename);
-        let typefile = match ? `image/${match[1]}` : `image`;
+        if (image != '') {
 
-        // Upload the image using the fetch and FormData APIs
-        let formData = new FormData();
-        // Assume "photo" is the name of the form field the server expects
-        formData.append('name', 'avatar');
-        formData.append('image', { 
-            uri: localUri,             
-            type: typefile,
-            name: filename 
-        });
+            setMsg_Loading("Salvando foto...");
 
-        await fetch('http://192.168.0.108:3333/upload', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'multipart/form-data',
-            },
-            body: formData
-        })
-        .then(response => response.json())
-        .then(file => {
-            photo = file.file;
-            success_upload = file.success
-        })
-        .catch(error => {
-            success_upload = false;
-            console.log(error.message);
-        });
+            let localUri = image;
+            let filename = localUri.split('/').pop();
+            let match = /\.(\w+)$/.exec(filename);
+            let typefile = match ? `image/${match[1]}` : `image`;
+
+            // Upload the image using the fetch and FormData APIs
+            let formData = new FormData();
+            // Assume "photo" is the name of the form field the server expects
+            formData.append('name', 'avatar');
+            formData.append('image', { 
+                uri: localUri,             
+                type: typefile,
+                name: filename 
+            });
+
+            await fetch('http://192.168.0.108:3333/upload', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'multipart/form-data',
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(file => {
+                setLoading(false);
+                photo = file.file;
+                success_upload = file.success
+            })
+            .catch(error => {
+                setLoading(false);
+                success_upload = false;
+                console.log(error.message);
+            });
+        }
 
         const data = {
             name,
@@ -169,6 +185,9 @@ export default function Register() {
         };        
         
         if (success_upload) {
+            
+            setLoading(true);
+    
             if (name.trim() == '') {
                 Alert.alert("Digite seu Nome");
             } else if (last_name.trim() == '') {
@@ -204,6 +223,7 @@ export default function Register() {
                 });    
             }
         } else {
+            setLoading(false);
             Alert.alert("Não foi possível realizar o cadastro. Tente novamente.")
         }
     }
@@ -255,46 +275,13 @@ export default function Register() {
         key: item.id
     }))
 
-    async function upload() {
-        let localUri = image;
-        let filename = localUri.split('/').pop();
-        let match = /\.(\w+)$/.exec(filename);
-        let typefile = match ? `image/${match[1]}` : `image`;
-
-        // Upload the image using the fetch and FormData APIs
-        let formData = new FormData();
-        // Assume "photo" is the name of the form field the server expects
-        formData.append('name', 'avatar');
-        formData.append('image', { 
-            uri: localUri,             
-            type: typefile,
-            name: filename 
-        });
-
-        await fetch('http://192.168.0.108:3333/upload', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'multipart/form-data',
-            },
-            body: formData
-        })
-        .then(response => response.json())
-        .then(file => {
-            console.log("Upload")
-        })
-        .catch(error => {
-            console.log("Failed")
-        });
-    }
-
     return(
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
             <Spinner
                 visible={loading}
-                textContent={'Carregando...'}
+                textContent={msg_loading}
                 textStyle={styles.spinnerTextStyle}/>
-            <ScrollView style={styles.scrollView}>
+            <ScrollView>
                 <View style={styles.header}>
                     <Text style={styles.textHeader}>Informe seus dados</Text>
                 </View>
@@ -305,16 +292,22 @@ export default function Register() {
                         placeholder="Nome"
                         value={name}
                         onChangeText={(text) => setName(text)}
+                        onSubmitEditing={() => lastname_input.current.focus() }
+                        blurOnSubmit={false}
                         returnKeyType="next"/>
                     <TextInput
+                        ref={lastname_input}
                         style={styles.inputContent}
                         maxLength={20}
                         placeholder="Sobrenome"
                         value={last_name}
                         onChangeText={(text) => setLast_Name(text)}
+                        onSubmitEditing={() => whatsapp_input.current._inputElement.focus() }
+                        blurOnSubmit={false}
                         returnKeyType="next"/>
                     <TextInputMask
-                        style={styles.inputContent}
+                        ref={whatsapp_input}
+                        style={styles.inputContent}                        
                         type={"cel-phone"}
                         options={{
                             maskType: "BRL",
@@ -324,14 +317,18 @@ export default function Register() {
                         placeholder="Número WhatsApp (99) 99999-9999"
                         value={whatsapp}
                         onChangeText={(text) => setWhatsapp(text)}
+                        onSubmitEditing={() => zipcode_input.current.focus() }
                         returnKeyType="next"
+                        blurOnSubmit={false}
                         keyboardType={'numeric'}/>
                     <TextInput
+                        ref={zipcode_input}
                         style={styles.inputContent}
                         placeholder="Informe seu Cep"
                         value={zip_code}
                         onChangeText={(text) => setZip_Code(text)}
                         returnKeyType="next"
+                        blurOnSubmit={false}
                         keyboardType={'numeric'}
                         maxLength={8}/>
                     <TouchableOpacity
@@ -349,6 +346,7 @@ export default function Register() {
                         editable={false}
                         selectTextOnFocus={false}/>
                     <TextInput
+                        ref={number_input}
                         style={styles.inputContent}
                         placeholder="Número"
                         value={number}
@@ -390,12 +388,6 @@ export default function Register() {
                         onPress={_takePhtoPickImage}>
                         <Text style={styles.textButtonContent}>Tirar Foto</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity 
-                        style={styles.buttonContentUserImage}
-                        onPress={upload}>
-                        <Text style={styles.textButtonContent}>Salvar Foto</Text>
-                    </TouchableOpacity>
-
                     <Text style={styles.textHeaderSpeciality}>
                         Informe sua principal Especialidade.
                     </Text>
@@ -415,34 +407,44 @@ export default function Register() {
                         Registre seus dados de acesso
                     </Text>
                     <TextInput
+                        ref={username_input}
                         style={styles.inputContent}
                         placeholder="Digite seu nome de usuário"
                         value={username}
                         onChangeText={(text) => setUsername(text)}
+                        onSubmitEditing={() => email_input.current.focus() }
+                        blurOnSubmit={false}
+                        returnKeyType="next"
                         autoCapitalize="none"/>
                     <TextInput
+                        ref={email_input}
                         style={styles.inputContent}
                         placeholder="Digite seu Email"
                         value={email}
                         onChangeText={(text) => setEmail(text)}
+                        onSubmitEditing={() => password_input.current.focus()}
+                        blurOnSubmit={false}
+                        returnKeyType="next"
                         autoCapitalize="none"/>
-                    <PasswordInputText
+                    <TextInput
+                        ref={password_input}
+                        style={styles.inputContent}
                         placeholder="Digite sua senha"
                         value={password}
                         onChangeText={ (text) => setPassword(text) }
+                        secureTextEntry={true}                        
                     />
                 </View>
             </ScrollView>
             <View style={styles.footer}>
-                    <TouchableOpacity
-                        style={styles.buttonFooter}                        
-                        onPress={handleRegister}>
-                        <Text style={styles.textButtonContent}>
-                            Cadastrar
-                        </Text>
-                    </TouchableOpacity> 
-                </View>        
-
-        </View>
+                <TouchableOpacity
+                    style={styles.buttonFooter}                        
+                    onPress={handleRegister}>
+                    <Text style={styles.textButtonContent}>
+                           Cadastrar
+                    </Text>
+                </TouchableOpacity> 
+            </View>        
+        </KeyboardAvoidingView>
     );
 }

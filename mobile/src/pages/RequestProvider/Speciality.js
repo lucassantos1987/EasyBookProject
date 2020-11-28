@@ -17,8 +17,6 @@ export default function Speciality() {
 
     const id_category = route.params.category;
 
-    console.log(id_category);
-
     function navigateToProvider(category, speciality) {
         navigation.navigate('RequestProvider', { 
             category, 

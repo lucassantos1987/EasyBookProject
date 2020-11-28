@@ -3,23 +3,23 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 15,
-        backgroundColor: '#9b59b6',
-        justifyContent: 'center',
-        alignContent: 'center'
+        backgroundColor: '#9b59b6'
     },
     title: {
-        marginTop: -200,
+        top: 50,
+        paddingHorizontal: 15,
         justifyContent: 'center',
     },
     textTitle: {
         fontSize: 20,
         color: '#FFFFFF',
     },
-    localization: {
-        top: 30,
+    content: {
+        top: 100,
+        justifyContent: 'center',
+        paddingHorizontal: 15
     },
-    buttonLocalization: {
+    buttonContent: {
         backgroundColor: '#8e44ad',
         marginTop: 10,
         height: 50,
@@ -27,11 +27,11 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    textButtonLocalization: {
+    textButtonContent: {
         color: '#FFFFFF',
         fontSize: 17,
     },
-    inputLocalization: {
+    inputContent: {
         height: 50,
         marginTop: 10,
         backgroundColor: '#FFF',
@@ -44,7 +44,7 @@ export default StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        height: 160,
+        height: 60,
     },
     buttonToSearch: {
         alignItems: 'center',

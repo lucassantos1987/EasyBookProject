@@ -108,19 +108,49 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     info: {
-        marginTop: 10,
+        top: -30,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingHorizontal: 10
     },
     providerImg: {
-        width: 200,
-        height: 200,
-        borderRadius: 200/ 2,
+        top: -60,
+        width: 300,
+        height: 300,
+        borderRadius: 300/ 2,
     },
+    textInfoName: {
+        fontSize: 30,
+        fontWeight: 'bold',
+    },
+
     textInfo: {
-        fontSize: 20,
+        fontSize: 17,
     },
     spinnerTextStyle: {
         color: '#FFF'
-    },    
+    },
+    contacts: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height: 120,        
+    },
+    buttonContactsWhats: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 60,
+        backgroundColor: '#8e44ad',
+    },
+    buttonContactsFone: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 60,
+        backgroundColor: '#9b59b6',
+    },
+    textButtonContacts: {
+        color: '#FFFFFF',
+        fontSize: 17
+    },
 })

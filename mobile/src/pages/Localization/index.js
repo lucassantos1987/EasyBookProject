@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import styles from './style';
@@ -21,36 +21,26 @@ export default function Location() {
     }
 
     return(
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}>
             <View style={styles.title}>
                 <Text style={styles.textTitle}>Antes de solicitar o profissional, precisamos saber sua localização.</Text>
             </View>
-            <View style={styles.localization}>
-                <TouchableOpacity style={styles.buttonLocalization}>
-                    <Text style={styles.textButtonLocalization}>Informar Minha Localização</Text>
+            <View style={styles.content}>
+                <TouchableOpacity style={styles.buttonContent}>
+                    <Text style={styles.textButtonContent}>Informar Minha Localização</Text>
                 </TouchableOpacity>
-                <TextInput style={styles.inputLocalization}/>
-                <TextInput style={styles.inputLocalization}/>
-                <TextInput style={styles.inputLocalization}/>
-                <TextInput style={styles.inputLocalization}/>
+                <TextInput style={styles.inputContent}/>
+                <TextInput style={styles.inputContent}/>
+                <TextInput style={styles.inputContent}/>
+                <TextInput style={styles.inputContent}/>
             </View>
             <View style={styles.toSearch}>
-                <TouchableOpacity 
-                    style={styles.buttonRegister}
-                    onPress={navigateToRegister}>
-                    <Text style={styles.textButtonRegister}>Sou Profissional e não tenho cadastro. CLIQUE AQUI</Text>
-                </TouchableOpacity>
-                <TouchableOpacity 
-                    style={styles.buttonLogin}
-                    onPress={navigateToLogin}>
-                    <Text style={styles.textButtonRegister}>Sou Profissional, e tenho cadastro. CLIQUE AQUI</Text>
-                </TouchableOpacity>
                 <TouchableOpacity 
                     style={styles.buttonToSearch}
                     onPress={navigateToRequestCategory}>
                     <Text style={styles.textButtonToSearch}>Solicitar Profissional</Text>
                 </TouchableOpacity>
             </View>
-        </View> 
+        </KeyboardAvoidingView> 
     );
 }
