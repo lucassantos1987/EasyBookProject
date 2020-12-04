@@ -1,3 +1,4 @@
+const { restart } = require('nodemon');
 const connection = require('../database/connection');
 
 module.exports = {
@@ -15,5 +16,17 @@ module.exports = {
         });
 
         return response.json({ result });
+    },
+
+    async signin(request, response) {
+        const email = request.query.email;
+        const password = request.query.password;
+
+        const result = await connection('provider_user')
+        .select('id_provider', 'email', 'password')
+        .where('email', '=', email)
+        .andWhere('password', '=', password);
+
+        return response.json(result);
     }
 }

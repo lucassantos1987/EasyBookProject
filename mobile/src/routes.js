@@ -17,9 +17,9 @@ export default function Routes() {
     return(
         <NavigationContainer>
             <AppStatck.Navigator screenOptions={{ headerShown: false}}>
-                <AppStatck.Screen name="Register" component={Register}/>
-                <AppStatck.Screen name="Localization" component={Localization}/>
                 <AppStatck.Screen name="Login" component={Login}/>
+                <AppStatck.Screen name="Register" component={Register}/>
+                <AppStatck.Screen name="Localization" component={Localization}/>                
                 <AppStatck.Screen name="Menu" component={Menu}/>                
                 <AppStatck.Screen name="RequestCategory" component={RequestCategory}/>
                 <AppStatck.Screen name="RequestSpeciality" component={RequestSpeciality}/>

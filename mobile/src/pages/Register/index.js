@@ -407,16 +407,6 @@ export default function Register() {
                         Registre seus dados de acesso
                     </Text>
                     <TextInput
-                        ref={username_input}
-                        style={styles.inputContent}
-                        placeholder="Digite seu nome de usuário"
-                        value={username}
-                        onChangeText={(text) => setUsername(text)}
-                        onSubmitEditing={() => email_input.current.focus() }
-                        blurOnSubmit={false}
-                        returnKeyType="next"
-                        autoCapitalize="none"/>
-                    <TextInput
                         ref={email_input}
                         style={styles.inputContent}
                         placeholder="Digite seu Email"

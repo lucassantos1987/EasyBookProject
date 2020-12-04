@@ -17,6 +17,7 @@ routes.post('/speciality', SpecialityController.create);
 routes.post('/provider', ProviderController.create);
 routes.get('/provider', ProviderController.index);
 routes.post('/provider_user', ProviderUserController.create);
+routes.get('/provider_user', ProviderUserController.signin);
 
 routes.post('/provider_category_speciality', ProviderCategorySpecialityController.create);
 routes.get('/provider_category_speciality', ProviderCategorySpecialityController.index);
