@@ -1,6 +1,6 @@
 exports.up = function(knex) {
     return knex.schema.alterTable('provider', function(table) {
-        table.string('last_name', 20).notNullable();
+        table.string('last_name', 30).notNullable();
     })  
 };
 

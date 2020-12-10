@@ -23,7 +23,10 @@ module.exports = {
         const password = request.query.password;
 
         const result = await connection('provider_user')
-        .select('id_provider', 'email', 'password')
+        .select('id_provider', 
+                'email', 
+                'password'
+        )
         .where('email', '=', email)
         .andWhere('password', '=', password);
 

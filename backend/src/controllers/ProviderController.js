@@ -45,7 +45,6 @@ module.exports = {
             longitude,
             id_category,
             id_speciality,
-            username,
             email,
             password
         } = request.body;
@@ -53,8 +52,7 @@ module.exports = {
         const trx = await connection.transaction();
 
         const result = await trx('provider').insert({
-            name,
-            last_name,
+            name,            
             address,
             number,
             complement,
@@ -65,6 +63,7 @@ module.exports = {
             whatsapp,
             obs,
             photo,
+            last_name,
             latitude,
             longitude
         })
@@ -80,9 +79,8 @@ module.exports = {
 
         await trx('provider_user').insert({
             id_provider,            
-            username,
-            email,
-            password
+            password,
+            email
         });
 
         trx.commit();

@@ -141,7 +141,7 @@ export default function Register() {
                 name: filename 
             });
 
-            await fetch('http://192.168.0.108:3333/upload', {
+            await fetch('http://192.168.0.108:3333/photosprofileeasybook', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -179,7 +179,6 @@ export default function Register() {
             longitude,
             id_category,
             id_speciality,
-            username,
             email,
             password
         };        
@@ -204,13 +203,14 @@ export default function Register() {
                 Alert.alert("Selecione sua(s) Categoria(s)");
             } else if (id_speciality == '') {
                 Alert.alert('Selecione sua(s) Especiadade(s)');
-            } else if (username.trim() == '') {
-                Alert.alert('Digite seu Nome de Usuário');
             } else if (email.trim() == '') {
                 Alert.alert("Digite seu Email");
             } else if (password.trim() == '') {
                 Alert.alert("Digite sua Senha");
             } else {
+
+                console.log('Aqui');
+
                 await api.post('provider', data)
                 .then(function(response) {
                     console.log(response.data.result[0]);
@@ -224,7 +224,7 @@ export default function Register() {
             }
         } else {
             setLoading(false);
-            Alert.alert("Não foi possível realizar o cadastro. Tente novamente.")
+            Alert.alert("Não foi possível realizar o cadastro.")
         }
     }
 

@@ -10,7 +10,7 @@ const { response } = require('express');
 //var upload = multer({ dest: '/upload' });
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/upload');
+        cb(null, '/photosprofileeasybook');
     },
     filename: function (req, file, cb) {
         let ext = '';
@@ -21,7 +21,7 @@ var storage = multer.diskStorage({
 })
 
 var upload = multer({ storage: storage });
-var uploadFolder = path.join(__dirname, '..', '..', '..', 'upload');
+var uploadFolder = path.join(__dirname, '..', '..', '..', 'photosprofileeasybook');
 
 const port = 3333;
 const app = express();
@@ -30,9 +30,9 @@ app.use(express.json());
 app.use(routes);
 app.use(cors());
 
-app.use('/upload', express.static(uploadFolder));
+app.use('/photosprofileeasybook', express.static(uploadFolder));
 
-app.post('/upload', upload.single('image'), async (req, res) => {
+app.post('/photosprofileeasybook', upload.single('image'), async (req, res) => {
     const { filename: file } = req.file;
 
     if (file) {

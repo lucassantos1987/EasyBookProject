@@ -9,7 +9,6 @@ exports.up = function(knex) {
         table.string('city', 60).notNullable();
         table.string('state', 2).notNullable();
         table.string('zip_code', 8).notNullable();
-        table.string('email', 100).notNullable();
         table.string('whatsapp', 15).notNullable();
         table.string('obs');
     });

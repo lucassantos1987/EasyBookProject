@@ -12,7 +12,7 @@ module.exports = {
       database: 'easybook',
       user:     'postgres',
       password: 'postgres',
-      port: 5433
+      port: 5432
     },
     pool: {
       min: 2,

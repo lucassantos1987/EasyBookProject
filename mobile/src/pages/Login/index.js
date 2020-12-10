@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { View, TouchableOpacity, TextInput, Text, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { AsyncStorage } from '@react-native-community/async-storage';
+import  AsyncStorage  from '@react-native-community/async-storage';
 
 import logo from '../../assets/logoLogin.png';
 import api from '../../services/api';
@@ -27,7 +27,7 @@ export default function Login() {
     }
 
     function setId_Provider_Session(value) {
-        AsyncStorage.setItem('id_provider', value);
+        AsyncStorage.setItem('id_provider', String(value));
     }
 
     function setEmail_Session(value) {
@@ -39,26 +39,30 @@ export default function Login() {
     }
 
     async function sigin() {
-        console.log(email);
-        console.log(password);
-        await api.get('provider_user', { params: { email: email, password: password } })
-        .then(response => {
-                var dataS = JSON.stringify(response.data);
-                var dataP = JSON.parse(dataS);
-                var data = dataP[0];
+        if (email != '' && password != '') {
+            await api.get('provider_user', { params: { email: email, password: password } })
+            .then(response => {
 
-                console.log("Aqui" + data.id_provider);
-
-                setId_Provider_Session(data.id_provider);
-                setEmail_Session(data.email);
-                setPassword_Session(data.password);
+                if (response.data != '') {
+                    var dataS = JSON.stringify(response.data);
+                    var dataP = JSON.parse(dataS);
+                    var data = dataP[0];
     
-                Alert.alert("Usuario existe");    
-
-        })
-        .catch(error => {
-            console.log(error);
-        })
+                    setId_Provider_Session(data.id_provider);
+                    setEmail_Session(data.email);
+                    setPassword_Session(data.password);
+            
+                    Alert.alert("Usuario existe");    
+                } else {
+                    Alert.alert("Usuário não existe.");
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        } else {
+            Alert.alert("Preencha os campos corretamente.");
+        }
     }
 
     return(
@@ -69,7 +73,6 @@ export default function Login() {
                 <TextInput
                         ref={email_input}
                         style={styles.loginInput}
-                        maxLength={20}
                         placeholder="Digite seu email..."
                         value={email}
                         onChangeText={(text) => setEmail(text)}
@@ -88,13 +91,27 @@ export default function Login() {
                         returnKeyType="go"
                         autoCapitalize="none"
                         secureTextEntry
-                />                
+                />
+
             </View>
-            <TouchableOpacity 
-                style={styles.buttonLogin}
-                onPress={sigin}>
-                <Text style={styles.textButtonLogin}>Login</Text>
-            </TouchableOpacity>
+            <TouchableOpacity
+                    style={styles.buttonRegister}
+                    onPress={navigateToRegister}>
+                    <Text style={styles.textButtonRegister}>
+                           Sou PROFISSIONAL e não tenho cadastro. CLIQUE AQUI
+                    </Text>
+            </TouchableOpacity> 
+
+
+            <View style={styles.containerLogin}>
+                <TouchableOpacity
+                    style={styles.buttonLogin}
+                    onPress={sigin}>
+                    <Text style={styles.textButtonLogin}>
+                        Login
+                    </Text>
+                </TouchableOpacity> 
+            </View>
         </View>
     );
 }
