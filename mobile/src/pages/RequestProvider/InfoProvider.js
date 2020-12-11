@@ -41,7 +41,7 @@ export default function InfoProvider() {
             setCity(data.city);
             setState(data.state);
             setWhatsapp(data.prefix_whatsapp + " " + data.whatsapp);
-            setImage('http://192.168.0.108:3333/upload/resized/' + data.photo);
+            setImage('http://192.168.0.108:3333/photosprofileeasybook/resized/' + data.photo);
         }).catch(error => {
             setLoading(false);
             Alert.alert(error);

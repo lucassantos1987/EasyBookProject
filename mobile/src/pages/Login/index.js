@@ -52,7 +52,7 @@ export default function Login() {
                     setEmail_Session(data.email);
                     setPassword_Session(data.password);
             
-                    Alert.alert("Usuario existe");    
+                    navigateToMenu();
                 } else {
                     Alert.alert("Usuário não existe.");
                 }
@@ -101,8 +101,6 @@ export default function Login() {
                            Sou PROFISSIONAL e não tenho cadastro. CLIQUE AQUI
                     </Text>
             </TouchableOpacity> 
-
-
             <View style={styles.containerLogin}>
                 <TouchableOpacity
                     style={styles.buttonLogin}
