@@ -60,5 +60,5 @@ export default StyleSheet.create({
     },
     spinnerTextStyle: {
         color: '#FFF'
-    },
+    }
 });

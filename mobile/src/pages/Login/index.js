@@ -5,7 +5,7 @@ import  AsyncStorage  from '@react-native-community/async-storage';
 
 import logo from '../../assets/logoLogin.png';
 import api from '../../services/api';
-import styles from './styles';
+import styles from './style';
 
 export default function Login() {
 
