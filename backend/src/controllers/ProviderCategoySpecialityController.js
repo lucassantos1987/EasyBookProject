@@ -32,5 +32,17 @@ module.exports = {
         .andWhere('speciality.id', '=', filterSpeciality);
 
         return response.json(data);
+    },
+
+    async listCatgorySpecialityProvider(request, response) {
+        const id_povider = request.query.id_provier;
+
+        const data = await connection('provider_category_speciality')
+        .join('category', 'category.id', 'provider_category_speciality.id_category')
+        .join('speciality', 'speciality.id', 'provider_category_speciality.id_speciality')
+        .select('category.name', 'speciality.name')
+        .where('provider_category_speciality.id_provider' , '=', id_povider);
+
+        return response.json(data);
     }
 }
