@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { TextInputMask } from 'react-native-masked-text';
 import AsyncStorage from '@react-native-community/async-storage';
+import { ConfirmDialog } from 'react-native-simple-dialogs';
 
 import styles from './style';
 import api from '../../services/api';
@@ -28,6 +29,7 @@ export default function DataProvider() {
     const [msg_loading, setMsg_Loading] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [dialog_visible, setDialog_Visible] = useState(false);
 
     const lastname_input = useRef();
     const whatsapp_input = useRef();
@@ -109,27 +111,26 @@ export default function DataProvider() {
         }
     }
 
+    function confirmUhandleRegister() {
+        setDialog_Visible(true);
+    }
+
     async function handleRegister() {
         setLoading(true);
+        const id = await AsyncStorage.getItem('id_provider');
         const data = {
+            id,
             name,
             last_name,
             address,
             number,
-            complement,
             district,
             city,
             state,
             zip_code,
             whatsapp,
-            obs,
-            photo,
             latitude,
-            longitude,
-            id_category,
-            id_speciality,
-            email,
-            password
+            longitude
         };
 
         if (name.trim() == '') {
@@ -142,29 +143,19 @@ export default function DataProvider() {
             Alert.alert("Digite seu Cep");
         } else if (number.trim() == '') {
             Alert.alert("Dígite o Número de Endereço");
-        } else if (image == '') {
-            Alert.alert("Selecione sua Foto");
-        } else if (id_category == '') {
-            Alert.alert("Selecione sua(s) Categoria(s)");
-        } else if (id_speciality == '') {
-            Alert.alert('Selecione sua(s) Especiadade(s)');
-        } else if (email.trim() == '') {
-            Alert.alert("Digite seu Email");
-        } else if (password.trim() == '') {
-            Alert.alert("Digite sua Senha");
         } else {
 
             console.log('Aqui');
 
-            await api.post('provider', data)
-                .then(function (response) {
-                    console.log(response.data.result[0]);
+            await api.post('provider_update', data)
+                .then(function () {
                     setLoading(false);
-                    Alert.alert("Cadastro realizado com sucesso.");
-                    /*navigation.navigate('Localization');*/
+                    setDialog_Visible(false);
+                    Alert.alert("Dados alterados com sucesso.");
                 }).catch(function (error) {
                     setLoading(false);
-                    Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
+                    setDialog_Visible(false);
+                    Alert.alert("Não foi possível alterar seus dados. Tente novamente." + error.message);
                 });
         }
 
@@ -176,6 +167,20 @@ export default function DataProvider() {
                 visible={loading}
                 textContent={msg_loading}
                 textStyle={styles.spinnerTextStyle} />
+            <ConfirmDialog
+                title="Confirmação"
+                message="Confirma a atualização do seu cadastro?"
+                visible={dialog_visible}
+                onTouchOutside={() => setDialog_Visible(false)}
+                positiveButton={{
+                    title: "SIM",
+                    onPress: () => handleRegister()
+                }}
+                negativeButton={{
+                    title: "NÃO",
+                    onPress: () => setDialog_Visible(false)
+                }}
+            />
             <ScrollView>
                 <View style={styles.header}>
                     <Text style={styles.textHeader}>Meus Dados</Text>
@@ -272,7 +277,7 @@ export default function DataProvider() {
             <View style={styles.footer}>
                 <TouchableOpacity
                     style={styles.buttonFooter}
-                    onPress={handleRegister}>
+                    onPress={confirmUhandleRegister}>
                     <Text style={styles.textButtonContent}>
                         Atualizar Meus Dados
                     </Text>

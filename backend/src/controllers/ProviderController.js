@@ -86,5 +86,55 @@ module.exports = {
         trx.commit();
             
         return response.json({result});
+    },
+
+    async updateData(request, response) {
+        const {
+            id,
+            name,
+            last_name,
+            address,
+            number,
+            district,
+            city,
+            state,
+            zip_code,            
+            whatsapp,
+            latitude,
+            longitude
+        } = request.body;
+
+        await connection('provider')
+        .where({ id: id})
+        .update({ 
+            name: name,
+            last_name: last_name,
+            address: address,
+            number: number,
+            district: district,
+            city: city,
+            state: state,
+            zip_code: zip_code,
+            whatsapp: whatsapp,
+            latitude: latitude,
+            longitude: longitude
+        })
+        .then(u => response.status( !!u ? 200:404 ).json( {success:!!u} ))
+        .catch(e => response.status(500).json(e));
+    },
+
+    async updatePhoto(request, response) {
+        const {
+            id,
+            photo
+        } = request.body;
+
+        await connection('provider')
+        .where({ id: id})
+        .update({
+            photo: photo
+        })
+        .then(u => response.status( !!u ? 200:404 ).json( {success:!!u} ))
+        .catch(e => response.status(500).json(e));
     }
 }
