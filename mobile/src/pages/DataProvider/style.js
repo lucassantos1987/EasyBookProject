@@ -96,4 +96,7 @@ export default StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 17
     },
+    list: {
+        marginTop: 80,
+    }
 })

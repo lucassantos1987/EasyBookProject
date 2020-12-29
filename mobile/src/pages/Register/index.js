@@ -11,30 +11,30 @@ import api from '../../services/api';
 const i_cep = require('awesome-cep');
 
 export default function Register() {
-    const[name, setName] = useState('');
-    const[last_name, setLast_Name] = useState('');
-    const[whatsapp, setWhatsapp] = useState('');
-    const[prefix_whatsapp, setPrefix_WhatsApp] = useState('+55');
-    const[zip_code, setZip_Code] = useState('');
-    const[address, setAddress] = useState('');
-    const[number, setNumber] = useState('');
-    const[complement, setComplement] = useState('');
-    const[district, setDistrict] = useState('');
-    const[city, setCity] = useState('');
-    const[state, setState] = useState('');
-    const[latitude, setLatitude] = useState('');
-    const[longitude, setLongitude] = useState('');
-    const[obs, setObs] = useState('');
-    const[image, setImage] = useState('');
-    const[categories, setCategories] = useState([]);
-    const[specialities, setSpecialities] = useState([]);
-    const[id_category, setId_Category] = useState('');
-    const[id_speciality, setId_Speciality] = useState('');    
-    const[username, setUsername] = useState('');
-    const[email, setEmail] = useState('');
-    const[password, setPassword] = useState('');
-    const[loading, setLoading] = useState(false);
-    const[msg_loading, setMsg_Loading] = useState('');
+    const [name, setName] = useState('');
+    const [last_name, setLast_Name] = useState('');
+    const [whatsapp, setWhatsapp] = useState('');
+    const [prefix_whatsapp, setPrefix_WhatsApp] = useState('+55');
+    const [zip_code, setZip_Code] = useState('');
+    const [address, setAddress] = useState('');
+    const [number, setNumber] = useState('');
+    const [complement, setComplement] = useState('');
+    const [district, setDistrict] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
+    const [obs, setObs] = useState('');
+    const [image, setImage] = useState('');
+    const [categories, setCategories] = useState([]);
+    const [specialities, setSpecialities] = useState([]);
+    const [id_category, setId_Category] = useState('');
+    const [id_speciality, setId_Speciality] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [msg_loading, setMsg_Loading] = useState('');
     const navigation = useNavigation();
 
     const lastname_input = useRef();
@@ -50,33 +50,33 @@ export default function Register() {
         loadCategories();
     }, []);
 
-    async function loadCategories() {       
-        setLoading(true);        
+    async function loadCategories() {
+        setLoading(true);
         await api.get('category')
-        .then(response => {
-            setCategories(response.data);
-            setLoading(false);        
-        })
-        .catch(error => {
-            setLoading(false);
-            Alert.alert(error.message);
-        });
+            .then(response => {
+                setCategories(response.data);
+                setLoading(false);
+            })
+            .catch(error => {
+                setLoading(false);
+                Alert.alert(error.message);
+            });
     }
 
-    async function loadSpecialities(value) {        
+    async function loadSpecialities(value) {
         const id_category = value;
         setId_Category(value);
 
         setLoading(true);
         await api.get('speciality', { params: { id_category: id_category } })
-        .then(response => {
-            setSpecialities(response.data);
-            setLoading(false);    
-        })
-        .catch(error => {
-            setLoading(false);
-            Alert.alert(error.message);
-        });
+            .then(response => {
+                setSpecialities(response.data);
+                setLoading(false);
+            })
+            .catch(error => {
+                setLoading(false);
+                Alert.alert(error.message);
+            });
     }
 
     function getCep() {
@@ -84,26 +84,26 @@ export default function Register() {
         setLoading(true);
         if (zip_code != "") {
             i_cep.findCEP(zip_code)
-            .then(response => {
-                setAddress(response.address_type + " " + response.address_name);
-                setDistrict(response.district);
-                setCity(response.city);
-                setState(response.state);
-                setLatitude(response.lat);
-                setLongitude(response.lng);
-                setLoading(false);
-                number_input.current.focus();
-            })
-            .catch (error => {
-                setAddress('');
-                setDistrict('');
-                setCity('');
-                setState('');
-                setLatitude('');
-                setLongitude('');
-                setLoading(false);
-                Alert.alert(error.message);
-            });
+                .then(response => {
+                    setAddress(response.address_type + " " + response.address_name);
+                    setDistrict(response.district);
+                    setCity(response.city);
+                    setState(response.state);
+                    setLatitude(response.lat);
+                    setLongitude(response.lng);
+                    setLoading(false);
+                    number_input.current.focus();
+                })
+                .catch(error => {
+                    setAddress('');
+                    setDistrict('');
+                    setCity('');
+                    setState('');
+                    setLatitude('');
+                    setLongitude('');
+                    setLoading(false);
+                    Alert.alert(error.message);
+                });
         } else {
             setAddress('');
             setDistrict('');
@@ -117,7 +117,7 @@ export default function Register() {
         }
     }
 
-    async function handleRegister() {        
+    async function handleRegister() {
         setLoading(true);
         var photo = "";
         var success_upload = false;
@@ -135,10 +135,10 @@ export default function Register() {
             let formData = new FormData();
             // Assume "photo" is the name of the form field the server expects
             formData.append('name', 'avatar');
-            formData.append('image', { 
-                uri: localUri,             
+            formData.append('image', {
+                uri: localUri,
                 type: typefile,
-                name: filename 
+                name: filename
             });
 
             await fetch('http://192.168.0.108:3333/photosprofileeasybook', {
@@ -149,17 +149,17 @@ export default function Register() {
                 },
                 body: formData
             })
-            .then(response => response.json())
-            .then(file => {
-                setLoading(false);
-                photo = file.file;
-                success_upload = file.success
-            })
-            .catch(error => {
-                setLoading(false);
-                success_upload = false;
-                console.log(error.message);
-            });
+                .then(response => response.json())
+                .then(file => {
+                    setLoading(false);
+                    photo = file.file;
+                    success_upload = file.success
+                })
+                .catch(error => {
+                    setLoading(false);
+                    success_upload = false;
+                    console.log(error.message);
+                });
         }
 
         const data = {
@@ -171,7 +171,7 @@ export default function Register() {
             district,
             city,
             state,
-            zip_code,            
+            zip_code,
             whatsapp,
             obs,
             photo,
@@ -181,12 +181,12 @@ export default function Register() {
             id_speciality,
             email,
             password
-        };        
-        
+        };
+
         if (success_upload) {
-            
+
             setLoading(true);
-    
+
             if (name.trim() == '') {
                 Alert.alert("Digite seu Nome");
             } else if (last_name.trim() == '') {
@@ -212,15 +212,15 @@ export default function Register() {
                 console.log('Aqui');
 
                 await api.post('provider', data)
-                .then(function(response) {
-                    console.log(response.data.result[0]);
-                    setLoading(false);
-                    Alert.alert("Cadastro realizado com sucesso.");
-                    /*navigation.navigate('Localization');*/
-                }).catch(function(error) {
-                    setLoading(false);
-                    Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
-                });    
+                    .then(function (response) {
+                        console.log(response.data.result[0]);
+                        setLoading(false);
+                        Alert.alert("Cadastro realizado com sucesso.");
+                        /*navigation.navigate('Localization');*/
+                    }).catch(function (error) {
+                        setLoading(false);
+                        Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
+                    });
             }
         } else {
             setLoading(false);
@@ -235,15 +235,15 @@ export default function Register() {
             aspect: [3, 4],
             quality: 1,
         })
-        .then((response) => {
-            if (!response.cancelled) {
-                setImage(response.uri);
-                console.log(image);
-            }
-        })
-        .catch(error => {
-            console.log(error.message);
-        });
+            .then((response) => {
+                if (!response.cancelled) {
+                    setImage(response.uri);
+                    console.log(image);
+                }
+            })
+            .catch(error => {
+                console.log(error.message);
+            });
     }
 
     async function _takePhtoPickImage() {
@@ -252,15 +252,15 @@ export default function Register() {
             aspect: [3, 4],
             quality: 1
         })
-        .then((response) => {
-            if (!response.cancelled) {
-                setImage(response.uri);
-                console.log(image);
-            }
-        })
-        .catch(error => {
-            console.log(error.message);
-        });
+            .then((response) => {
+                if (!response.cancelled) {
+                    setImage(response.uri);
+                    console.log(image);
+                }
+            })
+            .catch(error => {
+                console.log(error.message);
+            });
     }
 
     const dataListCategories = categories.map(item => ({
@@ -275,12 +275,12 @@ export default function Register() {
         key: item.id
     }))
 
-    return(
+    return (
         <KeyboardAvoidingView style={styles.container}>
             <Spinner
                 visible={loading}
                 textContent={msg_loading}
-                textStyle={styles.spinnerTextStyle}/>
+                textStyle={styles.spinnerTextStyle} />
             <ScrollView>
                 <View style={styles.header}>
                     <Text style={styles.textHeader}>Informe seus dados</Text>
@@ -292,9 +292,9 @@ export default function Register() {
                         placeholder="Nome"
                         value={name}
                         onChangeText={(text) => setName(text)}
-                        onSubmitEditing={() => lastname_input.current.focus() }
+                        onSubmitEditing={() => lastname_input.current.focus()}
                         blurOnSubmit={false}
-                        returnKeyType="next"/>
+                        returnKeyType="next" />
                     <TextInput
                         ref={lastname_input}
                         style={styles.inputContent}
@@ -302,12 +302,12 @@ export default function Register() {
                         placeholder="Sobrenome"
                         value={last_name}
                         onChangeText={(text) => setLast_Name(text)}
-                        onSubmitEditing={() => whatsapp_input.current._inputElement.focus() }
+                        onSubmitEditing={() => whatsapp_input.current._inputElement.focus()}
                         blurOnSubmit={false}
-                        returnKeyType="next"/>
+                        returnKeyType="next" />
                     <TextInputMask
                         ref={whatsapp_input}
-                        style={styles.inputContent}                        
+                        style={styles.inputContent}
                         type={"cel-phone"}
                         options={{
                             maskType: "BRL",
@@ -317,10 +317,10 @@ export default function Register() {
                         placeholder="Número WhatsApp (99) 99999-9999"
                         value={whatsapp}
                         onChangeText={(text) => setWhatsapp(text)}
-                        onSubmitEditing={() => zipcode_input.current.focus() }
+                        onSubmitEditing={() => zipcode_input.current.focus()}
                         returnKeyType="next"
                         blurOnSubmit={false}
-                        keyboardType={'numeric'}/>
+                        keyboardType={'numeric'} />
                     <TextInput
                         ref={zipcode_input}
                         style={styles.inputContent}
@@ -330,7 +330,7 @@ export default function Register() {
                         returnKeyType="next"
                         blurOnSubmit={false}
                         keyboardType={'numeric'}
-                        maxLength={8}/>
+                        maxLength={8} />
                     <TouchableOpacity
                         style={styles.buttonContent}
                         onPress={getCep}>
@@ -344,46 +344,46 @@ export default function Register() {
                         value={address}
                         onChangeText={(text) => setAddress(text)}
                         editable={false}
-                        selectTextOnFocus={false}/>
+                        selectTextOnFocus={false} />
                     <TextInput
                         ref={number_input}
                         style={styles.inputContent}
                         placeholder="Número"
                         value={number}
-                        onChangeText={(text) => setNumber(text)}/>
+                        onChangeText={(text) => setNumber(text)} />
                     <TextInput
                         style={styles.inputContent}
                         placeholder="Bairro"
                         value={district}
                         onChangeText={(text) => setDistrict(text)}
                         editable={false}
-                        selectTextOnFocus={false}/>    
+                        selectTextOnFocus={false} />
                     <TextInput
                         style={styles.inputContent}
                         placeholder="Cidade"
                         value={city}
                         onChangeText={(text) => setCity(text)}
                         editable={false}
-                        selectTextOnFocus={false}/>
+                        selectTextOnFocus={false} />
                     <TextInput
                         style={styles.inputContent}
                         placeholder="Estado"
                         value={state}
                         onChangeText={(text) => setState(text)}
                         editable={false}
-                        selectTextOnFocus={false}/>
+                        selectTextOnFocus={false} />
                     <View style={styles.user}>
                         <Text style={{ top: -20, fontSize: 18 }}>
                             Agora selecione uma foto para que os clientes identifique você.
                         </Text>
-                        <Image source={ image == '' ? require('../../assets/user2.jpg') : { uri: image }} style={styles.imageUser}/>
-                    </View>    
-                    <TouchableOpacity 
+                        <Image source={image == '' ? require('../../assets/user2.jpg') : { uri: image }} style={styles.imageUser} />
+                    </View>
+                    <TouchableOpacity
                         style={styles.buttonContentUserImage}
                         onPress={_pickImage}>
                         <Text style={styles.textButtonContent}>Selecionar Foto</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         style={styles.buttonContentUserImage}
                         onPress={_takePhtoPickImage}>
                         <Text style={styles.textButtonContent}>Tirar Foto</Text>
@@ -415,26 +415,26 @@ export default function Register() {
                         onSubmitEditing={() => password_input.current.focus()}
                         blurOnSubmit={false}
                         returnKeyType="next"
-                        autoCapitalize="none"/>
+                        autoCapitalize="none" />
                     <TextInput
                         ref={password_input}
                         style={styles.inputContent}
                         placeholder="Digite sua senha"
                         value={password}
-                        onChangeText={ (text) => setPassword(text) }
-                        secureTextEntry={true}                        
+                        onChangeText={(text) => setPassword(text)}
+                        secureTextEntry={true}
                     />
                 </View>
             </ScrollView>
             <View style={styles.footer}>
                 <TouchableOpacity
-                    style={styles.buttonFooter}                        
+                    style={styles.buttonFooter}
                     onPress={handleRegister}>
                     <Text style={styles.textButtonContent}>
-                           Cadastrar
+                        Cadastrar
                     </Text>
-                </TouchableOpacity> 
-            </View>        
+                </TouchableOpacity>
+            </View>
         </KeyboardAvoidingView>
     );
 }

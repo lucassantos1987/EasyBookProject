@@ -62,6 +62,10 @@ export default function Menu() {
         navigation.navigate('DataProvider');
     }
 
+    function navigateToMyCategoriesSpecialities() {
+        navigation.navigate('CategoriesSpecialities');
+    }
+
     function showOptionsPhoto() {
         bottom_sheet.current.open();
     }
@@ -145,6 +149,7 @@ export default function Menu() {
                     setLoading(false);
                     success_upload = false;
                     console.log(error.message);
+                    Alert.alert(error.message);
                     setImage(originalPhoto);
                 });
 
@@ -163,6 +168,7 @@ export default function Menu() {
                     }).catch(function (error) {
                         setLoading(false);
                         setDialog_Visible(false);
+                        Alert.alert(error.message);
                     });
             }
 
@@ -329,7 +335,9 @@ export default function Menu() {
                     onPress={navigateToDataProvider}>
                     <Text style={styles.textButtonMenu}>Meus Dados</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonMenuMySpeciality}>
+                <TouchableOpacity
+                    style={styles.buttonMenuMySpeciality}
+                    onPress={navigateToMyCategoriesSpecialities}>
                     <Text style={styles.textButtonMenu}>Minhas Especialidades</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
