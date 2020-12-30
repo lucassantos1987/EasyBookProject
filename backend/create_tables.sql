@@ -145,4 +145,22 @@ CREATE TABLE public.provider_category_speciality
 TABLESPACE pg_default;
 
 ALTER TABLE public.provider_category_speciality
-    OWNER to postgres;                    
+    OWNER to postgres;
+    
+create table customer(
+	id serial primary key not null,
+	first_name character varying(30),
+	last_name character varying(30),
+   	whatsapp character varying(15) NOT null,
+   	prefix_whatsapp character varying DEFAULT '+55'::character varying,
+   	photo character varying(255) COLLATE pg_catalog."default" NOT NULL
+)
+
+create table customer_user(
+	id serial primary key not null,
+	id_customer integer not null,
+	email character varying(100) not null,
+	password character varying(30) not null,
+	constraint fk_customer foreign key (id_customer)
+		references customer (id)
+)

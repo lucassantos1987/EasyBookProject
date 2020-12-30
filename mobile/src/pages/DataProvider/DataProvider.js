@@ -67,6 +67,7 @@ export default function DataProvider() {
                 setDistrict(data.district);
                 setCity(data.city);
                 setState(data.state);
+                setObs(data.obs);
             }).catch(error => {
                 setLoading(false);
                 Alert.alert(error);
@@ -130,7 +131,8 @@ export default function DataProvider() {
             zip_code,
             whatsapp,
             latitude,
-            longitude
+            longitude,
+            obs
         };
 
         if (name.trim() == '') {
@@ -272,6 +274,13 @@ export default function DataProvider() {
                         onChangeText={(text) => setState(text)}
                         editable={false}
                         selectTextOnFocus={false} />
+                    <TextInput
+                        style={styles.inputObs}
+                        multiline
+                        numberOfLines={10}
+                        value={obs}
+                        onChangeText={(text) => setObs(text)} />
+
                 </View>
             </ScrollView>
             <View style={styles.footer}>

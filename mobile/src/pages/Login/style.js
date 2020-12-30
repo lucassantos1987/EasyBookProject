@@ -36,9 +36,22 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        top: 20,
+        top: 50,
+    },
+    buttonRegisterCustomer: {
+        backgroundColor: '#9b59b6',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        top: 70,
     },
     textButtonRegister: {
+        fontSize: 16,
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    textLabel: {
         fontSize: 16,
         color: 'white',
         fontWeight: 'bold',

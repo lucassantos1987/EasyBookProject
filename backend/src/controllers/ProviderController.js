@@ -18,7 +18,8 @@ module.exports = {
                 'zip_code',
                 'photo',
                 'prefix_whatsapp',
-                'whatsapp'
+                'whatsapp',
+                'obs'
         )
         .modify(function(queryBuilder) {
             queryBuilder.where('id', '=', id_provider);
@@ -101,7 +102,8 @@ module.exports = {
             zip_code,            
             whatsapp,
             latitude,
-            longitude
+            longitude,
+            obs
         } = request.body;
 
         await connection('provider')
@@ -117,7 +119,8 @@ module.exports = {
             zip_code: zip_code,
             whatsapp: whatsapp,
             latitude: latitude,
-            longitude: longitude
+            longitude: longitude,
+            obs: obs
         })
         .then(u => response.status( !!u ? 200:404 ).json( {success:!!u} ))
         .catch(e => response.status(500).json(e));

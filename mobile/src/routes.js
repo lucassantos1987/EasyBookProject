@@ -10,25 +10,27 @@ import Menu from './pages/Menu';
 import DataProvider from './pages/DataProvider/DataProvider';
 import CategoriesSpecialities from './pages/DataProvider/CategorySpecialityProvider';
 import Register from './pages/Register';
+import RegisterCustomer from './pages/RegisterCustomer';
 import RequestCategory from './pages/RequestProvider/Category';
 import RequestSpeciality from './pages/RequestProvider/Speciality';
 import RequestProvider from './pages/RequestProvider/Provider';
 import InfoProvider from './pages/RequestProvider/InfoProvider';
 
 export default function Routes() {
-    return(
+    return (
         <NavigationContainer>
-            <AppStatck.Navigator screenOptions={{ headerShown: false}}>
-                <AppStatck.Screen name="Login" component={Login}/>
-                <AppStatck.Screen name="Register" component={Register}/>
-                <AppStatck.Screen name="Localization" component={Localization}/>
-                <AppStatck.Screen name="Menu" component={Menu}/>
-                <AppStatck.Screen name="DataProvider" component={DataProvider}/>
-                <AppStatck.Screen name="CategoriesSpecialities" component={CategoriesSpecialities}/>
-                <AppStatck.Screen name="RequestCategory" component={RequestCategory}/>
-                <AppStatck.Screen name="RequestSpeciality" component={RequestSpeciality}/>
-                <AppStatck.Screen name="RequestProvider" component={RequestProvider}/>
-                <AppStatck.Screen name="InfoProvider" component={InfoProvider}/>
+            <AppStatck.Navigator screenOptions={{ headerShown: false }}>
+                <AppStatck.Screen name="Login" component={Login} />
+                <AppStatck.Screen name="Register" component={Register} />
+                <AppStatck.Screen name="RegisterCustomer" component={RegisterCustomer} />
+                <AppStatck.Screen name="Localization" component={Localization} />
+                <AppStatck.Screen name="Menu" component={Menu} />
+                <AppStatck.Screen name="DataProvider" component={DataProvider} />
+                <AppStatck.Screen name="CategoriesSpecialities" component={CategoriesSpecialities} />
+                <AppStatck.Screen name="RequestCategory" component={RequestCategory} />
+                <AppStatck.Screen name="RequestSpeciality" component={RequestSpeciality} />
+                <AppStatck.Screen name="RequestProvider" component={RequestProvider} />
+                <AppStatck.Screen name="InfoProvider" component={InfoProvider} />
             </AppStatck.Navigator>
         </NavigationContainer>
     );

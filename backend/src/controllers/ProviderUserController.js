@@ -23,12 +23,12 @@ module.exports = {
         const password = request.query.password;
 
         const result = await connection('provider_user')
-        .select('id_provider', 
-                'email', 
+            .select('id_provider',
+                'email',
                 'password'
-        )
-        .where('email', '=', email)
-        .andWhere('password', '=', password);
+            )
+            .where('email', '=', email)
+            .andWhere('password', '=', password);
 
         return response.json(result);
     }

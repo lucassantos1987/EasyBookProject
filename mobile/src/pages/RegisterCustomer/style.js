@@ -19,8 +19,14 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         paddingBottom: 15
     },
+    textHeaderJob: {
+        marginTop: 10,
+        fontSize: 20,
+        fontWeight: 'bold',
+        paddingBottom: 15
+    },
     textHeaderUser: {
-        marginTop: 20,
+        marginTop: 70,
         fontSize: 20,
         fontWeight: 'bold'
     },
@@ -39,7 +45,7 @@ export default StyleSheet.create({
         paddingLeft: 10
     },
     inputObs: {
-        marginTop: 40,
+        marginTop: 10,
         borderColor : '#9b59b6',
         borderWidth: 1,
         borderRadius: 10,
@@ -105,7 +111,4 @@ export default StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 17
     },
-    list: {
-        marginTop: 80,
-    }
 })
