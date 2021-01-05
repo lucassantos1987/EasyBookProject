@@ -23,8 +23,7 @@ routes.post('/provider_update', ProviderController.updateData);
 routes.post('/provider_update_photo', ProviderController.updatePhoto);
 routes.post('/provider_user', ProviderUserController.create);
 routes.get('/provider_user', ProviderUserController.signin);
-routes.get('/provider_category_speciality', ProviderCategorySpecialityController.listCatgorySpecialityProvider);
-routes.post('/provider_category_speciality', ProviderCategorySpecialityController.create);
+routes.get('/provider_category_speciality_list', ProviderCategorySpecialityController.listCatgorySpecialityProvider);
 routes.post('/provider_category_speciality', ProviderCategorySpecialityController.create);
 routes.get('/provider_category_speciality', ProviderCategorySpecialityController.index);
 
