@@ -2,6 +2,24 @@ const Knex = require('knex');
 const connection = require('../database/connection');
 
 module.exports = {
+
+    async index(request, response) {
+        const id_customer = request.query.id_customer;
+
+        const result = await connection('customer')
+        .select('first_name', 
+                'last_name', 
+                'photo',
+                'prefix_whatsapp',
+                'whatsapp'
+        )
+        .modify(function(queryBuilder) {
+            queryBuilder.where('id', '=', id_customer);
+        })
+
+        return response.json(result);
+    }, 
+
     async create(request, response) {
         const {
             first_name,
@@ -35,4 +53,38 @@ module.exports = {
         return response.json({result});
     },
 
+    async updateData(request, response) {
+        const {
+            id,
+            first_name,
+            last_name,
+            whatsapp
+        } = request.body;
+
+        await connection('customer')
+        .where({ id: id})
+        .update({ 
+            first_name: first_name,
+            last_name: last_name,
+            whatsapp: whatsapp
+        })
+        .then(u => response.status( !!u ? 200:404 ).json( {success:!!u} ))
+        .catch(e => response.status(500).json(e));
+    },
+
+    async updatePhoto(request, response) {
+        const {
+            id,
+            photo
+        } = request.body;
+
+        await connection('customer')
+        .where({ id: id})
+        .update({
+            photo: photo
+        })
+        .then(u => response.status( !!u ? 200:404 ).json( {success:!!u} ))
+        .catch(e => response.status(500).json(e));
+    }
+    
 }

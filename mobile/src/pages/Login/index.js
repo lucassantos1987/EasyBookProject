@@ -32,6 +32,10 @@ export default function Login() {
         navigation.navigate('Menu');
     }
 
+    function navigateToMenuCustomer() {
+        navigation.navigate('MenuCustomer');
+    }
+
     function setId_Provider_Session(value) {
         AsyncStorage.setItem('id_provider', String(value));
     }
@@ -85,7 +89,7 @@ export default function Login() {
                             setEmail_Session(data.email);
                             setPassword_Session(data.password);
 
-                            navigateToMenu();
+                            navigateToMenuCustomer();
                         } else {
                             Alert.alert("Usuário não existe.");
                         }
@@ -93,6 +97,8 @@ export default function Login() {
                     .catch(error => {
                         console.log(error);
                     })
+            } else {
+                Alert.alert("Usuário não encontrado.");
             }
         } else {
             Alert.alert("Preencha os campos corretamente.");

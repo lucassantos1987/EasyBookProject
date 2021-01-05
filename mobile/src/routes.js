@@ -7,7 +7,9 @@ const AppStatck = createStackNavigator();
 import Localization from './pages/Localization';
 import Login from './pages/Login';
 import Menu from './pages/Menu';
+import MenuCustomer from './pages/MenuCustomer';
 import DataProvider from './pages/DataProvider/DataProvider';
+import DataCustomer from './pages/DataCustomer';
 import CategoriesSpecialities from './pages/DataProvider/CategorySpecialityProvider';
 import Register from './pages/Register';
 import RegisterCustomer from './pages/RegisterCustomer';
@@ -25,7 +27,9 @@ export default function Routes() {
                 <AppStatck.Screen name="RegisterCustomer" component={RegisterCustomer} />
                 <AppStatck.Screen name="Localization" component={Localization} />
                 <AppStatck.Screen name="Menu" component={Menu} />
+                <AppStatck.Screen name="MenuCustomer" component={MenuCustomer} />
                 <AppStatck.Screen name="DataProvider" component={DataProvider} />
+                <AppStatck.Screen name="DataCustomer" component={DataCustomer} />
                 <AppStatck.Screen name="CategoriesSpecialities" component={CategoriesSpecialities} />
                 <AppStatck.Screen name="RequestCategory" component={RequestCategory} />
                 <AppStatck.Screen name="RequestSpeciality" component={RequestSpeciality} />

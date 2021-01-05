@@ -20,16 +20,18 @@ routes.post('/speciality', SpecialityController.create);
 routes.get('/provider', ProviderController.index);
 routes.post('/provider', ProviderController.create);
 routes.post('/provider_update', ProviderController.updateData);
-routes.post('/provider_update_photo', ProviderController.updatePhoto)
+routes.post('/provider_update_photo', ProviderController.updatePhoto);
 routes.post('/provider_user', ProviderUserController.create);
 routes.get('/provider_user', ProviderUserController.signin);
 routes.get('/provider_category_speciality', ProviderCategorySpecialityController.listCatgorySpecialityProvider);
 routes.post('/provider_category_speciality', ProviderCategorySpecialityController.create);
-
 routes.post('/provider_category_speciality', ProviderCategorySpecialityController.create);
 routes.get('/provider_category_speciality', ProviderCategorySpecialityController.index);
 
+routes.get('/customer', CustomerController.index);
 routes.post('/customer', CustomerController.create);
+routes.post('/customer_update', CustomerController.updateData);
+routes.post('/customer_update_photo', CustomerController.updatePhoto);
 routes.get('/customer_user', CustomerUserController.signin);
 
 module.exports = routes;
