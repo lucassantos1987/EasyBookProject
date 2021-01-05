@@ -9,6 +9,7 @@ export default StyleSheet.create({
         alignContent: 'center'
     },
     login: {
+        top: -20,
         left: 0,
         right: 0,
         bottom: 0,
@@ -36,14 +37,14 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        top: 50,
+        top: 15,
     },
     buttonRegisterCustomer: {
         backgroundColor: '#9b59b6',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        top: 70,
+        top: 30,
     },
     textButtonRegister: {
         fontSize: 16,

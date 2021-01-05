@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Feather }  from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { View, Text, FlatList, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
@@ -11,9 +11,9 @@ import styles from './styles';
 
 export default function Category() {
 
-    const[categories, setCategories] = useState([]);
-    const[filterName, setFilterName] = useState([]);
-    const[loading, setLoading] = useState(false);
+    const [categories, setCategories] = useState([]);
+    const [filterName, setFilterName] = useState([]);
+    const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
 
     function navigateToSpeciality(category) {
@@ -21,11 +21,11 @@ export default function Category() {
     }
 
     async function loadCategories() {
-            setLoading(true);
-            await api.get('category')
+        setLoading(true);
+        await api.get('category')
             .then(response => {
                 setCategories(response.data);
-                setLoading(false);        
+                setLoading(false);
             })
             .catch(error => {
                 Alert.alert(error);
@@ -39,7 +39,7 @@ export default function Category() {
     function filterCategories(text) {
         const newData = categories.filter(item => {
             const itemData = `${item.id} ${item.name}`;
-            const textData= text;
+            const textData = text;
             return itemData.indexOf(textData) > -1;
         });
 
@@ -50,7 +50,7 @@ export default function Category() {
         }
     }
 
-    return(
+    return (
         <View style={styles.container}>
             <Spinner
                 visible={loading}
@@ -59,10 +59,16 @@ export default function Category() {
             />
             <View style={styles.header}>
                 <Text style={styles.textHeader}>Selecione a Categoria</Text>
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                    style={styles.buttonHeaderBack}>
+                    <Text style={styles.textButtonHeaderBack}>VOLTAR</Text>
+                </TouchableOpacity>
+
                 <TextInput
                     style={styles.inputSearch}
                     onChangeText={(text) => filterCategories(text)}
-                    placeholder="Digite aqui para pesquisar a categoria..."/>
+                    placeholder="Digite aqui para pesquisar a categoria..." />
             </View>
             <FlatList
                 style={styles.listCategory}
@@ -71,11 +77,11 @@ export default function Category() {
                 renderItem={({ item: category }) => (
                     <ListItem onPress={() => navigateToSpeciality(category.id)}>
                         <ListItem.Content>
-                            <ListItem.Title>                                
-                                { category.name }
+                            <ListItem.Title>
+                                {category.name}
                             </ListItem.Title>
                             <ListItem.Subtitle>
-                                { "Clique para ver as especialidades" }
+                                {"Clique para ver as especialidades"}
                             </ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>

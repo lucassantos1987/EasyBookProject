@@ -6,8 +6,8 @@ export default StyleSheet.create({
     },
     header: {
         top: 50,
-        justifyContent: 'center',
-        paddingHorizontal: 15
+        paddingHorizontal: 15,
+        flexDirection: 'row'
     },
     textHeader: {
         fontSize: 30,
@@ -23,6 +23,18 @@ export default StyleSheet.create({
         marginTop: 20,
         fontSize: 20,
         fontWeight: 'bold'
+    },
+    buttonHeaderBack: {
+        position: 'absolute',
+        alignContent: 'center',
+        justifyContent: 'center',
+        top: 10,
+        right: 15
+    },
+    textButtonHeaderBack: {
+        fontWeight: 'bold',
+        color: '#9b59b6',
+        fontSize: 17,
     },
     content: {
         top: 50,

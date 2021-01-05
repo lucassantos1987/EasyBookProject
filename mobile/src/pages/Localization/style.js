@@ -5,8 +5,30 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: '#9b59b6'
     },
-    title: {
+    header: {
         top: 50,
+        justifyContent: 'center',
+        paddingHorizontal: 15
+    },
+    textHeader: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#FFF'
+    },
+    buttonHeaderBack: {
+        position: 'absolute',
+        alignContent: 'center',
+        justifyContent: 'center',
+        top: 11,
+        right: 15
+    },
+    textButtonHeaderBack: {
+        fontWeight: 'bold',
+        color: '#FFF',
+        fontSize: 15,
+    },
+    title: {
+        top: 90,
         paddingHorizontal: 15,
         justifyContent: 'center',
     },

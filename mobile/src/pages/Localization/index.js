@@ -20,8 +20,16 @@ export default function Location() {
         navigation.navigate('Login');
     }
 
-    return(
+    return (
         <KeyboardAvoidingView style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.textHeader}>Pesquisar Serviços</Text>
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                    style={styles.buttonHeaderBack}>
+                    <Text style={styles.textButtonHeaderBack}>VOLTAR</Text>
+                </TouchableOpacity>
+            </View>
             <View style={styles.title}>
                 <Text style={styles.textTitle}>Antes de solicitar o profissional, precisamos saber sua localização.</Text>
             </View>
@@ -29,18 +37,18 @@ export default function Location() {
                 <TouchableOpacity style={styles.buttonContent}>
                     <Text style={styles.textButtonContent}>Informar Minha Localização</Text>
                 </TouchableOpacity>
-                <TextInput style={styles.inputContent}/>
-                <TextInput style={styles.inputContent}/>
-                <TextInput style={styles.inputContent}/>
-                <TextInput style={styles.inputContent}/>
+                <TextInput style={styles.inputContent} />
+                <TextInput style={styles.inputContent} />
+                <TextInput style={styles.inputContent} />
+                <TextInput style={styles.inputContent} />
             </View>
             <View style={styles.toSearch}>
-                <TouchableOpacity 
+                <TouchableOpacity
                     style={styles.buttonToSearch}
                     onPress={navigateToRequestCategory}>
-                    <Text style={styles.textButtonToSearch}>Solicitar Profissional</Text>
+                    <Text style={styles.textButtonToSearch}>Pesquisar Profissionais</Text>
                 </TouchableOpacity>
             </View>
-        </KeyboardAvoidingView> 
+        </KeyboardAvoidingView>
     );
 }

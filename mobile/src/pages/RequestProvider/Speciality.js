@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Feather }  from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { View, Text, FlatList, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -10,16 +10,16 @@ import api from '../../services/api';
 
 export default function Speciality() {
 
-    const[specialities, setSpecialities] = useState([]);
-    const[loading, setLoading] = useState(false);
+    const [specialities, setSpecialities] = useState([]);
+    const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
     const route = useRoute();
 
     const id_category = route.params.category;
 
     function navigateToProvider(category, speciality) {
-        navigation.navigate('RequestProvider', { 
-            category, 
+        navigation.navigate('RequestProvider', {
+            category,
             speciality,
         });
     }
@@ -27,14 +27,14 @@ export default function Speciality() {
     async function loadSpecialities() {
         setLoading(true);
         await api.get('speciality', { params: { id_category: id_category } })
-        .then(response => {
-            setSpecialities(response.data);
-            setLoading(false);    
-        })
-        .catch(error => {
-            setLoading(false);
-            Alert.alert(error);
-        });
+            .then(response => {
+                setSpecialities(response.data);
+                setLoading(false);
+            })
+            .catch(error => {
+                setLoading(false);
+                Alert.alert(error);
+            });
     }
 
     useEffect(() => {
@@ -44,7 +44,7 @@ export default function Speciality() {
     function filterSpecialities(text) {
         const newData = specialities.filter(item => {
             const itemData = `${item.id} ${item.name}`;
-            const textData= text;
+            const textData = text;
             return itemData.indexOf(textData) > -1;
         });
 
@@ -55,7 +55,7 @@ export default function Speciality() {
         }
     }
 
-    return(
+    return (
         <View style={styles.container}>
             <Spinner
                 visible={loading}
@@ -64,10 +64,16 @@ export default function Speciality() {
             />
             <View style={styles.header}>
                 <Text style={styles.textHeader}>Selecione a Especialidade</Text>
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                    style={styles.buttonHeaderBack}>
+                    <Text style={styles.textButtonHeaderBack}>VOLTAR</Text>
+                </TouchableOpacity>
+
                 <TextInput
                     style={styles.inputSearch}
                     onChangeText={(text) => filterSpecialities(text)}
-                    placeholder="Digite aqui para pesquisar a especialidade..."/>
+                    placeholder="Digite aqui para pesquisar a especialidade..." />
             </View>
             <FlatList
                 style={styles.listCategory}
@@ -76,11 +82,11 @@ export default function Speciality() {
                 renderItem={({ item: speciality }) => (
                     <ListItem onPress={() => navigateToProvider(speciality.id_category, speciality.id)}>
                         <ListItem.Content>
-                            <ListItem.Title>                                
-                                { speciality.name }
+                            <ListItem.Title>
+                                {speciality.name}
                             </ListItem.Title>
                             <ListItem.Subtitle>
-                                { "Clique para ver os profissionais" }
+                                {"Clique para ver os profissionais"}
                             </ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>

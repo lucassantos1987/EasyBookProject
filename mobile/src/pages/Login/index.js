@@ -142,6 +142,7 @@ export default function Login() {
         <View style={styles.container}>
             <View style={styles.login}>
                 <View style={{ alignItems: 'center' }}>
+                    <Image source={require('../../assets/logoLogin.png')} />
                 </View>
                 <TextInput
                     ref={email_input}
@@ -178,21 +179,22 @@ export default function Login() {
                         ]}
                     />
                 </View>
+                <TouchableOpacity
+                    style={styles.buttonRegister}
+                    onPress={navigateToRegister}>
+                    <Text style={styles.textButtonRegister}>
+                        Sou PROFISSIONAL e não tenho cadastro. CLIQUE AQUI
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.buttonRegisterCustomer}
+                    onPress={navigateToRegisterCustomer}>
+                    <Text style={styles.textButtonRegister}>
+                        Procuro por serviços e não tenho cadastro. CLIQUE AQUI
+                    </Text>
+                </TouchableOpacity>
+
             </View>
-            <TouchableOpacity
-                style={styles.buttonRegister}
-                onPress={navigateToRegister}>
-                <Text style={styles.textButtonRegister}>
-                    Sou PROFISSIONAL e não tenho cadastro. CLIQUE AQUI
-                    </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.buttonRegisterCustomer}
-                onPress={navigateToRegisterCustomer}>
-                <Text style={styles.textButtonRegister}>
-                    Procuro por serviços e não tenho cadastro. CLIQUE AQUI
-                    </Text>
-            </TouchableOpacity>
             <View style={styles.containerLogin}>
                 <TouchableOpacity
                     style={styles.buttonLogin}

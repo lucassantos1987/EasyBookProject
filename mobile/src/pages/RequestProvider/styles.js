@@ -13,6 +13,34 @@ export default StyleSheet.create({
         alignContent: 'center'
     },
     header: {
+        top: 50,
+        justifyContent: 'center',
+        paddingHorizontal: 15
+    },
+    textHeader: {
+        fontSize: 21,
+        fontWeight: 'bold',
+        color: '#FFF'
+    },
+    buttonHeaderBack: {
+        position: 'absolute',
+        alignContent: 'center',
+        justifyContent: 'center',
+        top: 7,
+        right: 15
+    },
+    textButtonHeaderBack: {
+        fontWeight: 'bold',
+        color: '#FFF',
+        fontSize: 13,
+    },
+    textButtonHeaderBackInfoProvider: {
+        fontWeight: 'bold',
+        color: '#9b59b6',
+        fontSize: 13,
+    },
+
+    /*header: {
         top: 80,
         justifyContent: 'center',
         paddingHorizontal: 15,
@@ -22,7 +50,7 @@ export default StyleSheet.create({
         marginTop: -60,
         fontSize: 20,
         color: '#FFF'
-    },
+    },*/
     inputSearch: {
         top: 20,
         height: 50,
@@ -31,7 +59,7 @@ export default StyleSheet.create({
         padding: 10,
     },
     listCategory: {
-        marginTop: 80,
+        marginTop: 100,
     },
     category: {
         backgroundColor: '#FFF',
@@ -104,20 +132,20 @@ export default StyleSheet.create({
         borderRadius: 100/2
     },
     infoContainer: {
+        marginTop: 60,
         justifyContent: 'center',
         alignItems: 'center'
     },
     info: {
-        top: -30,
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 10
     },
     providerImg: {
-        top: -60,
-        width: 300,
-        height: 300,
-        borderRadius: 300/ 2,
+        top: 0,
+        width: 200,
+        height: 200,
+        borderRadius: 200/ 2,
     },
     textInfoName: {
         fontSize: 30,
@@ -125,6 +153,12 @@ export default StyleSheet.create({
     },
 
     textInfo: {
+        top: 0,
+        fontSize: 17,
+    },
+    textInfoObs: {
+        top: 20,
+        fontWeight: 'bold',
         fontSize: 17,
     },
     spinnerTextStyle: {
@@ -135,7 +169,7 @@ export default StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        height: 120,        
+        height: 120,
     },
     buttonContactsWhats: {
         alignItems: 'center',
@@ -153,4 +187,15 @@ export default StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 17
     },
+    inputObs: {
+        paddingVertical: 30,
+        marginTop: 30,
+        borderTopColor : '#9b59b6',
+        borderTopWidth: 1,
+        fontSize: 16,
+        padding: 10,
+        textAlignVertical: 'top',
+        fontWeight: 'bold'
+    },
+
 })

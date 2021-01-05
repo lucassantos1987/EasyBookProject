@@ -326,9 +326,9 @@ export default function MenuCustomer() {
             </View>
             <View style={styles.containerMenuButtons}>
                 <TouchableOpacity
-                    style={styles.buttonMenuMyPhoto}
-                    onPress={showOptionsPhoto}>
-                    <Text style={styles.textButtonMenu}>Alterar Minha Foto</Text>
+                    style={styles.buttonMenuMySpeciality}
+                    onPress={navigateToLocalization}>
+                    <Text style={styles.textButtonMenu}>Pesquisar Serviços</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonMenuMyData}
@@ -336,9 +336,9 @@ export default function MenuCustomer() {
                     <Text style={styles.textButtonMenu}>Meus Dados</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.buttonMenuMySpeciality}
-                    onPress={navigateToLocalization}>
-                    <Text style={styles.textButtonMenu}>Solicitar Serviços</Text>
+                    style={styles.buttonMenuMyPhoto}
+                    onPress={showOptionsPhoto}>
+                    <Text style={styles.textButtonMenu}>Alterar Minha Foto</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={confirmLogout}

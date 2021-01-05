@@ -33,7 +33,7 @@ export default StyleSheet.create({
     textUser: {
         color: '#FFF',
         fontSize: 25,
-        marginTop: 10
+        marginTop: 30
     },
     buttonMenuMyPhoto: {
         backgroundColor: '#8c37ab',
@@ -56,7 +56,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     buttonMenuLogout: {
-        backgroundColor: '#8e4da8',
+        backgroundColor: '#842ea3',
         height: 60,
         alignItems: 'center',
         justifyContent: 'center'
