@@ -17,6 +17,11 @@ export default StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 15
     },
+    headerInfoProvider: {
+        top: -130,
+        justifyContent: 'center',
+        paddingHorizontal: 15
+    },
     textHeader: {
         fontSize: 21,
         fontWeight: 'bold',
@@ -132,17 +137,18 @@ export default StyleSheet.create({
         borderRadius: 100/2
     },
     infoContainer: {
-        marginTop: 60,
+        top: 0,
         justifyContent: 'center',
         alignItems: 'center'
     },
     info: {
+        top: -30,
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 10
     },
     providerImg: {
-        top: 0,
+        top: -60,
         width: 200,
         height: 200,
         borderRadius: 200/ 2,
@@ -153,7 +159,7 @@ export default StyleSheet.create({
     },
 
     textInfo: {
-        top: 0,
+        top: 15,
         fontSize: 17,
     },
     textInfoObs: {

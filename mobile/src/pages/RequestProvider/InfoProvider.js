@@ -62,40 +62,30 @@ export default function InfoProvider() {
     }
 
     return (
-        <View>
-            <ScrollView>
-                <View style={styles.containerInfo}>
-                    <Spinner
-                        visible={loading}
-                        textContent={'Carregando Dados...'}
-                        textStyle={styles.spinnerTextStyle}
-                    />
-                <View style={styles.header}>
-                    <TouchableOpacity 
-                        onPress={() => navigation.goBack()}
-                        style={styles.buttonHeaderBack}>
-                        <Text style={styles.textButtonHeaderBackInfoProvider}>VOLTAR</Text>
-                    </TouchableOpacity>
+        <View style={styles.containerInfo}>
+            <Spinner
+                visible={loading}
+                textContent={'Carregando Dados...'}
+                textStyle={styles.spinnerTextStyle}
+            />
+            <View style={styles.headerInfoProvider}>
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                    style={styles.buttonHeaderBack}>
+                    <Text style={styles.textButtonHeaderBackInfoProvider}>VOLTAR</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.infoContainer}>
+                <Image source={image == '' ? require('../../assets/user2.jpg') : { uri: image }} style={styles.providerImg} />
+
+                <View style={styles.info}>
+                    <Text style={styles.textInfoName}>{name}</Text>
+                    <Text style={styles.textInfo}>{address}</Text>
+                    <Text style={styles.textInfo}>{district}</Text>
+                    <Text style={styles.textInfo}>{city + " - " + state}</Text>
+
                 </View>
-                    <View style={styles.infoContainer}>
-                        <Image source={image == '' ? require('../../assets/user2.jpg') : { uri: image }} style={styles.providerImg} />
-
-                        <Text style={styles.textInfoName}>{name}</Text>
-                        <Text style={styles.textInfo}>{address}</Text>
-                        <Text style={styles.textInfo}>{district}</Text>
-                        <Text style={styles.textInfo}>{city + " - " + state}</Text>
-
-                        <TextInput
-                        style={styles.inputObs}
-                        multiline
-                        numberOfLines={20}
-                        value={obs}
-                        editable={false}/>
-
-
-                    </View>
-                </View>
-            </ScrollView>
+            </View>
             <View style={styles.contacts}>
                 <TouchableOpacity
                     style={styles.buttonContactsWhats}
@@ -108,6 +98,7 @@ export default function InfoProvider() {
                     <Text style={styles.textButtonContacts}>Telefone</Text>
                 </TouchableOpacity>
             </View>
+
         </View>
     );
 }
