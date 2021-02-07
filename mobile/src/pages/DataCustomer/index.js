@@ -9,8 +9,6 @@ import { ConfirmDialog } from 'react-native-simple-dialogs';
 import styles from './style';
 import api from '../../services/api';
 
-const i_cep = require('awesome-cep');
-
 export default function DataCustomer() {
     const [first_name, setName] = useState('');
     const [last_name, setLast_Name] = useState('');
@@ -112,7 +110,7 @@ export default function DataCustomer() {
             <ScrollView>
                 <View style={styles.header}>
                     <Text style={styles.textHeader}>Meus Dados</Text>
-                    <TouchableOpacity 
+                    <TouchableOpacity
                         onPress={() => navigation.goBack()}
                         style={styles.buttonHeaderBack}>
                         <Text style={styles.textButtonHeaderBack}>VOLTAR</Text>
@@ -154,7 +152,7 @@ export default function DataCustomer() {
                         returnKeyType="next"
                         blurOnSubmit={false}
                         keyboardType={'numeric'} />
-               </View>
+                </View>
             </ScrollView>
             <View style={styles.footer}>
                 <TouchableOpacity

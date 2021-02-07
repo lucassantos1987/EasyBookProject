@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { View, FlatList, Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { ListItem, Avatar } from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -20,6 +21,8 @@ export default function CategorySpecialityProvider() {
     const [loading, setLoading] = useState(false);
 
     const bottom_sheet = useRef();
+
+    const navigation = useNavigation();
 
     useEffect(() => {
         loadCategoriesSpecialities();
@@ -61,7 +64,7 @@ export default function CategorySpecialityProvider() {
 
         const id_provider = await AsyncStorage.getItem('id_provider');
 
-        await api('provider_category_speciality', { params: { id_provider: id_provider } })
+        await api('provider_category_speciality_list', { params: { id_provider: id_provider } })
             .then(response => {
                 setLoading(false);
                 setCategories_specialities(response.data);
@@ -160,6 +163,12 @@ export default function CategorySpecialityProvider() {
 
             <View style={styles.header}>
                 <Text style={styles.textHeader}>Minhas Especialidades</Text>
+                <TouchableOpacity 
+                        onPress={() => navigation.goBack()}
+                        style={styles.buttonHeaderBack}>
+                        <Text style={styles.textButtonHeaderBack}>VOLTAR</Text>
+                    </TouchableOpacity>
+
             </View>
             <FlatList
                 style={styles.list}
