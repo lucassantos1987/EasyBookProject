@@ -14,7 +14,9 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [type_user, setType_user] = useState('');
+
     const navigation = useNavigation();
+
     const email_input = useRef();
     const password_input = useRef();
 
