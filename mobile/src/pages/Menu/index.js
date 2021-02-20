@@ -325,10 +325,10 @@ export default function Menu() {
                 </View>
             </View>
             <View style={styles.containerMenuButtons}>
-                <TouchableOpacity
-                    style={styles.buttonMenuMyPhoto}
-                    onPress={showOptionsPhoto}>
-                    <Text style={styles.textButtonMenu}>Alterar Minha Foto</Text>
+            <TouchableOpacity
+                    style={styles.buttonMenuMySpeciality}
+                    onPress={navigateToMyCategoriesSpecialities}>
+                    <Text style={styles.textButtonMenu}>Minhas Especialidades</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonMenuMyData}
@@ -336,9 +336,9 @@ export default function Menu() {
                     <Text style={styles.textButtonMenu}>Meus Dados</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.buttonMenuMySpeciality}
-                    onPress={navigateToMyCategoriesSpecialities}>
-                    <Text style={styles.textButtonMenu}>Minhas Especialidades</Text>
+                    style={styles.buttonMenuMyPhoto}
+                    onPress={showOptionsPhoto}>
+                    <Text style={styles.textButtonMenu}>Alterar Minha Foto</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={confirmLogout}

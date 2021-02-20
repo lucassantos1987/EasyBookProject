@@ -284,6 +284,11 @@ export default function Register() {
             <ScrollView>
                 <View style={styles.header}>
                     <Text style={styles.textHeader}>Informe seus dados</Text>
+                    <TouchableOpacity
+                        onPress={() => navigation.goBack()}
+                        style={styles.buttonHeaderBack}>
+                        <Text style={styles.textButtonHeaderBack}>VOLTAR</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.content}>
                     <TextInput
@@ -402,13 +407,6 @@ export default function Register() {
                         onValueChange={(value) => setId_Speciality(value)}
                         items={dataListSpecialities}
                     />
-                    <Text style={styles.textHeaderJob}>Conte-nos um pouco mais sobre seu trabalho.</Text>
-                    <TextInput
-                        style={styles.inputObs}
-                        multiline
-                        numberOfLines={10}
-                        value={obs}
-                        onChangeText={(text) => setObs(text)}/>
                     <Text style={styles.textHeaderUser}>
                         Registre seus dados de acesso
                     </Text>

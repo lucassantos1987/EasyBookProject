@@ -186,6 +186,11 @@ export default function DataProvider() {
             <ScrollView>
                 <View style={styles.header}>
                     <Text style={styles.textHeader}>Meus Dados</Text>
+                    <TouchableOpacity
+                        onPress={() => navigation.goBack()}
+                        style={styles.buttonHeaderBack}>
+                        <Text style={styles.textButtonHeaderBack}>VOLTAR</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.content}>
                     <TextInput

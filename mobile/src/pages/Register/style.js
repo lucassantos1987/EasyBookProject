@@ -10,7 +10,7 @@ export default StyleSheet.create({
         paddingHorizontal: 15
     },
     textHeader: {
-        fontSize: 30,
+        fontSize: 28,
         fontWeight: 'bold'
     },
     textHeaderSpeciality: {
@@ -29,6 +29,18 @@ export default StyleSheet.create({
         marginTop: 20,
         fontSize: 20,
         fontWeight: 'bold'
+    },
+    buttonHeaderBack: {
+        position: 'absolute',
+        alignContent: 'center',
+        justifyContent: 'center',
+        top: 10,
+        right: 15
+    },
+    textButtonHeaderBack: {
+        fontWeight: 'bold',
+        color: '#9b59b6',
+        fontSize: 15,
     },
     content: {
         top: 50,
