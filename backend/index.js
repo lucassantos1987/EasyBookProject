@@ -7,10 +7,16 @@ const path = require('path');
 const fs = require('fs');
 const { response } = require('express');
 
-//var upload = multer({ dest: '/upload' });
+const port = 3333;
+const app = express();
+
+app.use(express.json());
+app.use(routes);
+app.use(cors());
+
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/photosprofileeasybook');
+        cb(null, '../../../photosprofileeasybook');
     },
     filename: function (req, file, cb) {
         let ext = '';
@@ -21,14 +27,8 @@ var storage = multer.diskStorage({
 })
 
 var upload = multer({ storage: storage });
+
 var uploadFolder = path.join(__dirname, '..', '..', '..', 'photosprofileeasybook');
-
-const port = 3333;
-const app = express();
-
-app.use(express.json());
-app.use(routes);
-app.use(cors());
 
 app.use('/photosprofileeasybook', express.static(uploadFolder));
 
@@ -67,25 +67,5 @@ app.post('/photosprofileeasybook', upload.single('image'), async (req, res) => {
         });
     }
 })
-
-/*
-app.use(function(req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET,HEAD,OPTIONS,POST,PUT,DELETE"
-    );
-    res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Origin,Cache-Control,Accept,X-Access-Token ,X-Requested-With, Content-Type, Access-Control-Request-Method"
-    );
-    if (req.method === "OPTIONS") {
-        return res.status(200).end();
-    }
-    next();
-});
-
-*/ 
 
 app.listen(port, () => console.log("Backend executando na porta: " + port));
