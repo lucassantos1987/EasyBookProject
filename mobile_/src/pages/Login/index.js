@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { View, TouchableOpacity, TextInput, Text, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import DropDownPicker from 'react-native-dropdown-picker';
+import AsyncStorage from '@react-native-community/async-storage';
+import RNPickerSelect from 'react-native-picker-select';
 
+import logo from '../../assets/logoLogin.png';
 import api from '../../services/api';
 import styles from './style';
 
@@ -11,6 +12,7 @@ export default function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
     const [type_user, setType_user] = useState('');
 
     const navigation = useNavigation();
@@ -50,12 +52,7 @@ export default function Login() {
         AsyncStorage.setItem('id_customer', String(value));
     }
 
-    function onChangeTypeUser(value) {
-        setType_user(value);
-    }
-
-    async function sigIn() {
-
+    async function sigin() {
         if (email != '' && password != '' && type_user != '') {
 
             if (type_user == 'P') {
@@ -108,9 +105,45 @@ export default function Login() {
         }
     }
 
+    function onChangeTypeUser(value) {
+        setType_user(value);
+    }
+
+    const pickerStyle = {
+        inputIOS: {
+            color: 'white',
+            paddingTop: 13,
+            paddingHorizontal: 10,
+            paddingBottom: 12,
+        },
+        inputAndroid: {
+            color: 'white',
+        },
+        placeholderColor: 'white',
+        color: '#FFF',
+        underline: { borderTopWidth: 0 },
+        icon: {
+            position: 'absolute',
+            backgroundColor: '#FFF',
+            borderTopWidth: 5,
+            borderTopColor: '#00000099',
+            borderRightWidth: 5,
+            borderRightColor: 'transparent',
+            borderLeftWidth: 5,
+            borderLeftColor: 'transparent',
+            width: 0,
+            height: 0,
+            top: 20,
+            right: 15,
+        },
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.login}>
+                <View style={{ alignItems: 'center' }}>
+                    <Image source={require('../../assets/logoLogin.png')} />
+                </View>
                 <TextInput
                     ref={email_input}
                     style={styles.loginInput}
@@ -134,39 +167,38 @@ export default function Login() {
                     secureTextEntry
                 />
 
-                <DropDownPicker
-                    items={[
-                        {label: 'CLIENTE', value:'C'},
-                        {label: 'PROFISSIONAL', value: 'P'}
-                    ]}
-                    containerStyle={{ height: 60 }}
-                    style={{ backgroundColor: '#FFFFFF', marginTop: 10}}
-                    itemStyle={{
-                        justifyContent: 'flex-start'
-                    }}
-                    value={type_user}
-                    onChangeItem={item => onChangeTypeUser(item.value)}
-                />
+                <View style={{ alignItems: 'flex-start', marginTop: 20, paddingHorizontal: 10 }}>
+                    <Text style={styles.textLabel}>Eu sou: </Text>
+                    <RNPickerSelect
+                        style={{ backgroundColor: '#FFF' }}
+                        value={type_user}
+                        onValueChange={(value) => onChangeTypeUser(value)}
+                        items={[
+                            { label: 'Cliente', value: 'C' },
+                            { label: 'Profissional', value: 'P' },
+                        ]}
+                    />
+                </View>
+                <TouchableOpacity
+                    style={styles.buttonRegister}
+                    onPress={navigateToRegister}>
+                    <Text style={styles.textButtonRegister}>
+                        Sou PROFISSIONAL e não tenho cadastro. CLIQUE AQUI
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.buttonRegisterCustomer}
+                    onPress={navigateToRegisterCustomer}>
+                    <Text style={styles.textButtonRegister}>
+                        Procuro por serviços e não tenho cadastro. CLIQUE AQUI
+                    </Text>
+                </TouchableOpacity>
 
             </View>
             <View style={styles.containerLogin}>
                 <TouchableOpacity
-                    style={styles.buttonSignUpCustomer}
-                    onPress={navigateToRegisterCustomer}>
-                    <Text style={styles.textButtonSignUpCustomer}>
-                        Sou cliente e não sou cadastradado
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.buttonSignUpProvider}
-                    onPress={navigateToRegister}>
-                    <Text style={styles.textButtonSignUpProvider}>
-                        Sou profissional e não sou cadastradado
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
                     style={styles.buttonLogin}
-                    onPress={sigIn}>
+                    onPress={sigin}>
                     <Text style={styles.textButtonLogin}>
                         Login
                     </Text>

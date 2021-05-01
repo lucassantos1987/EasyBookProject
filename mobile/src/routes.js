@@ -2,40 +2,20 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-const AppStatck = createStackNavigator();
+const AppStack = createStackNavigator();
 
-import Localization from './pages/Localization';
 import Login from './pages/Login';
-import Menu from './pages/Menu';
-import MenuCustomer from './pages/MenuCustomer';
-import DataProvider from './pages/DataProvider/DataProvider';
-import DataCustomer from './pages/DataCustomer';
-import CategoriesSpecialities from './pages/DataProvider/CategorySpecialityProvider';
-import Register from './pages/Register';
 import RegisterCustomer from './pages/RegisterCustomer';
-import RequestCategory from './pages/RequestProvider/Category';
-import RequestSpeciality from './pages/RequestProvider/Speciality';
-import RequestProvider from './pages/RequestProvider/Provider';
-import InfoProvider from './pages/RequestProvider/InfoProvider';
+import MenuCustomer from './pages/MenuCustomer';
 
 export default function Routes() {
     return (
         <NavigationContainer>
-            <AppStatck.Navigator screenOptions={{ headerShown: false }}>
-                <AppStatck.Screen name="Login" component={Login} />
-                <AppStatck.Screen name="Register" component={Register} />
-                <AppStatck.Screen name="RegisterCustomer" component={RegisterCustomer} />
-                <AppStatck.Screen name="Localization" component={Localization} />
-                <AppStatck.Screen name="Menu" component={Menu} />
-                <AppStatck.Screen name="MenuCustomer" component={MenuCustomer} />
-                <AppStatck.Screen name="DataProvider" component={DataProvider} />
-                <AppStatck.Screen name="DataCustomer" component={DataCustomer} />
-                <AppStatck.Screen name="CategoriesSpecialities" component={CategoriesSpecialities} />
-                <AppStatck.Screen name="RequestCategory" component={RequestCategory} />
-                <AppStatck.Screen name="RequestSpeciality" component={RequestSpeciality} />
-                <AppStatck.Screen name="RequestProvider" component={RequestProvider} />
-                <AppStatck.Screen name="InfoProvider" component={InfoProvider} />
-            </AppStatck.Navigator>
+            <AppStack.Navigator screenOptions={{ headerShown: false }}>
+                <AppStack.Screen name="Login" component={Login} />
+                <AppStack.Screen name="RegisterCustomer" component={RegisterCustomer} />
+                <AppStack.Screen name="MenuCustomer" component={MenuCustomer} />
+            </AppStack.Navigator>
         </NavigationContainer>
     );
 }

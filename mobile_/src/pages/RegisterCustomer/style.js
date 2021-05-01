@@ -7,11 +7,11 @@ export default StyleSheet.create({
     header: {
         top: 50,
         justifyContent: 'center',
-        alignItems: 'center'
+        paddingHorizontal: 15
     },
     textHeader: {
-        fontSize: 20,
-        fontWeight: 'bold',
+        fontSize: 28,
+        fontWeight: 'bold'
     },
     textHeaderSpeciality: {
         marginTop: 90,
@@ -31,8 +31,11 @@ export default StyleSheet.create({
         fontWeight: 'bold'
     },
     buttonHeaderBack: {
+        position: 'absolute',
         alignContent: 'center',
         justifyContent: 'center',
+        top: 10,
+        right: 15
     },
     textButtonHeaderBack: {
         fontWeight: 'bold',

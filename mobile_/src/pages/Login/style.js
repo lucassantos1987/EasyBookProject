@@ -9,7 +9,7 @@ export default StyleSheet.create({
         alignContent: 'center'
     },
     login: {
-        top: 0,
+        top: -20,
         left: 0,
         right: 0,
         bottom: 0,
@@ -29,26 +29,6 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     textButtonLogin: {
-        color: '#FFFFFF',
-        fontSize: 15,
-    },
-    buttonSignUpCustomer: {
-        backgroundColor: '#8e44ad',
-        height: 60,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    textButtonSignUpCustomer: {
-        color: '#FFFFFF',
-        fontSize: 15,
-    },
-    buttonSignUpProvider: {
-        backgroundColor: '#8c37ab',
-        height: 60,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    textButtonSignUpProvider: {
         color: '#FFFFFF',
         fontSize: 15,
     },
@@ -83,7 +63,7 @@ export default StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        height: 180,
+        height: 60,
     },
 
 });

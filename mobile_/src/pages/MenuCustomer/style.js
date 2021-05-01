@@ -20,9 +20,7 @@ export default StyleSheet.create({
     imageUser: {
         width: 250,
         height: 250,
-        borderRadius: 250/2,
-        borderWidth: 10,
-        borderColor: '#FFFFFF'
+        borderRadius: 250/2
     },
     optionImage1: {
         width: 35,

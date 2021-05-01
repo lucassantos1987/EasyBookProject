@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
-import { ListItem } from 'react-native-elements';
+import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -10,7 +9,6 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 
 import api from '../../services/api';
 import styles from './style';
-import { Alert } from 'react-native';
 
 export default function Menu() {
 

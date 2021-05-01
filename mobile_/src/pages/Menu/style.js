@@ -20,9 +20,7 @@ export default StyleSheet.create({
     imageUser: {
         width: 250,
         height: 250,
-        borderRadius: 250/2,
-        borderWidth: 10,
-        borderColor: '#FFFFFF'
+        borderRadius: 250/2
     },
     optionImage1: {
         width: 35,
@@ -35,7 +33,7 @@ export default StyleSheet.create({
     textUser: {
         color: '#FFF',
         fontSize: 25,
-        marginTop: 30
+        marginTop: 10
     },
     buttonMenuMyPhoto: {
         backgroundColor: '#8c37ab',

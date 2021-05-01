@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native';
+import { ListItem } from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 import { ConfirmDialog } from 'react-native-simple-dialogs';
 import * as ImagePicker from 'expo-image-picker';
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -11,11 +12,12 @@ import api from '../../services/api';
 import styles from './style';
 import { Alert } from 'react-native';
 
-export default function MenuCustomer() {
+export default function Menu() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
+    const [photo, setPhoto] = useState('');
     const [originalPhoto, setOriginalPhoto] = useState('');
     const [image, setImage] = useState('');
     const [loading, setLoading] = useState(false);
@@ -27,28 +29,28 @@ export default function MenuCustomer() {
     const navigation = useNavigation();
 
     useEffect(() => {
-        loadInfoCustomerLoginUser();
+        loadInfoProviderLoginUser();
     }, []);
 
-    async function loadInfoCustomerLoginUser() {
+    async function loadInfoProviderLoginUser() {
         setLoading(true);
 
-        const id_customer = await AsyncStorage.getItem('id_customer');
+        const id_provider = await AsyncStorage.getItem('id_provider');
         setEmail(await AsyncStorage.getItem('email'));
         setPassword(await AsyncStorage.getItem('password'));
 
         setMsg_Loading("Carregando dados...");
 
-        await api.get('customer', { params: { id_customer: id_customer } })
+        await api.get('provider', { params: { id_provider: id_provider } })
             .then(response => {
                 setLoading(false);
                 var dataS = JSON.stringify(response.data);
                 var dataP = JSON.parse(dataS);
                 var data = dataP[0];
 
-                setName(data.first_name + " " + data.last_name);
-                setImage('http://192.168.0.105:3333/photosprofileeasybook/resized/' + data.photo);
-                setOriginalPhoto('http://192.168.0.105:3333/photosprofileeasybook/resized/' + data.photo);
+                setName(data.name + " " + data.last_name);
+                setImage('http://192.168.0.108:3333/photosprofileeasybook/resized/' + data.photo);
+                setOriginalPhoto('http://192.168.0.108:3333/photosprofileeasybook/resized/' + data.photo);
                 /*setPhoto('http://192.168.15.47:3333/photosprofileeasybook/resized/' + data.photo);*/
             }).catch(error => {
                 setLoading(false);
@@ -56,8 +58,8 @@ export default function MenuCustomer() {
             })
     }
 
-    function navigateToDataCustomer() {
-        navigation.navigate('DataCustomer');
+    function navigateToDataProvider() {
+        navigation.navigate('DataProvider');
     }
 
     function navigateToMyCategoriesSpecialities() {
@@ -75,7 +77,7 @@ export default function MenuCustomer() {
     async function logout() {
         setLoading(true);
         setMsg_Loading("Saindo...");
-        await AsyncStorage.removeItem('id_customer');
+        await AsyncStorage.removeItem('id_provider');
         await AsyncStorage.removeItem('email');
         await AsyncStorage.removeItem('password');
         setLoading(false);
@@ -127,7 +129,7 @@ export default function MenuCustomer() {
                 name: filename
             });
 
-            await fetch('http://192.168.0.105:3333/photosprofileeasybook', {
+            await fetch('http://192.168.0.108:3333/photosprofileeasybook', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -153,13 +155,13 @@ export default function MenuCustomer() {
 
             if (success_upload) {
 
-                const id = await AsyncStorage.getItem('id_customer');
+                const id = await AsyncStorage.getItem('id_provider');
                 const data = {
                     id,
                     photo
                 };
 
-                await api.post('customer_update_photo', data)
+                await api.post('provider_update_photo', data)
                     .then(function () {
                         setLoading(false);
                         setDialog_Visible(false);
@@ -217,7 +219,7 @@ export default function MenuCustomer() {
                 name: filename
             });
 
-            await fetch('http://192.168.0.105:3333/photosprofileeasybook', {
+            await fetch('http://192.168.0.108:3333/photosprofileeasybook', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -242,13 +244,13 @@ export default function MenuCustomer() {
 
             if (success_upload) {
 
-                const id = await AsyncStorage.getItem('id_customer');
+                const id = await AsyncStorage.getItem('id_provider');
                 const data = {
                     id,
                     photo
                 };
 
-                await api.post('customer_update_photo', data)
+                await api.post('provider_update_photo', data)
                     .then(function () {
                         setLoading(false);
                         setDialog_Visible(false);
@@ -323,14 +325,14 @@ export default function MenuCustomer() {
                 </View>
             </View>
             <View style={styles.containerMenuButtons}>
-                <TouchableOpacity
+            <TouchableOpacity
                     style={styles.buttonMenuMySpeciality}
-                    onPress={navigateToLocalization}>
-                    <Text style={styles.textButtonMenu}>Pesquisar Serviços</Text>
+                    onPress={navigateToMyCategoriesSpecialities}>
+                    <Text style={styles.textButtonMenu}>Minhas Especialidades</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonMenuMyData}
-                    onPress={navigateToDataCustomer}>
+                    onPress={navigateToDataProvider}>
                     <Text style={styles.textButtonMenu}>Meus Dados</Text>
                 </TouchableOpacity>
                 <TouchableOpacity

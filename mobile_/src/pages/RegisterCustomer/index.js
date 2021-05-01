@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import * as ImagePicker from 'expo-image-picker';
 import { TextInputMask } from 'react-native-masked-text';
+import RNPickerSelect from 'react-native-picker-select';
 
 import styles from './style';
 import api from '../../services/api';
@@ -55,7 +56,7 @@ export default function Register() {
                 name: filename
             });
 
-            await fetch('http://192.168.0.105:3333/photosprofileeasybook', {
+            await fetch('http://192.168.0.108:3333/photosprofileeasybook', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -164,6 +165,11 @@ export default function Register() {
             <ScrollView>
                 <View style={styles.header}>
                     <Text style={styles.textHeader}>Informe seus dados</Text>
+                    <TouchableOpacity
+                        onPress={() => navigation.goBack()}
+                        style={styles.buttonHeaderBack}>
+                        <Text style={styles.textButtonHeaderBack}>VOLTAR</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.content}>
                     <TextInput
