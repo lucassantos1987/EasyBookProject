@@ -87,6 +87,10 @@ export default function MenuCustomer() {
         navigation.navigate('Localization');
     }
 
+    function navigateToRequestCategory() {
+        navigation.navigate('RequestCategory');
+    }
+
     async function _pickImage() {
         var success = false;
         var photo = "";
@@ -325,7 +329,7 @@ export default function MenuCustomer() {
             <View style={styles.containerMenuButtons}>
                 <TouchableOpacity
                     style={styles.buttonMenuMySpeciality}
-                    onPress={navigateToLocalization}>
+                    onPress={navigateToRequestCategory}>
                     <Text style={styles.textButtonMenu}>Pesquisar Serviços</Text>
                 </TouchableOpacity>
                 <TouchableOpacity

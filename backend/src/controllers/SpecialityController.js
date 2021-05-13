@@ -6,6 +6,8 @@ module.exports = {
 
         const id_category = request.query.id_category;
 
+        console.log("Teste" + id_category);
+
         const category = await connection('speciality')
         .orderBy('name', 'asc')
         .select('*')
