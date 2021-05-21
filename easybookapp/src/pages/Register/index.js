@@ -67,6 +67,7 @@ export default function Register() {
         const id_category = value;
         setId_Category(value);
 
+        setMsg_Loading("Carregando Especialidades...");
         setLoading(true);
         await api.get('speciality', { params: { id_category: id_category } })
             .then(response => {
@@ -141,7 +142,7 @@ export default function Register() {
                 name: filename
             });
 
-            await fetch('http://192.168.0.108:3333/photosprofileeasybook', {
+            await fetch('http://192.168.0.105:3333/photosprofileeasybook', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -209,14 +210,12 @@ export default function Register() {
                 Alert.alert("Digite sua Senha");
             } else {
 
-                console.log('Aqui');
-
+                setMsg_Loading("Salvando dados...");
                 await api.post('provider', data)
                     .then(function (response) {
                         console.log(response.data.result[0]);
                         setLoading(false);
                         Alert.alert("Cadastro realizado com sucesso.");
-                        /*navigation.navigate('Localization');*/
                     }).catch(function (error) {
                         setLoading(false);
                         Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
@@ -400,7 +399,7 @@ export default function Register() {
                             paddingVertical: 10
                         }}
                         value={id_category}
-                        onChangeItem={(value) => loadSpecialities(value)}
+                        onChangeItem={item => loadSpecialities(item.value)}
                         items={dataListCategories}
                     />
                     <Text>Selecione a Especialidade</Text>
@@ -411,7 +410,7 @@ export default function Register() {
                             justifyContent: 'flex-start'
                         }}
                         value={id_speciality}
-                        onChangeItem={(value) => setId_Speciality(value)}
+                        onChangeItem={item => setId_Speciality(item.value)}
                         items={dataListSpecialities}
                     />
                     <Text style={styles.textHeaderUser}>

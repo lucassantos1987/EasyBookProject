@@ -12,6 +12,10 @@ import DataCustomer from './pages/DataCustomer';
 import RequestCategory from './pages/RequestProvider/Category';
 import RequestSpeciality from './pages/RequestProvider/Speciality';
 import RequestProvider from './pages/RequestProvider/Provider';
+import InfoProvider from './pages/RequestProvider/InfoProvider';
+import Menu from './pages/Menu';
+import DataProvider from './pages/DataProvider/DataProvider';
+import CategorySpecialityProvider from './pages/DataProvider/CategorySpecialityProvider';
 
 export default function Routes() {
     return (
@@ -25,6 +29,10 @@ export default function Routes() {
                 <AppStack.Screen name="RequestCategory" component={RequestCategory} />
                 <AppStack.Screen name="RequestSpeciality" component={RequestSpeciality} />
                 <AppStack.Screen name="RequestProvider" component={RequestProvider} />
+                <AppStack.Screen name="InfoProvider" component={InfoProvider} />
+                <AppStack.Screen name="Menu" component={Menu} />
+                <AppStack.Screen name="DataProvider" component={DataProvider} />
+                <AppStack.Screen name="CategorySpecialityProvider" component={CategorySpecialityProvider} />
             </AppStack.Navigator>
         </NavigationContainer>
     );

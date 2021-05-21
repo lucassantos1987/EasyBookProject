@@ -6,9 +6,9 @@ export default StyleSheet.create({
     },
     header: {
         top: 50,
-        paddingHorizontal: 15,
+        justifyContent: 'center',
         alignItems: 'center',
-        justifyContent: 'center'
+        paddingHorizontal: 15
     },
     textHeader: {
         fontSize: 20,
@@ -24,18 +24,6 @@ export default StyleSheet.create({
         marginTop: 20,
         fontSize: 20,
         fontWeight: 'bold'
-    },
-    buttonHeaderBack: {
-        position: 'absolute',
-        alignContent: 'center',
-        justifyContent: 'center',
-        top: 10,
-        right: 15
-    },
-    textButtonHeaderBack: {
-        fontWeight: 'bold',
-        color: '#9b59b6',
-        fontSize: 17,
     },
     content: {
         top: 50,
@@ -78,6 +66,18 @@ export default StyleSheet.create({
     textButtonContent: {
         color: '#FFFFFF'
     },
+    buttonHeaderBack: {
+        position: 'absolute',
+        alignContent: 'center',
+        justifyContent: 'center',
+        top: 10,
+        right: 15
+    },
+    textButtonHeaderBack: {
+        fontWeight: 'bold',
+        color: '#9b59b6',
+        fontSize: 15,
+    },
     user: {
         top: 50,
         alignItems: 'center',
@@ -100,7 +100,7 @@ export default StyleSheet.create({
         borderRadius: 10,
     },
     spinnerTextStyle: {
-        color: '#FFFFFF'
+        color: '#FFF'
     },    
     footer: {
         left: 0,

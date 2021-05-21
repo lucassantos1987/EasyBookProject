@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ConfirmDialog } from 'react-native-simple-dialogs';
 import * as ImagePicker from 'expo-image-picker';
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -47,8 +47,8 @@ export default function Menu() {
                 var data = dataP[0];
 
                 setName(data.name + " " + data.last_name);
-                setImage('http://192.168.0.108:3333/photosprofileeasybook/resized/' + data.photo);
-                setOriginalPhoto('http://192.168.0.108:3333/photosprofileeasybook/resized/' + data.photo);
+                setImage('http://192.168.0.105:3333/photosprofileeasybook/resized/' + data.photo);
+                setOriginalPhoto('http://192.168.0.105:3333/photosprofileeasybook/resized/' + data.photo);
                 /*setPhoto('http://192.168.15.47:3333/photosprofileeasybook/resized/' + data.photo);*/
             }).catch(error => {
                 setLoading(false);
@@ -61,7 +61,7 @@ export default function Menu() {
     }
 
     function navigateToMyCategoriesSpecialities() {
-        navigation.navigate('CategoriesSpecialities');
+        navigation.navigate('CategorySpecialityProvider');
     }
 
     function showOptionsPhoto() {
@@ -127,7 +127,7 @@ export default function Menu() {
                 name: filename
             });
 
-            await fetch('http://192.168.0.108:3333/photosprofileeasybook', {
+            await fetch('http://192.168.0.105:3333/photosprofileeasybook', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -217,7 +217,7 @@ export default function Menu() {
                 name: filename
             });
 
-            await fetch('http://192.168.0.108:3333/photosprofileeasybook', {
+            await fetch('http://192.168.0.105:3333/photosprofileeasybook', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
