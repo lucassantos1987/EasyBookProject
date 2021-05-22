@@ -49,7 +49,6 @@ export default function MenuCustomer() {
                 setName(data.first_name + " " + data.last_name);
                 setImage('http://192.168.0.105:3333/photosprofileeasybook/resized/' + data.photo);
                 setOriginalPhoto('http://192.168.0.105:3333/photosprofileeasybook/resized/' + data.photo);
-                /*setPhoto('http://192.168.15.47:3333/photosprofileeasybook/resized/' + data.photo);*/
             }).catch(error => {
                 setLoading(false);
                 Alert.alert(error);

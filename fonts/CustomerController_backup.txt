@@ -1,0 +1,107 @@
+const Knex = require('knex');
+const connection = require('../database/connection');
+
+module.exports = {
+
+    async index(request, response) {
+        const id_customer = request.query.id_customer;
+
+        const result = await connection('customer')
+        .select('first_name', 
+                'last_name', 
+                'photo',
+                'prefix_whatsapp',
+                'whatsapp'
+        )
+        .modify(function(queryBuilder) {
+            queryBuilder.where('id', '=', id_customer);
+        })
+
+        return response.json(result);
+    }, 
+
+    async create(request, response) {
+        const {
+            first_name,
+            last_name,
+            whatsapp,
+            photo,
+            email,
+            password
+        } = request.body;
+
+        const customer = connection('customer')
+        .select('id')
+        .where('whatsapp', '=', whatsapp)
+        .first();
+
+        if (!customer) {
+            const trx = await connection.transaction();
+
+            const result = await trx('customer').insert({
+                first_name,
+                last_name,
+                whatsapp,
+                photo
+            })
+            .returning('id');
+    
+            const id_customer = result[0];
+    
+            const user = connection('customer_user')
+            .select('id_customer')
+            .where('email', '=', email)
+            .first();
+
+            if (!user) {
+
+                await trx('customer_user').insert({
+                    id_customer,
+                    email,
+                    password
+                });
+        
+                trx.commit();
+
+                return response.json({result});
+            }
+    
+            return;
+        }
+    },
+
+    async updateData(request, response) {
+        const {
+            id,
+            first_name,
+            last_name,
+            whatsapp
+        } = request.body;
+
+        await connection('customer')
+        .where({ id: id})
+        .update({ 
+            first_name: first_name,
+            last_name: last_name,
+            whatsapp: whatsapp
+        })
+        .then(u => response.status( !!u ? 200:404 ).json( {success:!!u} ))
+        .catch(e => response.status(500).json(e));
+    },
+
+    async updatePhoto(request, response) {
+        const {
+            id,
+            photo
+        } = request.body;
+
+        await connection('customer')
+        .where({ id: id})
+        .update({
+            photo: photo
+        })
+        .then(u => response.status( !!u ? 200:404 ).json( {success:!!u} ))
+        .catch(e => response.status(500).json(e));
+    }
+    
+}

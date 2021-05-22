@@ -108,7 +108,6 @@ export default function Register() {
                         console.log(response.data.result[0]);
                         setLoading(false);
                         Alert.alert("Cadastro realizado com sucesso.");
-                        /*navigation.navigate('Localization');*/
                     }).catch(function (error) {
                         setLoading(false);
                         Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
