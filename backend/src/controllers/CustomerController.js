@@ -32,25 +32,40 @@ module.exports = {
 
         const trx = await connection.transaction();
 
-        const result = await trx('customer').insert({
-            first_name,
-            last_name,
-            whatsapp,
-            photo
-        })
-        .returning('id');
+        await trx('customer_user')
+        .select('*')
+        .where('email', '=', email)
+        .first()
+        .then((found) => {
 
-        const id_customer = result[0];
+            if (found) {
+                return response.json({ res: "Email já cadastrado." });
+            } else {
+                trx('customer').insert({
+                    first_name,
+                    last_name,
+                    whatsapp,
+                    photo
+                })
+                .returning('id')
+                .then(id => {
 
-        await trx('customer_user').insert({
-            id_customer,
-            email,
-            password
+                    const id_customer = id[0];
+
+                    trx('customer_user').insert({
+                        id_customer,
+                        email,
+                        password
+                    });
+
+                    return response.json({ res: "Cadastro realizado com sucesso." });
+                });
+            }
         });
 
         trx.commit();
-            
-        return response.json({result});
+
+        return;
     },
 
     async updateData(request, response) {
