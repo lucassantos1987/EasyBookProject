@@ -164,3 +164,7 @@ create table customer_user(
 	constraint fk_customer foreign key (id_customer)
 		references customer (id)
 )
+
+
+ALTER TABLE customer_user add constraint un_email unique (email)
+

@@ -97,7 +97,7 @@ export default function Register() {
                 Alert.alert("Digite seu número do WhatsApp");
             } /*else if (image == '') {
                 Alert.alert("Selecione sua Foto");
-            }*/ else if (email.trim() == '') {
+            } */else if (email.trim() == '') {
                 Alert.alert("Digite seu Email");
             } else if (password.trim() == '') {
                 Alert.alert("Digite sua Senha");
@@ -109,8 +109,7 @@ export default function Register() {
                         Alert.alert(response.data.res);
                     }).catch(function (error) {
                         setLoading(false);
-                        console.log(error.message);
-                        Alert.alert(error.message);
+                        Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
                     });
             }
         /*} else {
