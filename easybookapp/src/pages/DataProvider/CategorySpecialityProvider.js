@@ -94,8 +94,7 @@ export default function CategorySpecialityProvider() {
 
             await api.post('provider_category_speciality', data)
             .then(function (response) {
-                Alert.alert("Especialidade gravada com sucesso");
-                console.log(response.data.result[0]);
+                Alert.alert(response.data.res);
                 setLoading(false);
                 bottom_sheet.current.close();
                 loadCategoriesSpecialities();                

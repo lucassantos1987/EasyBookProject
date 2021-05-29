@@ -9,13 +9,18 @@ module.exports = {
             id_speciality
         } = request.body;
 
-        const result = await connection('provider_category_speciality').insert({
+        await connection('provider_category_speciality').insert({
             id_provider,
             id_category,
             id_speciality
+        })
+        .then(function() {
+            return response.json({ res: "Especialidade cadastrada com sucesso." });
+        })
+        .catch(function(error) {
+            return response.json({ res: error.message });
         });
 
-        return response.json({ result });
     },
 
     async index(request, response) {

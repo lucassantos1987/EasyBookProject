@@ -166,5 +166,7 @@ create table customer_user(
 )
 
 
-ALTER TABLE customer_user add constraint un_email unique (email)
+ALTER TABLE customer_user add constraint un_customer_user unique (email);
+ALTER TABLE provider_user add constraint un_provider_user unique (email);
+ALTER TABLE provider_category_speciality add constraint un_provider_category_speciality unique (id_provider, id_category, id_speciality);
 
