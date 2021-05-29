@@ -36,7 +36,7 @@ export default function Register() {
         var photo = "";
         var success_upload = false;
 
-        /*if (image != '') {
+        if (image != '') {
 
             setMsg_Loading("Salvando foto...");
 
@@ -74,7 +74,7 @@ export default function Register() {
                     success_upload = false;
                     console.log(error.message);
                 });
-        }*/
+        }
 
         const data = {
             first_name,
@@ -85,7 +85,7 @@ export default function Register() {
             password
         };
 
-        //if (success_upload) {
+        if (success_upload) {
 
             setLoading(true);
 
@@ -95,9 +95,9 @@ export default function Register() {
                 Alert.alert("Digite seu Sobrenome");
             } else if (whatsapp.trim() == '') {
                 Alert.alert("Digite seu número do WhatsApp");
-            } /*else if (image == '') {
+            } else if (image == '') {
                 Alert.alert("Selecione sua Foto");
-            } */else if (email.trim() == '') {
+            } else if (email.trim() == '') {
                 Alert.alert("Digite seu Email");
             } else if (password.trim() == '') {
                 Alert.alert("Digite sua Senha");
@@ -112,10 +112,10 @@ export default function Register() {
                         Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
                     });
             }
-        /*} else {
+        } else {
             setLoading(false);
             Alert.alert("Não foi possível realizar o cadastro.")
-        }*/
+        }
     }
 
     async function _pickImage() {
