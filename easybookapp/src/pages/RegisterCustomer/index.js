@@ -107,6 +107,8 @@ export default function Register() {
                     .then(function (response) {
                         setLoading(false);
                         Alert.alert(response.data.res);
+
+                        navigation.goBack();
                     }).catch(function (error) {
                         setLoading(false);
                         Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
@@ -195,8 +197,6 @@ export default function Register() {
                         placeholder="Número WhatsApp (99) 99999-9999"
                         value={whatsapp}
                         onChangeText={(text) => setWhatsapp(text)}
-                        onSubmitEditing={() => zipcode_input.current.focus()}
-                        returnKeyType="next"
                         blurOnSubmit={false}
                         keyboardType={'numeric'} />
                     <View style={styles.user}>

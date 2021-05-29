@@ -275,7 +275,7 @@ export default function MenuCustomer() {
             <Spinner
                 visible={loading}
                 textContent={msg_loading}
-                style={styles.spinnerTextStyle}
+                textStyle={styles.spinnerTextStyle}
             />
             <ConfirmDialog
                 title="Confirmação"
