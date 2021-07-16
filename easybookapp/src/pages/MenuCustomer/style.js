@@ -18,6 +18,7 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     imageUser: {
+        paddingHorizontal: 10,
         width: 250,
         height: 250,
         borderRadius: 250/2,

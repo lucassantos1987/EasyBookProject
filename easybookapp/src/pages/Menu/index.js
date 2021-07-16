@@ -47,8 +47,8 @@ export default function Menu() {
                 var data = dataP[0];
 
                 setName(data.name + " " + data.last_name);
-                setImage('http://192.168.0.105:3333/photosprofileeasybook/resized/' + data.photo);
-                setOriginalPhoto('http://192.168.0.105:3333/photosprofileeasybook/resized/' + data.photo);
+                setImage('http://192.168.0.109:3333/photosprofileeasybook/resized/' + data.photo);
+                setOriginalPhoto('http://192.168.0.109:3333/photosprofileeasybook/resized/' + data.photo);
             }).catch(error => {
                 setLoading(false);
                 Alert.alert(error);
@@ -126,7 +126,7 @@ export default function Menu() {
                 name: filename
             });
 
-            await fetch('http://192.168.0.105:3333/photosprofileeasybook', {
+            await fetch('http://192.168.0.109:3333/photosprofileeasybook', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -216,7 +216,7 @@ export default function Menu() {
                 name: filename
             });
 
-            await fetch('http://192.168.0.105:3333/photosprofileeasybook', {
+            await fetch('http://192.168.0.109:3333/photosprofileeasybook', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

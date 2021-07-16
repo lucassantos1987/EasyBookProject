@@ -77,7 +77,7 @@ export default function Provider() {
                         <Avatar
                             size={"large"}
                             rounded={true}
-                            source={{ uri: "http://192.168.0.105:3333/photosprofileeasybook/resized/" + provider.photo }}
+                            source={{ uri: "http://192.168.0.109:3333/photosprofileeasybook/resized/" + provider.photo }}
                         />
                         <ListItem.Content>
                             <ListItem.Title>

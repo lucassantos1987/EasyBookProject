@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TextInput, Alert } from 'react-native';
+import { View, Text, FlatList, TextInput, Alert, TouchableOpacity } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import api from '../../services/api';
 
@@ -57,6 +58,10 @@ export default function Category() {
                 textStyle={styles.spinnerTextStyle}
             />
             <View style={styles.header}>
+                <TouchableOpacity style={styles.buttonHeaderBack}
+                    onPress={() => navigation.goBack()}>
+                    <Icon name="arrow-left" size={26} color="#FFFFFF"/>
+                </TouchableOpacity>
                 <Text style={styles.textHeader}>Selecione a Categoria</Text>
             </View>
             <TextInput
@@ -74,8 +79,9 @@ export default function Category() {
                             <ListItem.Title>
                                 {category.name}
                             </ListItem.Title>
-                            <ListItem.Subtitle>
-                                {"Clique para ver as especialidades"}
+                            <ListItem.Subtitle
+                                style={{ color: "#95a5a6"}}>
+                                {"Clique para ver os profissionais"}
                             </ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>

@@ -55,7 +55,7 @@ export default function Register() {
                 name: filename
             });
 
-            await fetch('http://192.168.0.105:3333/photosprofileeasybook', {
+            await fetch('http://192.168.0.109:3333/photosprofileeasybook', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

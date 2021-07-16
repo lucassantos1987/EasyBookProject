@@ -13,6 +13,7 @@ export default StyleSheet.create({
         alignContent: 'center'
     },
     header: {
+        flexDirection: 'row',
         top: 50,
         justifyContent: 'center',
         alignItems: 'center',
@@ -30,20 +31,7 @@ export default StyleSheet.create({
     },
     buttonHeaderBack: {
         position: 'absolute',
-        alignContent: 'center',
-        justifyContent: 'center',
-        top: 7,
-        right: 15
-    },
-    textButtonHeaderBack: {
-        fontWeight: 'bold',
-        color: '#FFF',
-        fontSize: 13,
-    },
-    textButtonHeaderBackInfoProvider: {
-        fontWeight: 'bold',
-        color: '#9b59b6',
-        fontSize: 13,
+        left: 10
     },
     inputSearch: {
         top: 70,
