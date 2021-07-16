@@ -5,6 +5,7 @@ export default StyleSheet.create({
         flex: 1,
     },
     header: {
+        flexDirection: 'row',
         top: 50,
         justifyContent: 'center',
         alignItems: 'center'
@@ -31,8 +32,8 @@ export default StyleSheet.create({
         fontWeight: 'bold'
     },
     buttonHeaderBack: {
-        alignContent: 'center',
-        justifyContent: 'center',
+        position: 'absolute',
+        left: 15
     },
     textButtonHeaderBack: {
         fontWeight: 'bold',

@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import * as ImagePicker from 'expo-image-picker';
 import { TextInputMask } from 'react-native-masked-text';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './style';
 import api from '../../services/api';
@@ -163,6 +164,10 @@ export default function Register() {
                 textStyle={styles.spinnerTextStyle} />
             <ScrollView>
                 <View style={styles.header}>
+                    <TouchableOpacity style={styles.buttonHeaderBack}
+                        onPress={() => navigation.goBack()}>
+                        <Icon name="arrow-left" size={26} color="#8e44ad"/>
+                    </TouchableOpacity>
                     <Text style={styles.textHeader}>Informe seus dados</Text>
                 </View>
                 <View style={styles.content}>

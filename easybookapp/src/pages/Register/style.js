@@ -33,10 +33,7 @@ export default StyleSheet.create({
     },
     buttonHeaderBack: {
         position: 'absolute',
-        alignContent: 'center',
-        justifyContent: 'center',
-        top: 10,
-        right: 15
+        left: 15
     },
     textButtonHeaderBack: {
         fontWeight: 'bold',
