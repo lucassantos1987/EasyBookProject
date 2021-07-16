@@ -323,8 +323,7 @@ export default function Menu() {
             </View>
             <View style={styles.containerMenuButtons}>
             <TouchableOpacity
-                    style={styles.buttonMenuMySpeciality}
-                    onPress={navigateToMyCategoriesSpecialities}>
+                    style={styles.buttonMenuMySpeciality}>
                     <Text style={styles.textButtonMenu}>Minhas Especialidades</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
