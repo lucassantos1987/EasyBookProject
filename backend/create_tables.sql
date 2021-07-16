@@ -170,3 +170,13 @@ ALTER TABLE customer_user add constraint un_customer_user unique (email);
 ALTER TABLE provider_user add constraint un_provider_user unique (email);
 ALTER TABLE provider_category_speciality add constraint un_provider_category_speciality unique (id_provider, id_category, id_speciality);
 
+create table provider_category(
+	id serial primary key not null,
+	id_category integer not null,
+	id_provider integer not null,
+	constraint fk_category foreign key (id_category)
+		references category (id),
+	constraint fk_provider foreign key (id_provider)
+		references provider (id)
+)
+

@@ -17,7 +17,7 @@ export default function Category() {
     const navigation = useNavigation();
 
     function navigateToSpeciality(category) {
-        navigation.navigate('RequestSpeciality', { category });
+        navigation.navigate('RequestProvider', { category });
     }
 
     async function loadCategories() {

@@ -20,7 +20,8 @@ export default StyleSheet.create({
         paddingHorizontal: 15
     },
     headerInfoProvider: {
-        top: -130,
+        position: 'absolute',
+        top: 70,
         justifyContent: 'center',
         paddingHorizontal: 15
     },

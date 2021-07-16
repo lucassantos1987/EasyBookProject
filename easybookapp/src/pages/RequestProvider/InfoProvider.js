@@ -3,6 +3,7 @@ import { View, Text, Image, Alert, TouchableOpacity, Linking } from 'react-nativ
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import api from '../../services/api';
 import styles from './styles';
@@ -67,6 +68,10 @@ export default function InfoProvider() {
                 textStyle={styles.spinnerTextStyle}
             />
             <View style={styles.headerInfoProvider}>
+                <TouchableOpacity style={styles.buttonHeaderBack}
+                    onPress={() => navigation.goBack()}>
+                    <Icon name="arrow-left" size={26} color="#8e44ad"/>
+                </TouchableOpacity>
             </View>
             <View style={styles.infoContainer}>
                 <Image source={image == '' ? require('../../assets/user2.jpg') : { uri: image }} style={styles.providerImg} />

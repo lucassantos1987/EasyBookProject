@@ -6,6 +6,7 @@ const ProviderUserController = require('./controllers/ProviderUserController');
 const ProviderCategorySpecialityController = require('./controllers/ProviderCategorySpecialityController');
 const CustomerController = require('./controllers/CustomerController');
 const CustomerUserController = require('./controllers/CustomerUserController');
+const ProviderCategoryController = require('./controllers/ProviderCategoryController');
 const { updateData } = require('./controllers/ProviderController');
 const routes = express.Router();
 
@@ -26,6 +27,8 @@ routes.get('/provider_user', ProviderUserController.signin);
 routes.get('/provider_category_speciality_list', ProviderCategorySpecialityController.listCatgorySpecialityProvider);
 routes.post('/provider_category_speciality', ProviderCategorySpecialityController.create);
 routes.get('/provider_category_speciality', ProviderCategorySpecialityController.index);
+
+routes.get('/provider_category', ProviderCategoryController.listProviderCategory);
 
 routes.get('/customer', CustomerController.index);
 routes.post('/customer', CustomerController.create);

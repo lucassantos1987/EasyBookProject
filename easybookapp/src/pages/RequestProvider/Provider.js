@@ -3,6 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, TextInput } from 'react-native'
 import { ListItem, Avatar } from 'react-native-elements';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './styles';
 import api from '../../services/api';
@@ -20,7 +21,7 @@ export default function Provider() {
 
     async function loadProviders() {
         setLoading(true);
-        await api.get('provider_category_speciality', { params: { id_category: id_category, id_speciality: id_speciality } })
+        await api.get('provider_category', { params: { id_category: id_category } })
             .then(response => {
                 setProviders(response.data);
                 setLoading(false);
@@ -61,6 +62,10 @@ export default function Provider() {
                 textStyle={styles.spinnerTextStyle}
             />
             <View style={styles.header}>
+                <TouchableOpacity style={styles.buttonHeaderBack}
+                    onPress={() => navigation.goBack()}>
+                    <Icon name="arrow-left" size={26} color="#FFFFFF"/>
+                </TouchableOpacity>
                 <Text style={styles.textHeader}>Selecione a Profissional</Text>
             </View>
             <TextInput
@@ -83,7 +88,8 @@ export default function Provider() {
                             <ListItem.Title>
                                 {provider.name + " " + provider.last_name}
                             </ListItem.Title>
-                            <ListItem.Subtitle>
+                            <ListItem.Subtitle
+                                style={{ color: "#95a5a6"}}>
                                 {"Clique para mais informações"}
                             </ListItem.Subtitle>
                         </ListItem.Content>
