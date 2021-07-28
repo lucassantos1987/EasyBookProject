@@ -25,6 +25,7 @@ export default function Category() {
         await api.get('category')
             .then(response => {
                 setCategories(response.data);
+                setFilterName(response.data);
                 setLoading(false);
             })
             .catch(error => {
@@ -37,16 +38,16 @@ export default function Category() {
     }, []);
 
     function filterCategories(text) {
-        const newData = categories.filter(item => {
-            const itemData = `${item.id} ${item.name}`;
-            const textData = text;
+        var newData = categories.filter(item => {
+            var itemData = `${item.id} ${item.name}`;
+            var textData = text;
             return itemData.indexOf(textData) > -1;
         });
 
         if (text !== '') {
             setCategories(newData);
         } else {
-            loadCategories();
+            setCategories(filterName);
         }
     }
 
