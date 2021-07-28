@@ -72,11 +72,13 @@ export default function Provider() {
                     style={styles.inputSearch}
                     placeholder="Digite aqui para pesquisar..."
                     onChangeText={(text) => filterProviders(text)} />
-
             <FlatList
                 style={styles.listCategory}
                 data={providers}
                 keyExtractor={provider => String(provider.id)}
+                ItemSeparatorComponent={() => {
+                    return (<View style={{ height: 1, backgroundColor: "#dfe6e9"}}></View>)
+                }}
                 renderItem={({ item: provider }) => (
                     <ListItem onPress={() => navigateToInfoProvider(provider.id)}>
                         <Avatar
@@ -94,7 +96,6 @@ export default function Provider() {
                             </ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>
-
                 )}
             />
         </View>

@@ -43,7 +43,7 @@ export default StyleSheet.create({
         marginHorizontal: 5
     },
     listCategory: {
-        marginTop: 100,
+        marginTop: 80,
     },
     category: {
         backgroundColor: '#FFF',

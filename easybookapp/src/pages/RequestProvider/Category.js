@@ -16,7 +16,7 @@ export default function Category() {
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
 
-    function navigateToSpeciality(category) {
+    function navigateToProvider(category) {
         navigation.navigate('RequestProvider', { category });
     }
 
@@ -69,13 +69,15 @@ export default function Category() {
                     style={styles.inputSearch}
                     onChangeText={(text) => filterCategories(text)}
                     placeholder="Digite aqui para pesquisar a categoria..." />
-
             <FlatList
                 style={styles.listCategory}
                 data={categories}
                 keyExtractor={category => String(category.id)}
+                ItemSeparatorComponent={() => {
+                    return (<View style={{ height: 1, backgroundColor: "#dfe6e9"}}></View>)
+                }}
                 renderItem={({ item: category }) => (
-                    <ListItem onPress={() => navigateToSpeciality(category.id)}>
+                    <ListItem onPress={() => navigateToProvider(category.id)}>
                         <ListItem.Content>
                             <ListItem.Title>
                                 {category.name}
