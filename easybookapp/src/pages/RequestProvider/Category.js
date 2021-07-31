@@ -12,7 +12,7 @@ import styles from './styles';
 export default function Category() {
 
     const [categories, setCategories] = useState([]);
-    const [filterName, setFilterName] = useState([]);
+    const [filterCategory, setFilterCategory] = useState([]);
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
 
@@ -25,7 +25,7 @@ export default function Category() {
         await api.get('category')
             .then(response => {
                 setCategories(response.data);
-                setFilterName(response.data);
+                setFilterCategory(categories);
                 setLoading(false);
             })
             .catch(error => {
@@ -38,17 +38,13 @@ export default function Category() {
     }, []);
 
     function filterCategories(text) {
-        var newData = categories.filter(item => {
+        var newData = filterCategory.filter(item => {
             var itemData = `${item.id} ${item.name}`;
             var textData = text;
             return itemData.indexOf(textData) > -1;
         });
 
-        if (text !== '') {
-            setCategories(newData);
-        } else {
-            setCategories(filterName);
-        }
+        setFilterCategory(newData);
     }
 
     return (
@@ -66,9 +62,9 @@ export default function Category() {
                 <Text style={styles.textHeader}>Selecione a Categoria</Text>
             </View>
             <TextInput
-                    style={styles.inputSearch}
-                    onChangeText={(text) => filterCategories(text)}
-                    placeholder="Digite aqui para pesquisar a categoria..." />
+                style={styles.inputSearch}
+                onChangeText={(text) => filterCategories(text)}
+                placeholder="Digite aqui para pesquisar a categoria..." />
             <FlatList
                 style={styles.listCategory}
                 data={categories}
