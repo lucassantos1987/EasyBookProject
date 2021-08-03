@@ -25,7 +25,7 @@ export default function Category() {
         await api.get('category')
             .then(response => {
                 setCategories(response.data);
-                setFilterCategory(categories);
+                setFilterCategory(response.data);
                 setLoading(false);
             })
             .catch(error => {
@@ -44,7 +44,7 @@ export default function Category() {
             return itemData.indexOf(textData) > -1;
         });
 
-        setFilterCategory(newData);
+        setCategories(newData);
     }
 
     return (
