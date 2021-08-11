@@ -1,5 +1,5 @@
 const express = require('express');
-const CategoryController = require('./controllers/CategoryController');
+const CategoryController = require('./controller/CategoryController');
 const SpecialityController = require('./controllers/SpecialityController');
 const ProviderController = require('./controllers/ProviderController');
 const ProviderUserController = require('./controllers/ProviderUserController');
@@ -10,9 +10,12 @@ const ProviderCategoryController = require('./controllers/ProviderCategoryContro
 const { updateData } = require('./controllers/ProviderController');
 const routes = express.Router();
 
-routes.get('/category', CategoryController.index);
-routes.get('/if_category_exists', CategoryController.ifCategoryExists);
-routes.post('/category', CategoryController.create);
+routes.get('/category', CategoryController.getCategory);
+routes.post('/category', CategoryController.saveCategory);
+
+//routes.get('/category', CategoryController.index);
+//routes.get('/if_category_exists', CategoryController.ifCategoryExists);
+//routes.post('/category', CategoryController.create);
 
 routes.get('/speciality', SpecialityController.index);
 routes.get('/speciality_category', SpecialityController.categorySpecilaity);
