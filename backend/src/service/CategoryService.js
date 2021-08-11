@@ -8,4 +8,8 @@ async function saveCategory(request, response) {
     CategoryDAO.saveCategory(request, response);
 }
 
-module.exports = { getCategory, saveCategory }
+async function checkCategory(request, response) {
+    CategoryDAO.checkCategory(request, response);
+}
+
+module.exports = { getCategory, saveCategory, checkCategory }

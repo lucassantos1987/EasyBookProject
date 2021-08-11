@@ -8,4 +8,9 @@ async function saveCategory(request, response) {
     CategoryService.saveCategory(request, response);
 }
 
-module.exports = { getCategory, saveCategory }
+async function checkCategory(request, response) {
+    CategoryService.checkCategory(request, response);
+}
+
+
+module.exports = { getCategory, saveCategory, checkCategory }

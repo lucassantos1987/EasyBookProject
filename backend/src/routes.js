@@ -12,6 +12,7 @@ const routes = express.Router();
 
 routes.get('/category', CategoryController.getCategory);
 routes.post('/category', CategoryController.saveCategory);
+routes.get('/check_category', CategoryController.checkCategory);
 
 //routes.get('/category', CategoryController.index);
 //routes.get('/if_category_exists', CategoryController.ifCategoryExists);

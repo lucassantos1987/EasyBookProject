@@ -4,7 +4,7 @@ async function getCategory(request, response) {
     
     var filterName  = request.query.name;
 
-    await connection('category')
+    const category = await connection('category')
     .orderBy('name', 'asc')
     .select('*')
     .modify(function(queryBuilder) {
@@ -20,11 +20,23 @@ async function getCategory(request, response) {
 async function saveCategory(request, response) {
     
     const { name } = request.body;
-    await connection('category').insert({
+
+    const result = await connection('category').insert({
         name
     });
 
     return response.json({ result });
 }
 
-module.exports = { getCategory, saveCategory }
+async function checkCategory(request, response) {
+
+    const name = request.query.name;
+
+    const category = await connection('category')
+    .select('count(*) as quantidade')
+    .where('name', '=', name);
+    
+    return response.json(category);        
+}
+
+module.exports = { getCategory, saveCategory, checkCategory }
