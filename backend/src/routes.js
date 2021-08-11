@@ -23,11 +23,6 @@ routes.post('/customer_update', CustomerController.updateCustomer);
 routes.post('/customer_update_photo', CustomerController.updateCustomerPhoto);
 routes.get('/customer_user', CustomerUserController.signIn);
 
-
-//routes.get('/category', CategoryController.index);
-//routes.get('/if_category_exists', CategoryController.ifCategoryExists);
-//routes.post('/category', CategoryController.create);
-
 routes.get('/speciality', SpecialityController.index);
 routes.get('/speciality_category', SpecialityController.categorySpecilaity);
 routes.post('/speciality', SpecialityController.create);
