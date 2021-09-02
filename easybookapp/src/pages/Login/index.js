@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 import api from '../../services/api';
-import { sendEmail } from '../../services/send-email';
 import styles from './style';
 
 
@@ -110,15 +109,6 @@ export default function Login() {
         }
     }
 
-    sendEmail(
-        'lucas.rafael.silva.santos@gmail.com',
-            'Teste de envio de email do Reac Native',
-        'Testando email',
-        { cc: 'lucasundrlinrafael@hotmail.com' }            
-    ).then(() => {
-        console.log("Email enviado com sucesso.");
-    })
-
     return (
         <View style={styles.container}>
             <View style={styles.login}>
@@ -184,7 +174,7 @@ export default function Login() {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonLogin}
-                    onPress={sendEmail}>
+                    >
                     <Text style={styles.textButtonLogin}>
                         Enviar Email
                     </Text>
