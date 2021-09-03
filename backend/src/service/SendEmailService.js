@@ -20,13 +20,13 @@ async function sendEmailConfirmation(request, response) {
     }
     
     await smtpTransport.sendMail(email)
-    .then(response => {
+    .then(function() {        
         smtpTransport.close();
-        console.log("Email enviado com sucesso");
+        return response.json({ res: "Email enviado com sucesso." });
     })
-    .catch(error => {
+    .catch(function(error) {
         smtpTransport.close();
-        console.log(error.message + ". Não foi possível enviar email.")
+        return response.json({ res: error.message });
     })
 }
 

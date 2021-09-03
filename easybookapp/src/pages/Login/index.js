@@ -109,6 +109,20 @@ export default function Login() {
         }
     }
 
+    async function sendEmailConfirmation() {
+        const data = {};
+
+        await api.post('send_email', data)
+        .then(function (response) {
+            Alert.alert(response.data.res);
+            console.log(response.data.res);
+        })
+        .catch(function(error) {
+            Alert.alert(error.message + ".Não foi possível realizar o cadastro. Tente novamente.");
+            console.log(error.message + ".Não foi possível realizar o cadastro. Tente novamente.");
+        })
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.login}>
@@ -174,6 +188,7 @@ export default function Login() {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonLogin}
+                    onPress={sendEmailConfirmation}
                     >
                     <Text style={styles.textButtonLogin}>
                         Enviar Email
