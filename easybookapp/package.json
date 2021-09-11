@@ -33,7 +33,8 @@
     "react-native-simple-dialogs": "^1.4.0",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
-    "url-parse": ">=1.5.2"
+    "url-parse": ">=1.5.2",
+    "ws": ">=5.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
