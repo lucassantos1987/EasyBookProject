@@ -27,10 +27,6 @@ export default function Register() {
     const [longitude, setLongitude] = useState('');
     const [obs, setObs] = useState('');
     const [image, setImage] = useState('');
-    const [categories, setCategories] = useState([]);
-    const [specialities, setSpecialities] = useState([]);
-    const [id_category, setId_Category] = useState('');
-    const [id_speciality, setId_Speciality] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -48,38 +44,8 @@ export default function Register() {
 
     useEffect(() => {
         setMsg_Loading("Carregando...");
-        loadCategories();
+        setLoading(false);
     }, []);
-
-    async function loadCategories() {
-        setLoading(true);
-        await api.get('category')
-            .then(response => {
-                setCategories(response.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                setLoading(false);
-                Alert.alert(error.message);
-            });
-    }
-
-    async function loadSpecialities(value) {
-        const id_category = value;
-        setId_Category(value);
-
-        setMsg_Loading("Carregando Especialidades...");
-        setLoading(true);
-        await api.get('speciality', { params: { id_category: id_category } })
-            .then(response => {
-                setSpecialities(response.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                setLoading(false);
-                Alert.alert(error.message);
-            });
-    }
 
     function getCep() {
         setMsg_Loading("Carregando dados do Cep...");
@@ -179,8 +145,6 @@ export default function Register() {
             photo,
             latitude,
             longitude,
-            id_category,
-            id_speciality,
             email,
             password
         };
@@ -201,10 +165,6 @@ export default function Register() {
                 Alert.alert("Dígite o Número de Endereço");
             } else if (image == '') {
                 Alert.alert("Selecione sua Foto");
-            } else if (id_category == '') {
-                Alert.alert("Selecione sua(s) Categoria(s)");
-            } else if (id_speciality == '') {
-                Alert.alert('Selecione sua(s) Especiadade(s)');
             } else if (email.trim() == '') {
                 Alert.alert("Digite seu Email");
             } else if (password.trim() == '') {
@@ -262,18 +222,6 @@ export default function Register() {
                 console.log(error.message);
             });
     }
-
-    const dataListCategories = categories.map(item => ({
-        label: item.name,
-        value: item.id,
-        key: item.id
-    }))
-
-    const dataListSpecialities = specialities.map(item => ({
-        label: item.name,
-        value: item.id,
-        key: item.id
-    }))
 
     return (
         <KeyboardAvoidingView style={styles.container}>
@@ -392,32 +340,6 @@ export default function Register() {
                         onPress={_takePhtoPickImage}>
                         <Text style={styles.textButtonContent}>Tirar Foto</Text>
                     </TouchableOpacity>
-                    <Text style={styles.textHeaderSpeciality}>
-                        Informe sua principal Especialidade.
-                    </Text>
-                    <Text>Selecione a Categoria</Text>
-                    <DropDownPicker
-                        containerStyle={{ height: 60 }}
-                        style={{ backgroundColor: '#FFFFFF'}}
-                        itemStyle={{
-                            justifyContent: 'flex-start',
-                            paddingVertical: 10
-                        }}
-                        value={id_category}
-                        onChangeItem={item => loadSpecialities(item.value)}
-                        items={dataListCategories}
-                    />
-                    <Text>Selecione a Especialidade</Text>
-                    <DropDownPicker 
-                        containerStyle={{ height: 60 }}
-                        style={{ backgroundColor: '#FFFFFF'}}
-                        itemStyle={{
-                            justifyContent: 'flex-start'
-                        }}
-                        value={id_speciality}
-                        onChangeItem={item => setId_Speciality(item.value)}
-                        items={dataListSpecialities}
-                    />
                     <Text style={styles.textHeaderUser}>
                         Registre seus dados de acesso
                     </Text>

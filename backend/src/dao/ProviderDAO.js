@@ -40,8 +40,6 @@ async function saveProvider(request, response) {
         photo,
         latitude,
         longitude,
-        id_category,
-        id_speciality,
         email,
         password
     } = request.body;
@@ -68,18 +66,6 @@ async function saveProvider(request, response) {
         .then(id => {
 
             const id_provider = id[0];
-
-            /*trx('provider_category_speciality').insert({            
-                id_provider,
-                id_category,            
-                id_speciality
-            })
-            .then(function() {
-                return;
-            })
-            .catch(function(error) {
-                return response.json({ res: error.message })
-            });*/
 
             trx('provider_user').insert({
                 id_provider,

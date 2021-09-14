@@ -27,7 +27,7 @@ export default StyleSheet.create({
         paddingBottom: 15
     },
     textHeaderUser: {
-        marginTop: 20,
+        marginTop: 80,
         fontSize: 20,
         fontWeight: 'bold'
     },

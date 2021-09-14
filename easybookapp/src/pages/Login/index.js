@@ -186,14 +186,6 @@ export default function Login() {
                         Login
                     </Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.buttonLogin}
-                    onPress={sendEmailConfirmation}
-                    >
-                    <Text style={styles.textButtonLogin}>
-                        Enviar Email
-                    </Text>
-                </TouchableOpacity>
             </View>
         </View>
     );
