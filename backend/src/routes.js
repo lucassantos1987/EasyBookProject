@@ -7,6 +7,7 @@ const ProviderController = require('./controller/ProviderController');
 const ProviderUserController = require('./controller/ProviderUserController');
 const ProviderCategoryController = require('./controller/ProviderCategoryController');
 const SendEmailController = require('./controller/SendEmailController');
+const UtilsController = require('./controller/UtilsController');
 
 const routes = express.Router();
 
@@ -29,5 +30,6 @@ routes.post('/provider_user', ProviderUserController.saveProviderUser);
 routes.get('/provider_user', ProviderUserController.signIn);
 
 routes.post('/send_email', SendEmailController.sendEmailConfirmation);
+routes.get('/criminal_antecedents', UtilsController.checkCriminalAntecendents);
 
 module.exports = routes;
