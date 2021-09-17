@@ -29,7 +29,7 @@ routes.post('/provider_update_photo', ProviderController.updateProviderPhoto);
 routes.post('/provider_user', ProviderUserController.saveProviderUser);
 routes.get('/provider_user', ProviderUserController.signIn);
 
-routes.post('/send_email', SendEmailController.sendEmailConfirmation);
+routes.post('/send_email_confirmation', SendEmailController.sendEmailConfirmation);
 routes.get('/criminal_antecedents', UtilsController.checkCriminalAntecendents);
 
 module.exports = routes;

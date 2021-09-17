@@ -109,7 +109,11 @@ export default function Register() {
                         setLoading(false);
                         Alert.alert(response.data.res);
 
-                        navigation.goBack();
+                        //navigation.goBack();
+
+                        console.log(email);
+
+                        sendEmailConfirmation(email);
                     }).catch(function (error) {
                         setLoading(false);
                         Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
@@ -119,6 +123,19 @@ export default function Register() {
             setLoading(false);
             Alert.alert("Não foi possível realizar o cadastro.")
         }
+    }
+
+    async function sendEmailConfirmation(email) {
+
+        await api.post('send_email_confirmation', email)
+        .then(function (response) {
+            Alert.alert(response.data.res);
+            console.log(response.data.res);
+        })
+        .catch(function(error) {
+            Alert.alert(error.message);
+            console.log(error.message);
+        })
     }
 
     async function _pickImage() {

@@ -2,6 +2,8 @@ const nodemailer = require('nodemailer');
 
 async function sendEmailConfirmation(request, response) {
 
+    const { email } = request.body;
+    
     const smtpTransport = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 587,
@@ -12,11 +14,13 @@ async function sendEmailConfirmation(request, response) {
         }
     })
     
+    console.log(email_to);
+
     const email = {
         from: "azbookapp@gmail.com",
-        to: "lucas.rafael.silva.santos@gmail.com",
-        subject: "Teste envio email node js",
-        text: "Testando envio email node js 1 2 3"
+        to: email_to,
+        subject: "Confirmação de cadastro no EasyBookApp",
+        text: "Olá, tudo bem? Muito obrigado por se cadastrar na nossa plataforma"
     }
     
     await smtpTransport.sendMail(email)
