@@ -17,7 +17,7 @@ export default function Register() {
     const [prefix_whatsapp, setPrefix_WhatsApp] = useState('+55');
     const [obs, setObs] = useState('');
     const [image, setImage] = useState('');
-    const [email, setEmail] = useState('');
+    const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [msg_loading, setMsg_Loading] = useState('');
@@ -32,7 +32,46 @@ export default function Register() {
         setMsg_Loading("Carregando...");
     }, []);
 
-    async function handleRegister() {
+    async function saveCustomer() {
+        setLoading(true);
+        setMsg_Loading("Salvando dados...");
+
+        await api.post('customer', data)
+        .then(function (response) {
+            setLoading(false);
+            Alert.alert(response.data.res);
+
+            if (response.data.res == "Cadastro realizado com sucesso.") {                            
+                sendEmailConfirmation(response.data.sendEmailTo);
+                uploadPhotoProfile(response.data.idCustomer);
+
+                //navigation.goBack();
+            } else {
+                Alert.alert("Não foi possível realizar o cadastro. Tente novamente.");
+            }
+
+            
+
+        }).catch(function (error) {
+            setLoading(false);
+            Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
+        });
+    }
+
+    async function sendEmailConfirmation(emailAddress) {
+
+        await api.post('send_email_confirmation', emailAddress)
+        .then(function (response) {
+            Alert.alert(response.data.res);
+            console.log(response.data.res);
+        })
+        .catch(function(error) {
+            Alert.alert(error.message);
+            console.log(error.message);
+        })
+    }
+
+    async function uploadPhotoProfile(id_customer) {
         setLoading(true);
         var photo = "";
         var success_upload = false;
@@ -64,78 +103,18 @@ export default function Register() {
                 },
                 body: formData
             })
-                .then(response => response.json())
-                .then(file => {
-                    setLoading(false);
-                    photo = file.file;
-                    success_upload = file.success
-                })
-                .catch(error => {
-                    setLoading(false);
-                    success_upload = false;
-                    console.log(error.message);
-                });
+            .then(response => response.json())
+            .then(file => {
+                setLoading(false);
+                photo = file.file;
+                success_upload = file.success
+            })
+            .catch(error => {
+                setLoading(false);
+                success_upload = false;
+                console.log(error.message);
+            });
         }
-
-        const data = {
-            first_name,
-            last_name,
-            whatsapp,
-            photo,
-            email,
-            password
-        };
-
-        if (success_upload) {
-
-            setLoading(true);
-
-            if (first_name.trim() == '') {
-                Alert.alert("Digite seu Nome");
-            } else if (last_name.trim() == '') {
-                Alert.alert("Digite seu Sobrenome");
-            } else if (whatsapp.trim() == '') {
-                Alert.alert("Digite seu número do WhatsApp");
-            } else if (image == '') {
-                Alert.alert("Selecione sua Foto");
-            } else if (email.trim() == '') {
-                Alert.alert("Digite seu Email");
-            } else if (password.trim() == '') {
-                Alert.alert("Digite sua Senha");
-            } else {
-
-                await api.post('customer', data)
-                    .then(function (response) {
-                        setLoading(false);
-                        Alert.alert(response.data.res);
-
-                        //navigation.goBack();
-
-                        console.log(email);
-
-                        sendEmailConfirmation(email);
-                    }).catch(function (error) {
-                        setLoading(false);
-                        Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
-                    });
-            }
-        } else {
-            setLoading(false);
-            Alert.alert("Não foi possível realizar o cadastro.")
-        }
-    }
-
-    async function sendEmailConfirmation(email) {
-
-        await api.post('send_email_confirmation', email)
-        .then(function (response) {
-            Alert.alert(response.data.res);
-            console.log(response.data.res);
-        })
-        .catch(function(error) {
-            Alert.alert(error.message);
-            console.log(error.message);
-        })
     }
 
     async function _pickImage() {
@@ -244,8 +223,8 @@ export default function Register() {
                         ref={email_input}
                         style={styles.inputContent}
                         placeholder="Digite seu Email"
-                        value={email}
-                        onChangeText={(text) => setEmail(text)}
+                        value={emailAddress}
+                        onChangeText={(text) => setEmailAddress(text)}
                         onSubmitEditing={() => password_input.current.focus()}
                         blurOnSubmit={false}
                         returnKeyType="next"
@@ -263,7 +242,7 @@ export default function Register() {
             <View style={styles.footer}>
                 <TouchableOpacity
                     style={styles.buttonFooter}
-                    onPress={handleRegister}>
+                    onPress={saveCustomer}>
                     <Text style={styles.textButtonContent}>
                         Cadastrar
                     </Text>
