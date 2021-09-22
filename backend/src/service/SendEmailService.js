@@ -20,13 +20,13 @@ async function sendEmailConfirmation(request, response) {
         from: "azbookapp@gmail.com",
         to: emailAddress,
         subject: "Confirmação de cadastro no EasyBookApp",
-        text: "Olá, tudo bem? Muito obrigado por se cadastrar na nossa plataforma"
+        text: "Olá, tudo bem? Muito obrigado por se cadastrar na nossa plataforma."
     }
     
     await smtpTransport.sendMail(email)
     .then(function() {        
         smtpTransport.close();
-        return response.json({ res: "Email enviado com sucesso." });
+        return response.json({ res: "Email de confirmação enviado com sucesso." });
     })
     .catch(function(error) {
         smtpTransport.close();

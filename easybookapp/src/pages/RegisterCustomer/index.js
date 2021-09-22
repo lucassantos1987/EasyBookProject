@@ -33,6 +33,15 @@ export default function Register() {
     }, []);
 
     async function saveCustomer() {
+
+        const data = {
+            first_name,
+            last_name,
+            whatsapp,
+            emailAddress,
+            password
+        };
+
         setLoading(true);
         setMsg_Loading("Salvando dados...");
 
@@ -40,21 +49,23 @@ export default function Register() {
         .then(function (response) {
             setLoading(false);
             Alert.alert(response.data.res);
+            
+            console.log("res: " + response.data.res);
 
-            if (response.data.res == "Cadastro realizado com sucesso.") {                            
-                sendEmailConfirmation(response.data.sendEmailTo);
+            if (response.data.res == "Cadastro realizado com sucesso.") {
                 uploadPhotoProfile(response.data.idCustomer);
+                //sendEmailConfirmation(response.data.sendEmailTo);                
 
                 //navigation.goBack();
             } else {
                 Alert.alert("Não foi possível realizar o cadastro. Tente novamente.");
             }
 
-            
-
         }).catch(function (error) {
             setLoading(false);
             Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
+
+            console.log("error: " + error.message);
         });
     }
 
@@ -71,7 +82,7 @@ export default function Register() {
         })
     }
 
-    async function uploadPhotoProfile(id_customer) {
+    async function uploadPhotoProfile(_id_customer) {
         setLoading(true);
         var photo = "";
         var success_upload = false;

@@ -23,10 +23,10 @@ async function saveCustomer(request, response) {
     const trx = await connection.transaction();
 
     await trx('customer').insert({
-        first_name,
-        last_name,
-        whatsapp,
-        photo
+        first_name: first_name,
+        last_name: last_name,
+        whatsapp: whatsapp,
+        photo: ''
     })
     .returning('id')
     .then(id => {
@@ -34,9 +34,9 @@ async function saveCustomer(request, response) {
         const id_customer = id[0];
 
         trx('customer_user').insert({
-            id_customer,
-            emailAddress,
-            password
+            id_customer: id_customer,
+            email: emailAddress,
+            password: password
         })
         .then(function() {
             return response.json({ res: "Cadastro realizado com sucesso.", sendEmailTo: emailAddress, idCustomer: id_customer});

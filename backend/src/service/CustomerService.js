@@ -5,7 +5,7 @@ async function getCustomer(request, response) {
 }
 
 async function saveCustomer(request, response) {
-    const { first_name, last_name, whatsapp, photo, emailAddress, password } = request.body;
+    const { first_name, last_name, whatsapp, emailAddress, password } = request.body;
 
     if (first_name.trim() == '') {
 
@@ -18,10 +18,6 @@ async function saveCustomer(request, response) {
     } else if (whatsapp.trim() == '') {
 
         return response.json({ res: "Digite seu número do WhatsApp." });
-
-    } else if (photo.trim() == '') {
-
-        return response.json({ res: "Selecione sua Foto." });
 
     } else if (emailAddress.trim() == '') {
 
