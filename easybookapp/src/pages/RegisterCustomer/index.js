@@ -17,7 +17,7 @@ export default function Register() {
     const [prefix_whatsapp, setPrefix_WhatsApp] = useState('+55');
     const [obs, setObs] = useState('');
     const [image, setImage] = useState('');
-    const [emailAddress, setEmailAddress] = useState('');
+    const [email_address, setEmail_Address] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [msg_loading, setMsg_Loading] = useState('');
@@ -25,8 +25,10 @@ export default function Register() {
 
     const lastname_input = useRef();
     const whatsapp_input = useRef();
-    const email_input = useRef();
+    const emailaddress_input = useRef();
     const password_input = useRef();
+
+    var photo = "";
 
     useEffect(() => {
         setMsg_Loading("Carregando...");
@@ -34,13 +36,22 @@ export default function Register() {
 
     async function saveCustomer() {
 
+        console.log(photo);
+
         const data = {
             first_name,
             last_name,
             whatsapp,
-            emailAddress,
-            password
+            email_address,
+            password,
+            photo
         };
+
+        if (uploadPhotoProfile) {
+            console.log("true verdadeito");
+        } else {
+            console.log("false")
+        }
 
         setLoading(true);
         setMsg_Loading("Salvando dados...");
@@ -82,9 +93,8 @@ export default function Register() {
         })
     }
 
-    async function uploadPhotoProfile(_id_customer) {
-        setLoading(true);
-        var photo = "";
+    async function uploadPhotoProfile() {
+        setLoading(true);        
         var success_upload = false;
 
         if (image != '') {
@@ -119,11 +129,15 @@ export default function Register() {
                 setLoading(false);
                 photo = file.file;
                 success_upload = file.success
+
+                return success_upload;
             })
             .catch(error => {
                 setLoading(false);
                 success_upload = false;
                 console.log(error.message);
+
+                return success_upload;
             });
         }
     }
@@ -209,7 +223,7 @@ export default function Register() {
                         placeholder="Número WhatsApp (99) 99999-9999"
                         value={whatsapp}
                         onChangeText={(text) => setWhatsapp(text)}
-                        onSubmitEditing={() => email_input.current.focus()}
+                        onSubmitEditing={() => emailaddress_input.current.focus()}
                         blurOnSubmit={false}                        
                         keyboardType={'numeric'}
                         returnKeyType="next" />
@@ -220,11 +234,11 @@ export default function Register() {
                         </Text>
                     </View>
                     <TextInput
-                        ref={email_input}
+                        ref={emailaddress_input}
                         style={styles.inputContent}
                         placeholder="Digite seu Email"
-                        value={emailAddress}
-                        onChangeText={(text) => setEmailAddress(text)}
+                        value={email_address}
+                        onChangeText={(text) => setEmail_Address(text)}
                         onSubmitEditing={() => password_input.current.focus()}
                         blurOnSubmit={false}
                         returnKeyType="next"
@@ -238,8 +252,8 @@ export default function Register() {
                         secureTextEntry={true}
                     />
                     <View style={styles.user}>
-                        <Text style={{ top: -20, fontSize: 18, fontWeight: 'bold' }}>
-                            Selecione uma foto para o seu perfil.
+                        <Text style={{ top: -20, fontSize: 19, fontWeight: 'bold' }}>
+                            Selecione uma foto para o seu perfil
                         </Text>
                         <Image source={image == '' ? require('../../assets/user2.jpg') : { uri: image }} style={styles.imageUser} />
                     </View>

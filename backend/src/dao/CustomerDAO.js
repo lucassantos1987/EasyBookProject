@@ -18,43 +18,26 @@ async function getCustomer(request, response) {
 }
 
 async function saveCustomer(request, response) {
-    const { first_name, last_name, whatsapp, photo, emailAddress, password } = request.body;
+    const { first_name, last_name, whatsapp, email_address, password, photo } = request.body;
 
     const trx = await connection.transaction();
 
     await trx('customer').insert({
         first_name: first_name,
         last_name: last_name,
-        whatsapp: whatsapp,
-        photo: ''
+        whatsapp: whatsapp,        
+        email_address: email_address,
+        password: password,
+        photo: photo
     })
-    .returning('id')
-    .then(id => {
-
-        const id_customer = id[0];
-
-        trx('customer_user').insert({
-            id_customer: id_customer,
-            email: emailAddress,
-            password: password
-        })
-        .then(function() {
-            return response.json({ res: "Cadastro realizado com sucesso.", sendEmailTo: emailAddress, idCustomer: id_customer});
-        })
-        .catch(function(error) {
-            console.log(error.message);
-            
-            return response.json({ res: error.message });
-        });
-
+    .then(function() {
+        return response.json({ res: "Cadastro realizado com sucesso." });
     })
     .catch(function(error) {            
         return response.json({ res: error.message })
     });
 
     trx.commit();
-
-    return;
 }
 
 async function updateCustomer(request, response) {

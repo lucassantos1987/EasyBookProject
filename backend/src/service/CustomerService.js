@@ -5,7 +5,7 @@ async function getCustomer(request, response) {
 }
 
 async function saveCustomer(request, response) {
-    const { first_name, last_name, whatsapp, emailAddress, password } = request.body;
+    const { first_name, last_name, whatsapp, email_address, password, photo } = request.body;
 
     if (first_name.trim() == '') {
 
@@ -19,7 +19,7 @@ async function saveCustomer(request, response) {
 
         return response.json({ res: "Digite seu número do WhatsApp." });
 
-    } else if (emailAddress.trim() == '') {
+    } else if (email_address.trim() == '') {
 
         return response.json({ res: "Digite seu Email." });
 
@@ -27,8 +27,13 @@ async function saveCustomer(request, response) {
 
         return response.json({ res: "Digite sua Senha." });
 
+    } else if (photo.trim() == '') {
+
+        return response.json({ res: 'Selecione a Foto.' });
+
     } else {
-        CustomerDAO.saveCustomer(request, response);
+
+        CustomerDAO.saveCustomer(request, response);        
     }
 
     return;

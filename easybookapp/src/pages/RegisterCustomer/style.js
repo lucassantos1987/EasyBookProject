@@ -28,7 +28,7 @@ export default StyleSheet.create({
     },
     textHeaderUser: {
         marginTop: 40,
-        fontSize: 20,
+        fontSize: 19,
         fontWeight: 'bold'
     },
     buttonHeaderBack: {
