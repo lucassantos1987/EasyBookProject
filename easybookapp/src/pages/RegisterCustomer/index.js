@@ -52,14 +52,14 @@ export default function Register() {
             
             console.log("res: " + response.data.res);
 
-            if (response.data.res == "Cadastro realizado com sucesso.") {
+            /*if (response.data.res == "Cadastro realizado com sucesso.") {
                 uploadPhotoProfile(response.data.idCustomer);
                 //sendEmailConfirmation(response.data.sendEmailTo);                
 
                 //navigation.goBack();
             } else {
                 Alert.alert("Não foi possível realizar o cadastro. Tente novamente.");
-            }
+            }*/
 
         }).catch(function (error) {
             setLoading(false);
@@ -209,27 +209,16 @@ export default function Register() {
                         placeholder="Número WhatsApp (99) 99999-9999"
                         value={whatsapp}
                         onChangeText={(text) => setWhatsapp(text)}
-                        blurOnSubmit={false}
-                        keyboardType={'numeric'} />
-                    <View style={styles.user}>
-                        <Text style={{ top: -20, fontSize: 18 }}>
-                            Agora selecione uma foto para o seu perfil.
+                        onSubmitEditing={() => email_input.current.focus()}
+                        blurOnSubmit={false}                        
+                        keyboardType={'numeric'}
+                        returnKeyType="next" />
+
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={styles.textHeaderUser}>
+                            Registre seus dados de acesso
                         </Text>
-                        <Image source={image == '' ? require('../../assets/user2.jpg') : { uri: image }} style={styles.imageUser} />
                     </View>
-                    <TouchableOpacity
-                        style={styles.buttonContentUserImage}
-                        onPress={_pickImage}>
-                        <Text style={styles.textButtonContent}>Selecionar Foto</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.buttonContentUserImage}
-                        onPress={_takePhtoPickImage}>
-                        <Text style={styles.textButtonContent}>Tirar Foto</Text>
-                    </TouchableOpacity>
-                    <Text style={styles.textHeaderUser}>
-                        Registre seus dados de acesso
-                    </Text>
                     <TextInput
                         ref={email_input}
                         style={styles.inputContent}
@@ -248,6 +237,22 @@ export default function Register() {
                         onChangeText={(text) => setPassword(text)}
                         secureTextEntry={true}
                     />
+                    <View style={styles.user}>
+                        <Text style={{ top: -20, fontSize: 18, fontWeight: 'bold' }}>
+                            Selecione uma foto para o seu perfil.
+                        </Text>
+                        <Image source={image == '' ? require('../../assets/user2.jpg') : { uri: image }} style={styles.imageUser} />
+                    </View>
+                    <TouchableOpacity
+                        style={styles.buttonContentUserImage}
+                        onPress={_pickImage}>
+                        <Text style={styles.textButtonContent}>Selecionar Foto</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.buttonContentUserImage}
+                        onPress={_takePhtoPickImage}>
+                        <Text style={styles.textButtonContent}>Tirar Foto</Text>
+                    </TouchableOpacity>    
                 </View>
             </ScrollView>
             <View style={styles.footer}>

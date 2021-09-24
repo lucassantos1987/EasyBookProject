@@ -88,13 +88,14 @@ export default StyleSheet.create({
         paddingVertical: 20
     },
     imageUser: {
-        paddingVertical: 50,
+        top: -10,
+        paddingVertical: 30,
         width: 250,
         height: 250,
         borderRadius: 250/2
     },
     buttonContentUserImage: {
-        top: 50,
+        top: 30,
         marginTop: 10,
         height: 50,
         backgroundColor: '#9b59b6',
