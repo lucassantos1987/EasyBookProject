@@ -1,3 +1,5 @@
+var FormData = require('form-data');
+
 async function uploadPhotoProfile(request, response) {
     
     const { photo } = request.body;

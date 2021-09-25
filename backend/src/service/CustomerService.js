@@ -1,5 +1,4 @@
-
-import api from './api';
+const axios = require('axios');
 
 const CustomerDAO = require('../dao/CustomerDAO');
 
@@ -12,29 +11,33 @@ async function saveCustomer(request, response) {
 
     if (first_name.trim() == '') {
 
-        return response.json({ res: "Digite seu Nome." });
+        return response.json({ message: "Digite seu Nome." });
 
     } else if (last_name.trim() == '') {
 
-        return response.json({ res: "Digite seu Sobrenome." });
+        return response.json({ message: "Digite seu Sobrenome." });
 
     } else if (whatsapp.trim() == '') {
 
-        return response.json({ res: "Digite seu número do WhatsApp." });
+        return response.json({ message: "Digite seu número do WhatsApp." });
 
     } else if (email_address.trim() == '') {
 
-        return response.json({ res: "Digite seu Email." });
+        return response.json({ message: "Digite seu Email." });
 
     } else if (password.trim() == '') {
 
-        return response.json({ res: "Digite sua Senha." });
+        return response.json({ message: "Digite sua Senha." });
+
+    } else if (photo.trim() == '') {
+
+        return response.json({ message: "Selecione sua Foto. "});
 
     } else {
 
         const data = { photo };
 
-        api.post('upload_photo_profile', data)
+        axios.post('http://192.168.0.109:3333/upload_photo_profile', data)
         .then(function(response) {
 
             if (response.data.success == true) {
@@ -62,7 +65,7 @@ async function saveCustomer(request, response) {
         })
         .catch(error => {
             console.log(error.message)
-            return response.json({ message: error.message + ". Não foi possível realizar o cadastro. Tente novamente." });
+            return response.json({ message: error.message + ". Não foi possível realizar o cadastro." });
         });
     }
 }

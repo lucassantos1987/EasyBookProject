@@ -130,8 +130,8 @@ export default function RegisterCustomer() {
         })
             .then((response) => {
                 if (!response.cancelled) {
-                    setImage(response.uri);
-                    console.log(image);
+                    setPhoto(response.uri);
+                    console.log(photo);
                 }
             })
             .catch(error => {
@@ -147,8 +147,8 @@ export default function RegisterCustomer() {
         })
             .then((response) => {
                 if (!response.cancelled) {
-                    setImage(response.uri);
-                    console.log(image);
+                    setPhoto(response.uri);
+                    console.log(photo);
                 }
             })
             .catch(error => {

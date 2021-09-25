@@ -19,7 +19,7 @@ async function getCustomer(request, response) {
 
 async function saveCustomer(request, response) {
     
-    const { first_name, last_name, whatsapp, photo, emailAddress, password } = request.body;
+    const { first_name, last_name, whatsapp, email_address, password, photo } = request.body;
 
     const trx = await connection.transaction();
 
@@ -27,7 +27,9 @@ async function saveCustomer(request, response) {
         first_name: first_name,
         last_name: last_name,
         whatsapp: whatsapp,
-        photo: ''
+        email_address: email_address,
+        password: password,
+        photo: photo
     })
     .then(function() {
         return response.json({ message: "Cadastro realizado com sucesso." });
