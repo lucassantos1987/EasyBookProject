@@ -18,23 +18,22 @@ async function getCustomer(request, response) {
 }
 
 async function saveCustomer(request, response) {
-    const { first_name, last_name, whatsapp, email_address, password, photo } = request.body;
+    
+    const { first_name, last_name, whatsapp, photo, emailAddress, password } = request.body;
 
     const trx = await connection.transaction();
 
     await trx('customer').insert({
         first_name: first_name,
         last_name: last_name,
-        whatsapp: whatsapp,        
-        email_address: email_address,
-        password: password,
-        photo: photo
+        whatsapp: whatsapp,
+        photo: ''
     })
     .then(function() {
-        return response.json({ res: "Cadastro realizado com sucesso." });
+        return response.json({ message: "Cadastro realizado com sucesso." });
     })
-    .catch(function(error) {            
-        return response.json({ res: error.message })
+    .catch(function(error) {
+        return response.json({ message: error.message });
     });
 
     trx.commit();

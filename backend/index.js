@@ -32,39 +32,30 @@ var uploadFolder = path.join(__dirname, '..', '..', '..', 'photosprofileeasybook
 
 app.use('/photosprofileeasybook', express.static(uploadFolder));
 
-app.post('/photosprofileeasybook', upload.single('image'), async (req, res) => {
-    const { filename: file } = req.file;
+app.post('/photosprofileeasybook', upload.single('image'), async (request, response) => {
+    const { filename: file } = request.file;
 
     if (file) {
-        await sharp(req.file.path)
+        await sharp(requs.file.path)
         .resize(500)
         .jpeg({ quality: 50 })
         .toFile(
             path.resolve(req.file.destination, 'resized', file)
         )
-        .then(response => {          
-            return res.json({ 
-                file: req.file.filename,
-                success: true
-            });
+        .then(function() {          
+            return res.json({ file: req.file.filename, success: true });
 
         })
         .catch(error => {
             console.log("Error Resized: " + error)
-            return res.json({  
-                file: "Failed",
-                success: false
-            });    
+            return res.json({ file: "Failed", success: false });    
         })
 
         fs.unlinkSync(req.file.path);
 
     } else {
         console.log("File Not Uploaded");
-        return res.json({  
-            file: "Failed",
-            success: false
-        });
+        return res.json({ file: "Failed", success: false });
     }
 })
 

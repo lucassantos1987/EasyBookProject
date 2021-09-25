@@ -8,15 +8,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './style';
 import api from '../../services/api';
-const i_cep = require('awesome-cep');
 
-export default function Register() {
+export default function RegisterCustomer() {
+    
     const [first_name, setFirst_Name] = useState('');
     const [last_name, setLast_Name] = useState('');
     const [whatsapp, setWhatsapp] = useState('');
     const [prefix_whatsapp, setPrefix_WhatsApp] = useState('+55');
-    const [obs, setObs] = useState('');
-    const [image, setImage] = useState('');
+    const [photo, setPhoto] = useState('');
     const [email_address, setEmail_Address] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -28,15 +27,11 @@ export default function Register() {
     const emailaddress_input = useRef();
     const password_input = useRef();
 
-    var photo = "";
-
     useEffect(() => {
         setMsg_Loading("Carregando...");
     }, []);
 
     async function saveCustomer() {
-
-        console.log(photo);
 
         const data = {
             first_name,
@@ -45,38 +40,24 @@ export default function Register() {
             email_address,
             password,
             photo
-        };
-
-        if (uploadPhotoProfile) {
-            console.log("true verdadeito");
-        } else {
-            console.log("false")
         }
 
         setLoading(true);
+        
         setMsg_Loading("Salvando dados...");
 
         await api.post('customer', data)
         .then(function (response) {
             setLoading(false);
-            Alert.alert(response.data.res);
-            
-            console.log("res: " + response.data.res);
 
-            /*if (response.data.res == "Cadastro realizado com sucesso.") {
-                uploadPhotoProfile(response.data.idCustomer);
-                //sendEmailConfirmation(response.data.sendEmailTo);                
+            Alert.alert(response.data.message);
 
-                //navigation.goBack();
-            } else {
-                Alert.alert("Não foi possível realizar o cadastro. Tente novamente.");
-            }*/
-
-        }).catch(function (error) {
+            //navigation.goBack();
+        })
+        .catch(function (error) {
             setLoading(false);
-            Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
-
             console.log("error: " + error.message);
+            Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
         });
     }
 
@@ -127,17 +108,15 @@ export default function Register() {
             .then(response => response.json())
             .then(file => {
                 setLoading(false);
-                photo = file.file;
-                success_upload = file.success
+                // photo = file.file;
+                // success_upload = file.success
 
-                return success_upload;
+                return response.json({ success: true, photo: file.file }) ;
             })
             .catch(error => {
                 setLoading(false);
                 success_upload = false;
                 console.log(error.message);
-
-                return success_upload;
             });
         }
     }
@@ -255,7 +234,7 @@ export default function Register() {
                         <Text style={{ top: -20, fontSize: 19, fontWeight: 'bold' }}>
                             Selecione uma foto para o seu perfil
                         </Text>
-                        <Image source={image == '' ? require('../../assets/user2.jpg') : { uri: image }} style={styles.imageUser} />
+                        <Image source={photo == '' ? require('../../assets/user2.jpg') : { uri: photo }} style={styles.imageUser} />
                     </View>
                     <TouchableOpacity
                         style={styles.buttonContentUserImage}
