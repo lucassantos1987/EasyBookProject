@@ -1,4 +1,6 @@
-var FormData = require('form-data');
+const FormData = require('form-data');
+const fs = require('fs');
+const fetch = require('node-fetch');
 
 async function uploadPhotoProfile(request, response) {
     
@@ -13,18 +15,15 @@ async function uploadPhotoProfile(request, response) {
 
         let formData = new FormData();
 
-        formData.append('name', 'avatar');
-        formData.append('image', {
-            uri: localUri,
-            type: typefile,
-            name: filename
-        });
+        const file = { uri: localUri, type: typefile, name: filename };
 
+        formData.append('name', 'avatar');
+        formData.append('image', fs.createReadStream(localUri));
+        
         await fetch('http://192.168.0.109:3333/photosprofileeasybook', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
-                'Content-Type': 'multipart/form-data',
             },
             body: formData
         })

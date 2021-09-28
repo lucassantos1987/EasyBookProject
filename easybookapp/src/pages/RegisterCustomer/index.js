@@ -16,6 +16,7 @@ export default function RegisterCustomer() {
     const [whatsapp, setWhatsapp] = useState('');
     const [prefix_whatsapp, setPrefix_WhatsApp] = useState('+55');
     const [photo, setPhoto] = useState('');
+    const [image, setImage] = useState('');
     const [email_address, setEmail_Address] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -46,6 +47,7 @@ export default function RegisterCustomer() {
         
         setMsg_Loading("Salvando dados...");
 
+
         await api.post('customer', data)
         .then(function (response) {
             setLoading(false);
@@ -57,7 +59,7 @@ export default function RegisterCustomer() {
         .catch(function (error) {
             setLoading(false);
             console.log("error: " + error.message);
-            Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
+            Alert.alert(error.message + ". Não foi possível realizar o cadastro. Tente novamente.");
         });
     }
 

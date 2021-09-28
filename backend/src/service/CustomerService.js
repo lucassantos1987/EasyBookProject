@@ -37,7 +37,11 @@ async function saveCustomer(request, response) {
 
         const data = { photo };
 
-        axios.post('http://192.168.0.109:3333/upload_photo_profile', data)
+        const api = axios.create({
+            baseURL: 'http://192.168.0.109:3333'
+        });
+
+        axios.post(api.defaults.baseURL + '/upload_photo_profile', data)
         .then(function(response) {
 
             if (response.data.success == true) {
