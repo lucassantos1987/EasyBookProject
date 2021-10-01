@@ -27,12 +27,25 @@ async function saveCustomer(request, response) {
         first_name: first_name,
         last_name: last_name,
         whatsapp: whatsapp,
-        email_address: email_address,
-        password: password,
         photo: photo
     })
-    .then(function() {
-        return response.json({ message: "Cadastro realizado com sucesso." });
+    .returning('id')
+    .then(id => {
+        const id_customer = id[0];
+
+        trx('customer_user').insert({
+            id_customer,
+            email: email_address,
+            password: password
+        })
+        .then(function() {
+            return response.json({ message: "Cadastro realizado com sucesso." });
+        })
+        .catch(function(error) {
+            console.log(error.message);
+            
+            return response.json({ message: error.message });
+        });        
     })
     .catch(function(error) {
         return response.json({ message: error.message });

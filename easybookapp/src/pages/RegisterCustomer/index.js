@@ -16,9 +16,7 @@ export default function RegisterCustomer() {
     const [first_name, setFirst_Name] = useState('');
     const [last_name, setLast_Name] = useState('');
     const [whatsapp, setWhatsapp] = useState('');
-    const [prefix_whatsapp, setPrefix_WhatsApp] = useState('+55');
     const [photo_profile, setPhoto_Profile] = useState('');
-    const [image, setImage] = useState('');
     const [email_address, setEmail_Address] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -59,6 +57,7 @@ export default function RegisterCustomer() {
                 setLoading(false);
                 Alert.alert(response.data.message);
                 i_sendEmail.sendEmailConfirmation(email_address);
+                navigation.goBack();
             })
             .catch(function (error) {
                 setLoading(false);
