@@ -31,46 +31,12 @@ async function saveCustomer(request, response) {
 
     } else if (photo.trim() == '') {
 
-        return response.json({ message: "Selecione sua Foto. "});
+        return response.json({ message: "Selecione sua Foto agora. "});
 
     } else {
 
-        const data = { photo };
+        CustomerDAO.saveCustomer(request, response);
 
-        const api = axios.create({
-            baseURL: 'http://192.168.0.109:3333'
-        });
-
-        axios.post(api.defaults.baseURL + '/upload_photo_profile', data)
-        .then(function(response) {
-
-            if (response.data.success == true) {
-
-                var v_firstname = first_name;
-                var v_lastname = last_name;
-                var v_whatsapp = whatsapp;
-                var v_emailaddress = email_address;
-                var v_password = password;
-                var v_photo = response.data.res;
-
-                const data = {
-                    v_firstname,
-                    v_lastname,
-                    v_whatsapp,
-                    v_emailaddress,
-                    v_password,
-                    v_photo
-                };
-
-                CustomerDAO.saveCustomer(data, response);
-            } else {
-                return response.json({ message: "Não foi possível salvar a foto. Tente novamente." });    
-            }
-        })
-        .catch(error => {
-            console.log(error.message)
-            return response.json({ message: error.message + ". Não foi possível realizar o cadastro." });
-        });
     }
 }
 

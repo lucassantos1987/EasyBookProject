@@ -42,7 +42,7 @@ app.post('/photosprofileeasybook', upload.single('image'), async (req, res) => {
         .toFile(
             path.resolve(req.file.destination, 'resized', file)
         )
-        .then(response => {          
+        .then(() => {          
             return res.json({ 
                 file: req.file.filename,
                 success: true

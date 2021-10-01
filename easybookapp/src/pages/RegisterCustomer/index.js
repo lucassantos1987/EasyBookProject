@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './style';
 import api from '../../services/api';
+const i_uploadPhoto = require('../../services/utils');
 
 export default function RegisterCustomer() {
     
@@ -15,7 +16,7 @@ export default function RegisterCustomer() {
     const [last_name, setLast_Name] = useState('');
     const [whatsapp, setWhatsapp] = useState('');
     const [prefix_whatsapp, setPrefix_WhatsApp] = useState('+55');
-    const [photo, setPhoto] = useState('');
+    const [photo_profile, setPhoto_Profile] = useState('');
     const [image, setImage] = useState('');
     const [email_address, setEmail_Address] = useState('');
     const [password, setPassword] = useState('');
@@ -33,33 +34,38 @@ export default function RegisterCustomer() {
     }, []);
 
     async function saveCustomer() {
-
-        const data = {
-            first_name,
-            last_name,
-            whatsapp,
-            email_address,
-            password,
-            photo
-        }
-
-        setLoading(true);
+        var photo = '';
         
-        setMsg_Loading("Salvando dados...");
+        i_uploadPhoto.uploadPhotoProfile(photo_profile)
+        .then(response => {
+        
+            photo = response;   
 
-
-        await api.post('customer', data)
-        .then(function (response) {
-            setLoading(false);
-
-            Alert.alert(response.data.message);
-
-            //navigation.goBack();
+            const data = {
+                first_name,
+                last_name,
+                whatsapp,
+                email_address,
+                password,
+                photo
+            }
+        
+            setLoading(true);            
+            setMsg_Loading("Salvando dados...");
+        
+            api.post('customer', data)
+            .then(function (response) {
+                setLoading(false);
+                Alert.alert(response.data.message);
+            })
+            .catch(function (error) {
+                setLoading(false);
+                console.log("error: " + error.message);
+                Alert.alert(error.message + ". Não foi possível realizar o cadastro. Tente novamente.");
+            });                        
         })
-        .catch(function (error) {
-            setLoading(false);
-            console.log("error: " + error.message);
-            Alert.alert(error.message + ". Não foi possível realizar o cadastro. Tente novamente.");
+        .catch(error => {
+            Alert.alert(error.message);
         });
     }
 
@@ -76,53 +82,6 @@ export default function RegisterCustomer() {
         })
     }
 
-    async function uploadPhotoProfile() {
-        setLoading(true);        
-        var success_upload = false;
-
-        if (image != '') {
-
-            setMsg_Loading("Salvando foto...");
-
-            let localUri = image;
-            let filename = localUri.split('/').pop();
-            let match = /\.(\w+)$/.exec(filename);
-            let typefile = match ? `image/${match[1]}` : `image`;
-
-            // Upload the image using the fetch and FormData APIs
-            let formData = new FormData();
-            // Assume "photo" is the name of the form field the server expects
-            formData.append('name', 'avatar');
-            formData.append('image', {
-                uri: localUri,
-                type: typefile,
-                name: filename
-            });
-
-            await fetch('http://192.168.0.109:3333/photosprofileeasybook', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'multipart/form-data',
-                },
-                body: formData
-            })
-            .then(response => response.json())
-            .then(file => {
-                setLoading(false);
-                // photo = file.file;
-                // success_upload = file.success
-
-                return response.json({ success: true, photo: file.file }) ;
-            })
-            .catch(error => {
-                setLoading(false);
-                success_upload = false;
-                console.log(error.message);
-            });
-        }
-    }
-
     async function _pickImage() {
         await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -132,8 +91,8 @@ export default function RegisterCustomer() {
         })
             .then((response) => {
                 if (!response.cancelled) {
-                    setPhoto(response.uri);
-                    console.log(photo);
+                    setPhoto_Profile(response.uri);
+                    console.log(photo_profile);
                 }
             })
             .catch(error => {
@@ -149,8 +108,8 @@ export default function RegisterCustomer() {
         })
             .then((response) => {
                 if (!response.cancelled) {
-                    setPhoto(response.uri);
-                    console.log(photo);
+                    setPhoto_Profile(response.uri);
+                    console.log(photo_profile);
                 }
             })
             .catch(error => {
@@ -236,7 +195,7 @@ export default function RegisterCustomer() {
                         <Text style={{ top: -20, fontSize: 19, fontWeight: 'bold' }}>
                             Selecione uma foto para o seu perfil
                         </Text>
-                        <Image source={photo == '' ? require('../../assets/user2.jpg') : { uri: photo }} style={styles.imageUser} />
+                        <Image source={photo_profile == '' ? require('../../assets/user2.jpg') : { uri: photo_profile }} style={styles.imageUser} />
                     </View>
                     <TouchableOpacity
                         style={styles.buttonContentUserImage}
