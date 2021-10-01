@@ -1,3 +1,5 @@
+import api from './api';
+
 const uploadPhotoProfile = async (photo_profile) => {
     
     if (!photo_profile) {
@@ -33,11 +35,12 @@ const uploadPhotoProfile = async (photo_profile) => {
         photo = data.file;
     })
     .catch(error => {
-        throw ({ message: "aqui" + error.message });
+        throw ({ message: error.message });
     });
 
     return photo;
 }
+
 
 module.exports = {
     uploadPhotoProfile

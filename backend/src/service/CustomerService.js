@@ -1,6 +1,6 @@
 const axios = require('axios');
-
 const CustomerDAO = require('../dao/CustomerDAO');
+const SendEmailService = require('./SendEmailService');
 
 async function getCustomer(request, response) {
     CustomerDAO.getCustomer(request, response);
@@ -34,9 +34,7 @@ async function saveCustomer(request, response) {
         return response.json({ message: "Selecione sua Foto agora. "});
 
     } else {
-
         CustomerDAO.saveCustomer(request, response);
-
     }
 }
 

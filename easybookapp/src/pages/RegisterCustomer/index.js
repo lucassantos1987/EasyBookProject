@@ -8,7 +8,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './style';
 import api from '../../services/api';
-const i_uploadPhoto = require('../../services/utils');
+const i_uploadPhoto = require('../../services/uploadPhoto');
+const i_sendEmail = require('../../services/send-email');
 
 export default function RegisterCustomer() {
     
@@ -57,6 +58,7 @@ export default function RegisterCustomer() {
             .then(function (response) {
                 setLoading(false);
                 Alert.alert(response.data.message);
+                i_sendEmail.sendEmailConfirmation(email_address);
             })
             .catch(function (error) {
                 setLoading(false);
@@ -67,19 +69,6 @@ export default function RegisterCustomer() {
         .catch(error => {
             Alert.alert(error.message);
         });
-    }
-
-    async function sendEmailConfirmation(emailAddress) {
-
-        await api.post('send_email_confirmation', emailAddress)
-        .then(function (response) {
-            Alert.alert(response.data.res);
-            console.log(response.data.res);
-        })
-        .catch(function(error) {
-            Alert.alert(error.message);
-            console.log(error.message);
-        })
     }
 
     async function _pickImage() {

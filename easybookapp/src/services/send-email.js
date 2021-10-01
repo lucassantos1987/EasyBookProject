@@ -1,30 +1,19 @@
-import qs from 'qs';
-import { Linking } from 'react-native';
+import { Alert } from 'react-native';
+import api from './api';
 
+const sendEmailConfirmation = async (email_address) => {
 
-export async function sendEmail(to, subject, body, options = {}) {
-    const { cc, bcc } = options;
+    console.log(email_address);
 
-    let url = `mailto:${to}`;
+    const data = { email_address };
 
-    // Create email link query
-    const query = qs.stringify({
-        subject: subject,
-        body: body,
-        cc: cc,
-        bcc: bcc
-    });
-
-    if (query.length) {
-        url += `?${query}`;
-    }
-
-    // check if we can use this link
-    const canOpen = await Linking.canOpenURL(url);
-
-    if (!canOpen) {
-        throw new Error('Provided URL can not be handled');
-    }
-
-    return Linking.openURL(url);
+    await api.post('send_email_confirmation', data)
+    .then(function (response) {
+        Alert.alert(response.data.res);
+    })
+    .catch(function(error) {
+        Alert.alert(error.message);
+    })
 }
+
+module.exports = { sendEmailConfirmation }

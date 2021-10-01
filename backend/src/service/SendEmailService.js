@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 
 async function sendEmailConfirmation(request, response) {
 
-    const { emailAddress } = request.body;
+    const { email_address } = request.body;
     
     const smtpTransport = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -14,11 +14,11 @@ async function sendEmailConfirmation(request, response) {
         }
     })
     
-    console.log(emailAddress);
+    console.log(email_address);
 
     const email = {
         from: "azbookapp@gmail.com",
-        to: emailAddress,
+        to: email_address,
         subject: "Confirmação de cadastro no EasyBookApp",
         text: "Olá, tudo bem? Muito obrigado por se cadastrar na nossa plataforma."
     }
