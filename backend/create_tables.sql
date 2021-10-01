@@ -180,3 +180,5 @@ create table provider_category(
 		references provider (id)
 )
 
+ALTER TABLE customer ADD email_address varchar(100) NOT NULL;
+ALTER TABLE customer ADD password varchar(30);

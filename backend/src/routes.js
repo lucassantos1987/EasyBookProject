@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require ('express');
 
 const CategoryController = require('./controller/CategoryController');
 const CustomerController = require('./controller/CustomerController');
@@ -28,6 +28,6 @@ routes.post('/provider_update_photo', ProviderController.updateProviderPhoto);
 routes.post('/provider_user', ProviderUserController.saveProviderUser);
 routes.get('/provider_user', ProviderUserController.signIn);
 
-routes.post('/send_email', SendEmailController.sendEmailConfirmation);
+routes.post('/send_email_confirmation', SendEmailController.sendEmailConfirmation);
 
 module.exports = routes;

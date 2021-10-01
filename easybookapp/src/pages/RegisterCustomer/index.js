@@ -8,16 +8,16 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './style';
 import api from '../../services/api';
-const i_cep = require('awesome-cep');
+const i_uploadPhoto = require('../../services/uploadPhoto');
+const i_sendEmail = require('../../services/send-email');
 
-export default function Register() {
+export default function RegisterCustomer() {
+    
     const [first_name, setFirst_Name] = useState('');
     const [last_name, setLast_Name] = useState('');
     const [whatsapp, setWhatsapp] = useState('');
-    const [prefix_whatsapp, setPrefix_WhatsApp] = useState('+55');
-    const [obs, setObs] = useState('');
-    const [image, setImage] = useState('');
-    const [email, setEmail] = useState('');
+    const [photo_profile, setPhoto_Profile] = useState('');
+    const [email_address, setEmail_Address] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [msg_loading, setMsg_Loading] = useState('');
@@ -25,100 +25,49 @@ export default function Register() {
 
     const lastname_input = useRef();
     const whatsapp_input = useRef();
-    const email_input = useRef();
+    const emailaddress_input = useRef();
     const password_input = useRef();
 
     useEffect(() => {
         setMsg_Loading("Carregando...");
     }, []);
 
-    async function handleRegister() {
-        setLoading(true);
-        var photo = "";
-        var success_upload = false;
+    async function saveCustomer() {
+        var photo = '';
+        
+        i_uploadPhoto.uploadPhotoProfile(photo_profile)
+        .then(response => {
+        
+            photo = response;   
 
-        if (image != '') {
-
-            setMsg_Loading("Salvando foto...");
-
-            let localUri = image;
-            let filename = localUri.split('/').pop();
-            let match = /\.(\w+)$/.exec(filename);
-            let typefile = match ? `image/${match[1]}` : `image`;
-
-            // Upload the image using the fetch and FormData APIs
-            let formData = new FormData();
-            // Assume "photo" is the name of the form field the server expects
-            formData.append('name', 'avatar');
-            formData.append('image', {
-                uri: localUri,
-                type: typefile,
-                name: filename
-            });
-
-            await fetch('http://192.168.0.109:3333/photosprofileeasybook', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'multipart/form-data',
-                },
-                body: formData
-            })
-                .then(response => response.json())
-                .then(file => {
-                    setLoading(false);
-                    photo = file.file;
-                    success_upload = file.success
-                })
-                .catch(error => {
-                    setLoading(false);
-                    success_upload = false;
-                    console.log(error.message);
-                });
-        }
-
-        const data = {
-            first_name,
-            last_name,
-            whatsapp,
-            photo,
-            email,
-            password
-        };
-
-        if (success_upload) {
-
-            setLoading(true);
-
-            if (first_name.trim() == '') {
-                Alert.alert("Digite seu Nome");
-            } else if (last_name.trim() == '') {
-                Alert.alert("Digite seu Sobrenome");
-            } else if (whatsapp.trim() == '') {
-                Alert.alert("Digite seu número do WhatsApp");
-            } else if (image == '') {
-                Alert.alert("Selecione sua Foto");
-            } else if (email.trim() == '') {
-                Alert.alert("Digite seu Email");
-            } else if (password.trim() == '') {
-                Alert.alert("Digite sua Senha");
-            } else {
-
-                await api.post('customer', data)
-                    .then(function (response) {
-                        setLoading(false);
-                        Alert.alert(response.data.res);
-
-                        navigation.goBack();
-                    }).catch(function (error) {
-                        setLoading(false);
-                        Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);
-                    });
+            const data = {
+                first_name,
+                last_name,
+                whatsapp,
+                email_address,
+                password,
+                photo
             }
-        } else {
-            setLoading(false);
-            Alert.alert("Não foi possível realizar o cadastro.")
-        }
+        
+            setLoading(true);            
+            setMsg_Loading("Salvando dados...");
+        
+            api.post('customer', data)
+            .then(function (response) {
+                setLoading(false);
+                Alert.alert(response.data.message);
+                i_sendEmail.sendEmailConfirmation(email_address);
+                navigation.goBack();
+            })
+            .catch(function (error) {
+                setLoading(false);
+                console.log("error: " + error.message);
+                Alert.alert(error.message + ". Não foi possível realizar o cadastro. Tente novamente.");
+            });                        
+        })
+        .catch(error => {
+            Alert.alert(error.message);
+        });
     }
 
     async function _pickImage() {
@@ -130,8 +79,8 @@ export default function Register() {
         })
             .then((response) => {
                 if (!response.cancelled) {
-                    setImage(response.uri);
-                    console.log(image);
+                    setPhoto_Profile(response.uri);
+                    console.log(photo_profile);
                 }
             })
             .catch(error => {
@@ -147,8 +96,8 @@ export default function Register() {
         })
             .then((response) => {
                 if (!response.cancelled) {
-                    setImage(response.uri);
-                    console.log(image);
+                    setPhoto_Profile(response.uri);
+                    console.log(photo_profile);
                 }
             })
             .catch(error => {
@@ -202,33 +151,22 @@ export default function Register() {
                         placeholder="Número WhatsApp (99) 99999-9999"
                         value={whatsapp}
                         onChangeText={(text) => setWhatsapp(text)}
-                        blurOnSubmit={false}
-                        keyboardType={'numeric'} />
-                    <View style={styles.user}>
-                        <Text style={{ top: -20, fontSize: 18 }}>
-                            Agora selecione uma foto para o seu perfil.
+                        onSubmitEditing={() => emailaddress_input.current.focus()}
+                        blurOnSubmit={false}                        
+                        keyboardType={'numeric'}
+                        returnKeyType="next" />
+
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={styles.textHeaderUser}>
+                            Registre seus dados de acesso
                         </Text>
-                        <Image source={image == '' ? require('../../assets/user2.jpg') : { uri: image }} style={styles.imageUser} />
                     </View>
-                    <TouchableOpacity
-                        style={styles.buttonContentUserImage}
-                        onPress={_pickImage}>
-                        <Text style={styles.textButtonContent}>Selecionar Foto</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.buttonContentUserImage}
-                        onPress={_takePhtoPickImage}>
-                        <Text style={styles.textButtonContent}>Tirar Foto</Text>
-                    </TouchableOpacity>
-                    <Text style={styles.textHeaderUser}>
-                        Registre seus dados de acesso
-                    </Text>
                     <TextInput
-                        ref={email_input}
+                        ref={emailaddress_input}
                         style={styles.inputContent}
                         placeholder="Digite seu Email"
-                        value={email}
-                        onChangeText={(text) => setEmail(text)}
+                        value={email_address}
+                        onChangeText={(text) => setEmail_Address(text)}
                         onSubmitEditing={() => password_input.current.focus()}
                         blurOnSubmit={false}
                         returnKeyType="next"
@@ -241,12 +179,28 @@ export default function Register() {
                         onChangeText={(text) => setPassword(text)}
                         secureTextEntry={true}
                     />
+                    <View style={styles.user}>
+                        <Text style={{ top: -20, fontSize: 19, fontWeight: 'bold' }}>
+                            Selecione uma foto para o seu perfil
+                        </Text>
+                        <Image source={photo_profile == '' ? require('../../assets/user2.jpg') : { uri: photo_profile }} style={styles.imageUser} />
+                    </View>
+                    <TouchableOpacity
+                        style={styles.buttonContentUserImage}
+                        onPress={_pickImage}>
+                        <Text style={styles.textButtonContent}>Selecionar Foto</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.buttonContentUserImage}
+                        onPress={_takePhtoPickImage}>
+                        <Text style={styles.textButtonContent}>Tirar Foto</Text>
+                    </TouchableOpacity>    
                 </View>
             </ScrollView>
             <View style={styles.footer}>
                 <TouchableOpacity
                     style={styles.buttonFooter}
-                    onPress={handleRegister}>
+                    onPress={saveCustomer}>
                     <Text style={styles.textButtonContent}>
                         Cadastrar
                     </Text>
