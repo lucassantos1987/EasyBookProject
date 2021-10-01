@@ -40,8 +40,9 @@ async function saveProvider(request, response) {
         photo,
         latitude,
         longitude,
-        email,
-        password
+        email_address,
+        password,
+        id_category
     } = request.body;
 
     const trx = await connection.transaction();
@@ -57,36 +58,45 @@ async function saveProvider(request, response) {
         zip_code,
         whatsapp,
         obs,
-        photo,
+        photo: photo,
         last_name,
         latitude,
         longitude
     })
-        .returning('id')
-        .then(id => {
+    .returning('id')
+    .then(id => {
 
-            const id_provider = id[0];
+        const id_provider = id[0];
 
-            trx('provider_user').insert({
-                id_provider,
-                password,
-                email
-            })
-                .then(function () {
-                    return response.json({ res: "Cadastro realizado com sucesso." });
-                })
-                .catch(function (error) {
-                    return response.json({ res: error.message });
-                });
+        trx('provider_user').insert({
+            id_provider,
+            password,
+            email: email_address
+        })
+        .then(function() {
 
         })
         .catch(function (error) {
-            return response.json({ res: error.message });
+            return response.json({ message: error.message });
         });
 
-    trx.commit();
+        trx('provider_category').insert({
+            id_provider,
+            id_category
+        })
+        .then(function() {
+            return response.json({ message: "Cadastro realizado com sucesso." });
+        })
+        .catch(function(err) {
+            return response.json({ message: error.message });    
+        })
+    })
+    .catch(function (error) {
+        console.log(error.message);
+        return response.json({ message: error.message });
+    });
 
-    return;
+    trx.commit();
 }
 
 async function updateProvider(request, response) {

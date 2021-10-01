@@ -15,8 +15,8 @@ export default StyleSheet.create({
         fontWeight: 'bold'
     },
     textHeaderSpeciality: {
-        marginTop: 90,
-        fontSize: 20,
+        marginTop: 40,
+        fontSize: 19,
         fontWeight: 'bold',
         paddingBottom: 15
     },
@@ -27,8 +27,8 @@ export default StyleSheet.create({
         paddingBottom: 15
     },
     textHeaderUser: {
-        marginTop: 80,
-        fontSize: 20,
+        marginTop: 30,
+        fontSize: 19,
         fontWeight: 'bold'
     },
     buttonHeaderBack: {
