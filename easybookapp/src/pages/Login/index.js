@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, TouchableOpacity, TextInput, Text, Image, Alert } from 'react-native';
+import { View, TouchableOpacity, TextInput, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -110,8 +110,11 @@ export default function Login() {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container}>   
             <View style={styles.login}>
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ color: '#FFF', fontWeight: 'bold', fontSize: 40 }}>EASYBOOK</Text>
+                </View>
                 <TextInput
                     ref={email_input}
                     style={styles.loginInput}

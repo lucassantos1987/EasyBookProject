@@ -13,7 +13,6 @@ export default function Menu() {
                 <section>
                     <h1>Menu</h1>
                     <Link className="button" to="/category">Cadastrar Categorias</Link>
-                    <Link className="button" to="/speciality">Cadastrar Especialidades</Link>
                 </section>
             </div>
         </div>

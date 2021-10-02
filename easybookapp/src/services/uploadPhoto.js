@@ -1,11 +1,10 @@
-import api from './api';
-
 const uploadPhotoProfile = async (photo_profile) => {
     
     if (!photo_profile) {
         throw { message: 'Selecione a Foto.' }
     }
 
+    let url = "http://192.168.0.109:3333";
     let localUri = photo_profile;
     let filename = localUri.split('/').pop();
     let match = /\.(\w+)$/.exec(filename);
@@ -22,7 +21,7 @@ const uploadPhotoProfile = async (photo_profile) => {
     });
 
     let photo = '';
-    await fetch('http://192.168.0.109:3333/photosprofileeasybook', {
+    await fetch(url + '/photosprofileeasybook', {
         method: 'POST',
         headers: {
             Accept: 'application/json',

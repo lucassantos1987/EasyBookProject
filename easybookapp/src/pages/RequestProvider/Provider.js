@@ -17,7 +17,8 @@ export default function Provider() {
     const route = useRoute();
 
     const id_category = route.params.category
-    const id_speciality = route.params.speciality;
+    
+    const url = "http://192.168.0.109:3333";
 
     async function loadProviders() {
         setLoading(true);
@@ -84,7 +85,7 @@ export default function Provider() {
                         <Avatar
                             size={"large"}
                             rounded={true}
-                            source={{ uri: "http://192.168.0.109:3333/photosprofileeasybook/resized/" + provider.photo }}
+                            source={{ uri: url + "/photosprofileeasybook/resized/" + provider.photo }}
                         />
                         <ListItem.Content>
                             <ListItem.Title>

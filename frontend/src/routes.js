@@ -11,7 +11,6 @@ export default function Routes() {
             <Switch>
                 <Route path="/" exact component={Menu} />
                 <Route path="/category" component={RegisterCategory} />
-                <Route path="/speciality" component={RegisterSpeciality} />
             </Switch>
         </BrowserRouter>    
     );

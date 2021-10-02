@@ -25,6 +25,8 @@ export default function InfoProvider() {
 
     const navigation = useNavigation();
 
+    const url = "http://192.168.0.109:3333";
+
     useEffect(() => {
         loadInfoProvider();
     }, [])
@@ -45,7 +47,7 @@ export default function InfoProvider() {
                 setState(data.state);
                 setWhatsapp(data.prefix_whatsapp + " " + data.whatsapp);
                 setObs(data.obs);
-                setImage('http://192.168.0.109:3333/photosprofileeasybook/resized/' + data.photo);
+                setImage(url + '/photosprofileeasybook/resized/' + data.photo);
             }).catch(error => {
                 setLoading(false);
                 Alert.alert(error);

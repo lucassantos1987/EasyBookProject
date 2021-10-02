@@ -135,8 +135,8 @@ export default function Register() {
             .then(function (response) {
                 setLoading(false);
                 Alert.alert(response.data.message);
-                //i_sendEmail.sendEmailConfirmation(email_address);
-                //navigation.goBack();
+                i_sendEmail.sendEmailConfirmation(email_address);
+                navigation.goBack();
             }).catch(function (error) {
                 setLoading(false);
                 Alert.alert("Não foi possível realizar o cadastro. Tente novamente." + error.message);

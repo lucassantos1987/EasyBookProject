@@ -9,7 +9,7 @@ export default StyleSheet.create({
         alignContent: 'center'
     },
     login: {
-        top: -50,
+        top: -60,
         left: 0,
         right: 0,
         bottom: 0,
