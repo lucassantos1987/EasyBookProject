@@ -21,12 +21,12 @@ export default function Routes() {
     return (
         <NavigationContainer>
             <AppStack.Navigator screenOptions={{ headerShown: false }}>
+                <AppStack.Screen name="RequestCategory" component={RequestCategory} />
                 <AppStack.Screen name="Login" component={Login} />
                 <AppStack.Screen name="Register" component={Register} />
                 <AppStack.Screen name="RegisterCustomer" component={RegisterCustomer} />
                 <AppStack.Screen name="MenuCustomer" component={MenuCustomer} />
-                <AppStack.Screen name="DataCustomer" component={DataCustomer} />
-                <AppStack.Screen name="RequestCategory" component={RequestCategory} />
+                <AppStack.Screen name="DataCustomer" component={DataCustomer} />                
                 <AppStack.Screen name="RequestSpeciality" component={RequestSpeciality} />
                 <AppStack.Screen name="RequestProvider" component={RequestProvider} />
                 <AppStack.Screen name="InfoProvider" component={InfoProvider} />
