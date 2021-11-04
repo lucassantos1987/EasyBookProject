@@ -4,6 +4,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Rating } from 'react-native-ratings';
 
 import api from '../../services/api';
 import styles from './styles';
@@ -19,6 +20,9 @@ export default function InfoProvider() {
     const [whatsapp, setWhatsapp] = useState('');
     const [obs, setObs] = useState('');
     const [loading, setLoading] = useState(false);
+    const [rating, setRating] = useState(5);
+
+
     const route = useRoute();
 
     const id_provider = route.params.provider;
@@ -77,7 +81,13 @@ export default function InfoProvider() {
             </View>
             <View style={styles.infoContainer}>
                 <Image source={image == '' ? require('../../assets/user2.jpg') : { uri: image }} style={styles.providerImg} />
-
+                <Rating
+                    imageSize={40}
+                    readonly
+                    fractions={1} 
+                    ratingCount={5} 
+                    startingValue={rating} 
+                    style={{ top: -65 }}/>
                 <View style={styles.info}>
                     <Text style={styles.textInfoName}>{name}</Text>
                     <Text style={styles.textInfo}>{address}</Text>
@@ -90,12 +100,7 @@ export default function InfoProvider() {
                 <TouchableOpacity
                     style={styles.buttonContactsWhats}
                     onPress={() => callWhatsapp(whatsapp)}>
-                    <Text style={styles.textButtonContacts}>WhatsApp</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => makeCall(whatsapp)}
-                    style={styles.buttonContactsFone}>
-                    <Text style={styles.textButtonContacts}>Telefone</Text>
+                    <Text style={styles.textButtonContacts}>Mensagem</Text>
                 </TouchableOpacity>
             </View>
 

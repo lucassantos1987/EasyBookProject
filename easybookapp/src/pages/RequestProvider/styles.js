@@ -121,15 +121,15 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     info: {
-        top: -30,
+        top: -50,
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 10
     },
     providerImg: {
-        top: -60,
-        width: 200,
-        height: 200,
+        top: -80,
+        width: 250,
+        height: 250,
         borderRadius: 200/ 2,
     },
     textInfoName: {
@@ -154,7 +154,7 @@ export default StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        height: 120,
+        height: 60,
     },
     buttonContactsWhats: {
         alignItems: 'center',

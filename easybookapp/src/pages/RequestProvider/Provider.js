@@ -4,6 +4,7 @@ import { ListItem, Avatar } from 'react-native-elements';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Rating } from 'react-native-ratings';
 
 import styles from './styles';
 import api from '../../services/api';
@@ -13,6 +14,8 @@ export default function Provider() {
     const [providers, setProviders] = useState([]);
     const [whatsApp, setWhatsApp] = useState('');
     const [loading, setLoading] = useState(false);
+    const [rating, setRating] = useState(5);
+
     const navigation = useNavigation();
     const route = useRoute();
 
@@ -94,6 +97,12 @@ export default function Provider() {
                             <ListItem.Subtitle
                                 style={{ color: "#95a5a6"}}>
                                 {"Clique para mais informações"}
+                                <Rating
+                                    imageSize={20}
+                                    readonly 
+                                    fractions={1} 
+                                    ratingCount={5} 
+                                    startingValue={rating} />
                             </ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>
