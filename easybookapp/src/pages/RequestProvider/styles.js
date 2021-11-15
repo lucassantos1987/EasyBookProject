@@ -154,7 +154,7 @@ export default StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        height: 60,
+        height: 120,
     },
     buttonContactsWhats: {
         alignItems: 'center',
@@ -162,7 +162,7 @@ export default StyleSheet.create({
         height: 60,
         backgroundColor: '#8e44ad',
     },
-    buttonContactsFone: {
+    buttonRating: {
         alignItems: 'center',
         justifyContent: 'center',
         height: 60,

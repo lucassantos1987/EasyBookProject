@@ -82,7 +82,7 @@ export default function InfoProvider() {
             <View style={styles.infoContainer}>
                 <Image source={image == '' ? require('../../assets/user2.jpg') : { uri: image }} style={styles.providerImg} />
                 <Rating
-                    imageSize={40}
+                    imageSize={30}
                     readonly
                     fractions={1} 
                     ratingCount={5} 
@@ -97,6 +97,11 @@ export default function InfoProvider() {
                 </View>
             </View>
             <View style={styles.contacts}>
+            <TouchableOpacity
+                    style={styles.buttonRating}
+                    onPress={() => callWhatsapp(whatsapp)}>
+                    <Text style={styles.textButtonContacts}>Ver Avaliações</Text>
+                </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonContactsWhats}
                     onPress={() => callWhatsapp(whatsapp)}>

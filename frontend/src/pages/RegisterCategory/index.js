@@ -40,32 +40,17 @@ export default function RegisterCategory() {
             setCategory(response.data);
         });
 
-        var exists = false;
-
-        for (var i = 0; i < category.length; i++) {
-            var obj = category[i];
-
-            if (obj.name === name) {
-                category.splice(i, 1);
-                exists = true;
-                break;
-            }
-        }
-
         const data = {
             name
         };
 
-        try {
-            if (!exists) {
-                await api.post('category', data);            
-                alert('Categoria gravada com sucesso.');
-            } else {
-                alert('Categoria já esta cadastrada.');
-            } 
-        } catch (err) {
-            alert('Erro no cadastro. Tente novamente.');
-        }
+        await api.post('category', data)
+        .then(function(response) {
+            alert(response.data.message);
+        })
+        .catch(function(err) {
+            alert("Erro no cadastro. " + err.message);
+        });
     }
 
     return(

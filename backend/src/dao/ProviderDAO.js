@@ -1,27 +1,30 @@
-const connection = require('../database/connection');
+const connDB = require('../database/connDB');
 
 async function getProvider(request, response) {
+    
     const id_provider = request.query.id_provider;
+    const client = await connDB.connect();
 
-    const result = await connection('provider')
-        .select('name',
-            'last_name',
-            'address',
-            'number',
-            'district',
-            'city',
-            'state',
-            'zip_code',
-            'photo',
-            'prefix_whatsapp',
-            'whatsapp',
-            'obs'
-        )
-        .modify(function (queryBuilder) {
-            queryBuilder.where('id', '=', id_provider);
-        })
+    var sql = "select"
+                + " name,"
+                + " last_name,"
+                + " address,"
+                + " number,"
+                + " district,"
+                + " city,"
+                + " state,"
+                + " zip_code,"
+                + " photo,"
+                + " prefix_whatsapp,"
+                + " whatsapp,"
+                + " obs"
+                + " from provider"
+                + " where id = " + id_provider;
+    
+    const result = await client.query(sql);
+    client.release();
 
-    return response.json(result);
+    return response.json( result.rows );
 }
 
 async function saveProvider(request, response) {
@@ -45,58 +48,38 @@ async function saveProvider(request, response) {
         id_category
     } = request.body;
 
-    const trx = await connection.transaction();
+    try {
+        const client = await connDB.connect();
 
-    await trx('provider').insert({
-        name,
-        address,
-        number,
-        complement,
-        district,
-        city,
-        state,
-        zip_code,
-        whatsapp,
-        obs,
-        photo: photo,
-        last_name,
-        latitude,
-        longitude
-    })
-    .returning('id')
-    .then(id => {
+        await client.query("BEGIN");
 
-        const id_provider = id[0];
+        const insert_provider = "insert into category(name, last_name, address, number, complement,"
+                            + " district, city, state, zip_code, whatsapp, obs, photo, latitude, longitude)"
+                            + "values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) returning id;";
+        const values_provider = [name, last_name, address, number, complement, district, city, 
+                            state, zip_code, whatsapp, obs, photo, latitude, longitude];
 
-        trx('provider_user').insert({
-            id_provider,
-            password,
-            email: email_address
-        })
-        .then(function() {
+        const result = await client.query(insert_provider, values_provider);
+        const id_provider = result.rows[0].id;
 
-        })
-        .catch(function (error) {
-            return response.json({ message: error.message });
-        });
+        const insert_provider_category = "insert provider_category(id_provider, id_category)"
+                                        + " values ($1, $2);"
+        const values_provider_category = [id_provider, id_category];
+        await client.query(insert_provider_category, values_provider_category);
 
-        trx('provider_category').insert({
-            id_provider,
-            id_category
-        })
-        .then(function() {
-            return response.json({ message: "Cadastro realizado com sucesso." });
-        })
-        .catch(function(err) {
-            return response.json({ message: error.message });    
-        })
-    })
-    .catch(function (error) {
-        console.log(error.message);
-        return response.json({ message: error.message });
-    });
+        const insert_provider_user = "insert into provider.user(id_provider, email_address, password)"
+                                        + "values ($1, $2, $3);";
+        const values_provider_user = [id_provider, email_address, password];
+        await client.query(insert_provider_user, values_provider_user);
 
-    trx.commit();
+        await client.query("COMMIT");
+
+        return response.json({ message: "Cadastro realizado com sucesso." });
+    } catch (e) {
+        return response.json({ message: e.stack });
+    } finally {
+
+    }
 }
 
 async function updateProvider(request, response) {
@@ -116,24 +99,37 @@ async function updateProvider(request, response) {
         obs
     } = request.body;
 
-    await connection('provider')
-        .where({ id: id })
-        .update({
-            name: name,
-            last_name: last_name,
-            address: address,
-            number: number,
-            district: district,
-            city: city,
-            state: state,
-            zip_code: zip_code,
-            whatsapp: whatsapp,
-            latitude: latitude,
-            longitude: longitude,
-            obs: obs
-        })
-        .then(u => response.status(!!u ? 200 : 404).json({ success: !!u }))
-        .catch(e => response.status(500).json(e));
+    try {
+        const client = await connDB.connect();
+
+        await client.query("BEGIN");
+
+        const sql = "update provider"
+                    + " set"
+                    + " name = $1,"
+                    + " last_name = $2,"
+                    + " address = $3,"
+                    + " number = $4,"
+                    + " district = $5,"
+                    + " city = $6,"
+                    + " state = $7,"
+                    + " zip_code = $8,"
+                    + " whatsapp = $9"
+                    + " latitude = $10,"
+                    + " longitude = $11,"
+                    + " obs = $12"
+                    + " where id = $13";
+        const values = [name, last_name, address, number, district, city, state, zip_code, whatsapp, latitude, longitude, obs, id];
+
+        await client.query(sql, values);
+        await client.query("COMMIT");
+
+        return response.json({ message: "Cadastro atualizado com sucesso." });
+    } catch (e) {
+        return response.json({ message: e.stack });
+    } finally {
+        client.release();
+    }
 }
 
 async function updateProviderPhoto(request, response) {
@@ -142,13 +138,23 @@ async function updateProviderPhoto(request, response) {
         photo
     } = request.body;
 
-    await connection('provider')
-        .where({ id: id })
-        .update({
-            photo: photo
-        })
-        .then(u => response.status(!!u ? 200 : 404).json({ success: !!u }))
-        .catch(e => response.status(500).json(e));
+    try {
+        const client = await connDB.connect();
+
+        await client("BEGIN");
+
+        const sql = "update provider set photo = $1 where id = $2;";
+        const values = [photo, id];
+
+        await client.query(sql, values);
+        await client("COMMIT");
+
+        return response.json({ message: "Foto atualizada com sucesso." });
+    } catch (e) {
+        return response.json({ message: e.stack });
+    } finally {
+        client.release();
+    }
 }
 
 module.exports = { getProvider, saveProvider, updateProvider, updateProviderPhoto }

@@ -3,7 +3,7 @@ const connDB = require('../database/connDB');
 async function getCategoryProvider(request, response) {
     
     const filterName  = request.query.name;
-    const conn = await connDB.connect();
+    const client = await connDB.connect();
 
     var sql = "select"
 	            + " count(pc.*) as quantidade,"
@@ -21,8 +21,8 @@ async function getCategoryProvider(request, response) {
               + " having count(pc.*) > 0"
               + " order by c.name";
 
-    const result = await conn.query(sql);
-    conn.release();
+    const result = await client.query(sql);
+    client.release();
 
     return response.json( result.rows );    
 }
@@ -30,7 +30,7 @@ async function getCategoryProvider(request, response) {
 async function getCategory(request, response) {
     
     const filterName  = request.query.name;
-    const conn = await connDB.connect();
+    const client = await connDB.connect();
 
     var sql = "select"
 	            + " c.id,"
@@ -43,8 +43,8 @@ async function getCategory(request, response) {
 
     sql = sql+ " order by c.name";
 
-    const result = await conn.query(sql);
-    conn.release();
+    const result = await client.query(sql);
+    client.release();
 
     return response.json( result.rows );    
 }
@@ -52,26 +52,34 @@ async function getCategory(request, response) {
 async function saveCategory(request, response) {
     
     const { name } = request.body;
-    const conn = await connDB.connect();
+    const client = await connDB.connect();
 
-    const sql = "insert into category(name)"
-            + "values ($1);";
-    const values = [ name ];
+    try {
+        await client.query("BEGIN");
+        
+        const sql = "insert into category(name) values ($1);";
+        const values = [ name ];
 
-    const result = await conn.query(sql, values);
+        await client.query(sql, values);
+        await client.query("COMMIT");
 
-    return response.json( result );
+        return response.json({ message: "Cadastro realizado com sucesso." });
+    } catch (e) {
+        return response.json({ message: "ERRO: " + e.stack });
+    } finally {
+        client.release();
+    }
 }
 
 async function checkCategory(request, response) {
 
     const name = request.query.name;
-    const conn = await connDB.connect();
+    const client = await connDB.connect();
 
     const sql = "select count(*) as quantidade where name = '" + name + "'";
 
-    const result = conn.query(sql);
-    conn.release();
+    const result = client.query(sql);
+    client.release();
    
     return response.json( result.rows );
 }
