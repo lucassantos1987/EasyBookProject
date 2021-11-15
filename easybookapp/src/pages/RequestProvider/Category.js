@@ -22,7 +22,7 @@ export default function Category() {
 
     async function loadCategories() {
         setLoading(true);
-        await api.get('category')
+        await api.get('category_provider')
             .then(response => {
                 setCategories(response.data);
                 setFilterCategory(response.data);
@@ -80,7 +80,7 @@ export default function Category() {
                             </ListItem.Title>
                             <ListItem.Subtitle
                                 style={{ color: "#95a5a6"}}>
-                                {"Clique para ver os profissionais"}
+                                { category.quantidade + " profissional(s) encontrado(s)" }
                             </ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>

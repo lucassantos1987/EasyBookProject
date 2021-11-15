@@ -20,6 +20,7 @@ routes.use(function(req, res, next) {
     next();
 });
 
+routes.get('/category_provider', CategoryController.getCategoryProvider);
 routes.get('/category', CategoryController.getCategory);
 routes.post('/category', CategoryController.saveCategory);
 routes.get('/check_category', CategoryController.checkCategory);
