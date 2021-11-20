@@ -182,3 +182,17 @@ create table provider_category(
 
 ALTER TABLE customer ADD email_address varchar(100) NOT NULL;
 ALTER TABLE customer ADD password varchar(30);
+
+CREATE TABLE rating_provider(
+	id serial PRIMARY KEY NOT NULL,
+	id_customer integer NOT NULL,
+	id_provider integer NOT NULL,
+	rating integer NOT NULL,
+	title_rating varchar(60) NOT null,
+	descrption_rating text,
+	date_rating timestamp default now(),
+	CONSTRAINT fk_customer FOREIGN KEY (id_customer)
+		REFERENCES customer (id),
+	CONSTRAINT fk_provider FOREIGN KEY (id_provider)
+		REFERENCES provider (id)	
+)

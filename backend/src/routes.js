@@ -7,6 +7,7 @@ const ProviderController = require('./controller/ProviderController');
 const ProviderUserController = require('./controller/ProviderUserController');
 const ProviderCategoryController = require('./controller/ProviderCategoryController');
 const SendEmailController = require('./controller/SendEmailController');
+const RatingPRoviderController = require('./controller/RatingProviderController');
 
 const routes = express.Router();
 
@@ -40,5 +41,7 @@ routes.post('/provider_user', ProviderUserController.saveProviderUser);
 routes.get('/provider_user', ProviderUserController.signIn);
 
 routes.post('/send_email_confirmation', SendEmailController.sendEmailConfirmation);
+
+routes.get('/rating_provider', RatingPRoviderController.getRatings);
 
 module.exports = routes;

@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Rating } from 'react-native-ratings';
 
 import api from '../../services/api';
-import styles from './styles';
+import styles from './stylesInfoProvider';
 
 export default function InfoProvider() {
 
@@ -62,18 +62,19 @@ export default function InfoProvider() {
         Linking.openURL(`https://api.whatsapp.com/send?phone=${text}`);
     }
 
-    function makeCall(number) {
-        Linking.openURL(`tel:${number}`)
+    function navigateToRatingProvider() {
+        navigation.navigate('RatingProvider');
     }
 
+
     return (
-        <View style={styles.containerInfo}>
+        <View style={styles.container}>
             <Spinner
                 visible={loading}
                 textContent={'Carregando Dados...'}
                 textStyle={styles.spinnerTextStyle}
             />
-            <View style={styles.headerInfoProvider}>
+            <View style={styles.header}>
                 <TouchableOpacity style={styles.buttonHeaderBack}
                     onPress={() => navigation.goBack()}>
                     <Icon name="arrow-left" size={26} color="#8e44ad"/>
@@ -99,7 +100,7 @@ export default function InfoProvider() {
             <View style={styles.contacts}>
             <TouchableOpacity
                     style={styles.buttonRating}
-                    onPress={() => callWhatsapp(whatsapp)}>
+                    onPress={navigateToRatingProvider}>
                     <Text style={styles.textButtonContacts}>Ver Avaliações</Text>
                 </TouchableOpacity>
                 <TouchableOpacity

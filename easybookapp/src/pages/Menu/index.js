@@ -59,10 +59,6 @@ export default function Menu() {
         navigation.navigate('DataProvider');
     }
 
-    function navigateToMyCategoriesSpecialities() {
-        navigation.navigate('CategorySpecialityProvider');
-    }
-
     function showOptionsPhoto() {
         bottom_sheet.current.open();
     }
