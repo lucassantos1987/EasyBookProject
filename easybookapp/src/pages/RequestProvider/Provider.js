@@ -12,7 +12,6 @@ import api from '../../services/api';
 export default function Provider() {
 
     const [providers, setProviders] = useState([]);
-    const [whatsApp, setWhatsApp] = useState('');
     const [loading, setLoading] = useState(false);
     const [rating, setRating] = useState(5);
 
@@ -102,7 +101,7 @@ export default function Provider() {
                                     readonly 
                                     fractions={1} 
                                     ratingCount={5} 
-                                    startingValue={rating} />
+                                    startingValue={provider.rating} />
                             </ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>

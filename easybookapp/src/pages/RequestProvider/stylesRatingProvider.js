@@ -5,7 +5,8 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignContent: 'center'
+        alignContent: 'center',
+        backgroundColor: '#FFFFFF'
     },
     header: {
         flexDirection: 'row',
@@ -46,4 +47,16 @@ export default StyleSheet.create({
     listRating: {
         marginTop: 80,
     },
+    contentRating: {
+        flexDirection: 'row',
+    },
+    contentUSer: {
+        flexDirection: 'row',
+        paddingTop: 10,
+        paddingBottom: 10,
+    },
+    nameUserText: {
+        fontSize: 18,
+        fontWeight: 'bold'
+    }    
 });

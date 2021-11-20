@@ -52,6 +52,7 @@ export default function InfoProvider() {
                 setWhatsapp(data.prefix_whatsapp + " " + data.whatsapp);
                 setObs(data.obs);
                 setImage(url + '/photosprofileeasybook/resized/' + data.photo);
+                setRating(data.rating);
             }).catch(error => {
                 setLoading(false);
                 Alert.alert(error);

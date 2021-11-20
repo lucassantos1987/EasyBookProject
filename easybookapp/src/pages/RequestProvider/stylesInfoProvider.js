@@ -5,7 +5,8 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignContent: 'center'
+        alignContent: 'center',
+        backgroundColor: '#FFFFFF'
     },
     header: {
         position: 'absolute',

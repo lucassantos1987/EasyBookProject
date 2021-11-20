@@ -5,21 +5,28 @@ async function getProvider(request, response) {
     const id_provider = request.query.id_provider;
     const client = await connDB.connect();
 
-    var sql = "select"
-                + " name,"
-                + " last_name,"
-                + " address,"
-                + " number,"
-                + " district,"
-                + " city,"
-                + " state,"
-                + " zip_code,"
-                + " photo,"
-                + " prefix_whatsapp,"
-                + " whatsapp,"
-                + " obs"
-                + " from provider"
-                + " where id = " + id_provider;
+    var sql = "select \n"
+            + "	    p.name,\n"
+            + "     p.last_name,\n"
+            + "     p.address,\n"
+            + "     p.number,\n"
+            + "     p.district,\n"
+            + "     p.city,\n"
+            + "     p.state,\n"
+            + "     p.zip_code,\n"
+            + "     p.photo,\n"
+            + "     p.prefix_whatsapp,\n"
+            + "     p.whatsapp,\n"
+            + "     p.obs,\n"
+            + "     rp.rating\n"
+            + "from provider p\n"
+            + "join (select \n"
+            + "			id_provider,\n"
+            + "			sum(rating) / count(id_provider) as rating\n"
+            + "		from rating_provider\n"
+            + "		group by id_provider) as rp on rp.id_provider = p.id\n"
+            + "where p.id = " + id_provider;
+
     
     const result = await client.query(sql);
     client.release();
