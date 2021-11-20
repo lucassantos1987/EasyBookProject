@@ -14,6 +14,7 @@ export default function Provider() {
     const [providers, setProviders] = useState([]);
     const [loading, setLoading] = useState(false);
     const [rating, setRating] = useState(5);
+    const [modalVisible, setModalVisible] = useState(false)
 
     const navigation = useNavigation();
     const route = useRoute();
@@ -63,7 +64,7 @@ export default function Provider() {
                 visible={loading}
                 textContent={'Carregando Profissionais...'}
                 textStyle={styles.spinnerTextStyle}
-            />
+            />            
             <View style={styles.header}>
                 <TouchableOpacity style={styles.buttonHeaderBack}
                     onPress={() => navigation.goBack()}>

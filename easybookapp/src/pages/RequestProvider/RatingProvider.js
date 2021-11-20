@@ -1,5 +1,5 @@
 import  React, {useState, useEffect } from 'react';
-import { View, TouchableOpacity, Text, FlatList, Alert } from 'react-native';
+import { View, TouchableOpacity, Text, FlatList, Alert, Modal, TextInput } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useNavigation } from '@react-navigation/native';
@@ -13,6 +13,7 @@ export default function RatingProvider() {
 
     const [ratings, setRatings] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
 
     const navigation = useNavigation();
 
@@ -81,10 +82,30 @@ export default function RatingProvider() {
             />            
             <View style={styles.rating}>
                 <TouchableOpacity
-                    style={styles.buttonRating}>
+                    style={styles.buttonRating}
+                    onPress={() => setModalVisible(true)}>
                     <Text style={styles.textButtonRating}>Avaliar</Text>
                 </TouchableOpacity>
             </View>
+            <Modal
+                transparent={true}
+                visible={modalVisible}
+                animationType="slide"
+                onRequestClose={() => {
+                    Alert.alert('Modal has been closed.');
+                    setModalVisible(false);
+                }}>
+
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Avaliar</Text>
+                        <TouchableOpacity style={styles.buttonModal}
+                            onPress={() => setModalVisible(!modalVisible)}>
+                            <Text style={styles.textStyle}>Enviar</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 }
