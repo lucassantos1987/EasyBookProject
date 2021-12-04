@@ -43,5 +43,6 @@ routes.get('/provider_user', ProviderUserController.signIn);
 routes.post('/send_email_confirmation', SendEmailController.sendEmailConfirmation);
 
 routes.get('/rating_provider', RatingPRoviderController.getRatings);
+routes.post('/rating_provider', RatingPRoviderController.saveRating)
 
 module.exports = routes;

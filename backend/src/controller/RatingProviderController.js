@@ -4,4 +4,8 @@ async function getRatings(request, response) {
     RatingPRoviderService.getRatings(request, response);
 }
 
-module.exports = { getRatings }
+async function saveRating(request, response) {
+    RatingPRoviderService.saveRating(request, response);
+}
+
+module.exports = { getRatings, saveRating }

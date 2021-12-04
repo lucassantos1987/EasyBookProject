@@ -4,4 +4,8 @@ async function getRatings(request, response) {
     RatingProviderDAO.getRatings(request, response);
 }
 
-module.exports = { getRatings }
+async function saveRating(request, response) {
+    RatingProviderDAO.saveRating(request, response);
+}
+
+module.exports = { getRatings, saveRating }

@@ -85,7 +85,7 @@ async function saveProvider(request, response) {
     } catch (e) {
         return response.json({ message: e.stack });
     } finally {
-
+        client.release();
     }
 }
 

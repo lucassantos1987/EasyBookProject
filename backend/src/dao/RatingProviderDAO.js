@@ -25,4 +25,37 @@ async function getRatings(request, response) {
     return response.json( result.rows );
 }
 
-module.exports = { getRatings }
+async function saveRating(request, response) {
+    
+    const {
+        id_provider,
+        id_customer,
+        rating,
+        title_rating,
+        description_rating
+    } = request.body;
+
+    try {
+
+        const client = await connDB.connect();
+
+        await client.query("BEGIN");
+
+        const insert_rating = "insert into rating_provider(id_provider, id_customer, rating, title_rating, description_rating) \n"
+                            + "values (\n"
+                            + "$1, $2, $3, $4, $5);";
+        const values_rating_provider = [id_provider, id_customer, rating, title_rating, description_rating];
+        
+        const result = await client.query(insert_rating, values_rating_provider);
+
+        await client.query("COMMIT");
+
+        return response.json({ message: "Avaliação enviada com sucesso. Obrigado pela sua avaliação." });
+    } catch (e) {
+        return response.json({ message: e.stack });
+    } finally {
+        client.release();
+    }
+}
+
+module.exports = { getRatings, saveRating }

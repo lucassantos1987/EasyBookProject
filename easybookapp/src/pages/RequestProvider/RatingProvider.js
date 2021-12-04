@@ -1,4 +1,4 @@
-import  React, {useState, useEffect } from 'react';
+import  React, {useState, useEffect, useRef } from 'react';
 import { View, TouchableOpacity, Text, FlatList, Alert, Modal, TextInput } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -14,8 +14,15 @@ export default function RatingProvider() {
     const [ratings, setRatings] = useState([]);
     const [loading, setLoading] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
+    const [titleRating, setTitleRating] = useState('');
+    const [descriptionRating, setDescriptionRating] = useState('');
+    const [rating, setRating] = useState(0);
+    const [idProvider, setIdProvider] = useState();
+    const [idCustomer, setIdCustomer] = useState();
 
     const navigation = useNavigation();
+
+    const descriptionRating_input = useRef();
 
     useEffect(() => {
         loadRatings();
@@ -33,6 +40,36 @@ export default function RatingProvider() {
                 Alert.alert(error.message);
                 setLoading(false);
             });
+    }
+
+    async function sendRating() {
+
+        setLoading(true);
+
+        const data = {
+            idProvider,
+            idCustomer,
+            rating,
+            titleRating,
+            descriptionRating
+        };
+
+        await api.post('rating_provider', data)
+        .then(function(response) {
+            setLoading(false);
+            Alert.alert(response.data.message);
+        })
+        .catch(function(error) {
+            setLoading(false);
+            Alert.alert(error.message);
+        })
+
+        setModalVisible(!modalVisible)        
+    }
+
+    function ratingCompleted(rating) {
+        setRating(rating)
+        console.log("Rating is " +  rating);
     }
 
     return (
@@ -104,20 +141,28 @@ export default function RatingProvider() {
                             imageSize={30}
                             fractions={1} 
                             ratingCount={5} 
-                            startingValue={0}/>
+                            startingValue={rating}
+                            onFinishRating={ratingCompleted}/>
                         </View>
                         <View style={{ paddingBottom: 20 }}>
                             <TextInput
                                 style={styles.inputTitleRating}
-                                placeholder="Título da Avaliação. Exemplo: Bom"/>
+                                placeholder="Título da Avaliação. Exemplo: Bom"
+                                value={titleRating}
+                                onChangeText={(text) => setTitleRating(text)}
+                                onSubmitEditing={() => descriptionRating_input.current.focus()}
+                                blurOnSubmit={false}
+                                returnKeyType="next" />
                             <TextInput
                                 style={styles.inputObsRating}
                                 multiline
-                                placeholder="Descreva a sua Avaliação sobre o profissional"/>
-
+                                placeholder="Descreva a sua Avaliação sobre o profissional"
+                                value={descriptionRating}
+                                onChangeText={(text) => setDescriptionRating(text)}
+                                ref={descriptionRating_input}/>
                         </View>    
                         <TouchableOpacity style={styles.buttonModal}
-                            onPress={() => setModalVisible(!modalVisible)}>
+                            onPress={sendRating}>
                             <Text style={styles.textStyle}>Enviar</Text>
                         </TouchableOpacity>
                     </View>
