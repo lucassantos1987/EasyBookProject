@@ -59,18 +59,22 @@ export default StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     },
-    centeredView: {
+    centeredView: {        
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 0,
-        margin: 0
+        margin: 0,
+        backgroundColor: '#ecf0f1',                
       },
       modalView: {
+        position: 'absolute',
         margin: 0,
+        left: 10,
+        right: 10,        
         backgroundColor: 'white',
         borderRadius: 20,
-        padding: 35,
+        padding: 20,
         alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: {
@@ -86,8 +90,8 @@ export default StyleSheet.create({
         justifyContent: 'center',
         height: 60,
         backgroundColor: '#8e44ad',
-        paddingHorizontal: 100,
-        borderRadius: 10
+        borderRadius: 10,
+        paddingHorizontal: 130
       },
       buttonOpen: {
         backgroundColor: '#F194FF',
@@ -103,5 +107,28 @@ export default StyleSheet.create({
       modalText: {
         marginBottom: 15,
         textAlign: 'center',
-      },    
+        fontWeight: 'bold',
+        fontSize: 17        
+      },
+      inputTitleRating: {
+        height: 40,
+        marginTop: 0,
+        borderColor : '#9b59b6',
+        borderWidth: 1,
+        fontSize: 16,
+        paddingLeft: 10,
+        borderRadius: 10,
+        width: 290        
+    },
+    inputObsRating: {
+        marginTop: 10,
+        borderColor : '#9b59b6',
+        borderWidth: 1,
+        borderRadius: 10,
+        fontSize: 16,
+        padding: 10,
+        textAlignVertical: 'top',
+        height: 200        
+    },
+
 });

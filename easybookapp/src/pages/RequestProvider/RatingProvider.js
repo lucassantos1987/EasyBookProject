@@ -98,7 +98,24 @@ export default function RatingProvider() {
 
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Avaliar</Text>
+                        <Text style={styles.modalText}>O que você achou do profissional?</Text>
+                        <View style={{ paddingBottom: 20}}>
+                        <Rating
+                            imageSize={30}
+                            fractions={1} 
+                            ratingCount={5} 
+                            startingValue={0}/>
+                        </View>
+                        <View style={{ paddingBottom: 20 }}>
+                            <TextInput
+                                style={styles.inputTitleRating}
+                                placeholder="Título da Avaliação. Exemplo: Bom"/>
+                            <TextInput
+                                style={styles.inputObsRating}
+                                multiline
+                                placeholder="Descreva a sua Avaliação sobre o profissional"/>
+
+                        </View>    
                         <TouchableOpacity style={styles.buttonModal}
                             onPress={() => setModalVisible(!modalVisible)}>
                             <Text style={styles.textStyle}>Enviar</Text>
