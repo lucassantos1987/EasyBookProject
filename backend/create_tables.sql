@@ -189,7 +189,7 @@ CREATE TABLE rating_provider(
 	id_provider integer NOT NULL,
 	rating integer NOT NULL,
 	title_rating varchar(60) NOT null,
-	descrption_rating text,
+	description_rating text,
 	date_rating timestamp default now(),
 	CONSTRAINT fk_customer FOREIGN KEY (id_customer)
 		REFERENCES customer (id),

@@ -6,7 +6,7 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignContent: 'center',
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#FFF'
     },
     header: {
         position: 'absolute',
@@ -21,17 +21,17 @@ export default StyleSheet.create({
     },
     buttonHeaderBack: {
         position: 'absolute',
-        left: 10
+        left: 15
     },
     spinnerTextStyle: {
         color: '#FFF'
     },
     contacts: {
-        position: 'absolute',
         left: 0,
         right: 0,
         bottom: 0,
         height: 120,
+        position: 'absolute'
     },
     buttonContactsWhats: {
         alignItems: 'center',
@@ -49,45 +49,31 @@ export default StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 17
     },
-    inputObs: {
-        paddingVertical: 30,
-        marginTop: 30,
-        borderTopColor : '#9b59b6',
-        borderTopWidth: 1,
-        fontSize: 16,
-        padding: 10,
-        textAlignVertical: 'top',
-        fontWeight: 'bold'
-    },
     infoContainer: {
-        top: 0,
+        top: 20,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingHorizontal: 10,
+        paddingBottom: 150
     },
     info: {
-        top: -50,
+        top: 20,
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 10
     },
     providerImg: {
-        top: -80,
-        width: 250,
-        height: 250,
+        top: 0,
+        width: 200,
+        height: 200,
         borderRadius: 200/ 2,
     },
     textInfoName: {
         fontSize: 30,
         fontWeight: 'bold',
     },
-
     textInfo: {
-        top: 15,
-        fontSize: 17,
-    },
-    textInfoObs: {
-        top: 20,
-        fontWeight: 'bold',
+        top: 0,
         fontSize: 17,
     },
 });

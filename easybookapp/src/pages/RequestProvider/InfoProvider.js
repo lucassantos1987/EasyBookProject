@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, Alert, TouchableOpacity, Linking } from 'react-native';
+import { View, Text, Image, Alert, TouchableOpacity, Linking, ScrollView, SafeAreaView } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
@@ -69,7 +69,7 @@ export default function InfoProvider() {
 
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Spinner
                 visible={loading}
                 textContent={'Carregando Dados...'}
@@ -81,23 +81,23 @@ export default function InfoProvider() {
                     <Icon name="arrow-left" size={26} color="#8e44ad"/>
                 </TouchableOpacity>
             </View>
-            <View style={styles.infoContainer}>
-                <Image source={image == '' ? require('../../assets/user2.jpg') : { uri: image }} style={styles.providerImg} />
-                <Rating
-                    imageSize={30}
-                    readonly
-                    fractions={1} 
-                    ratingCount={5} 
-                    startingValue={rating} 
-                    style={{ top: -65 }}/>
-                <View style={styles.info}>
-                    <Text style={styles.textInfoName}>{name}</Text>
-                    <Text style={styles.textInfo}>{address}</Text>
-                    <Text style={styles.textInfo}>{district}</Text>
-                    <Text style={styles.textInfo}>{city + " - " + state}</Text>
-
+                <View style={styles.infoContainer}>
+                    <Image source={image == '' ? require('../../assets/user2.jpg') : { uri: image }} style={styles.providerImg} />
+                    <Rating
+                        imageSize={30}
+                        readonly
+                        fractions={1} 
+                        ratingCount={5} 
+                        startingValue={rating} 
+                        style={{ top: 20 }}/>
+                    <View style={styles.info}>
+                        <Text style={styles.textInfoName}>{name}</Text>
+                        <Text style={styles.textInfo}>{city + " - " + state}</Text>
+                        {/*<Text style={styles.textInfo}>{address}</Text>
+                        <Text style={styles.textInfo}>{district}</Text>
+                        <Text style={styles.textInfo}>{city + " - " + state}</Text>*/}
+                    </View>
                 </View>
-            </View>
             <View style={styles.contacts}>
             <TouchableOpacity
                     style={styles.buttonRating}
@@ -111,6 +111,6 @@ export default function InfoProvider() {
                 </TouchableOpacity>
             </View>
 
-        </View>
+        </SafeAreaView>
     );
 }

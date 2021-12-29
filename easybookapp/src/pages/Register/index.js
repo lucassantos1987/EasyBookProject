@@ -332,7 +332,7 @@ export default function Register() {
                     />
                     <View style={styles.user}>
                         <Text style={{ top: -25, fontSize: 19, fontWeight: 'bold' }}>
-                        Selecione uma foto para o seu perfil
+                            Selecione uma foto para o seu perfil
                         </Text>
                         <Image source={photo_profile == '' ? require('../../assets/user2.jpg') : { uri: photo_profile }} style={styles.imageUser} />
                     </View>

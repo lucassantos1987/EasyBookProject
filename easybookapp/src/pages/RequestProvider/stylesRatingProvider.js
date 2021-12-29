@@ -22,7 +22,7 @@ export default StyleSheet.create({
     },
     buttonHeaderBack: {
         position: 'absolute',
-        left: 10
+        left: 15
     },
     spinnerTextStyle: {
         color: '#FFF'
