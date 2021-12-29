@@ -15,13 +15,14 @@ import RequestProvider from './pages/RequestProvider/Provider';
 import InfoProvider from './pages/RequestProvider/InfoProvider';
 import Menu from './pages/Menu';
 import DataProvider from './pages/DataProvider/DataProvider';
-import CategorySpecialityProvider from './pages/DataProvider/CategorySpecialityProvider';
 import RatingProvider from "./pages/RequestProvider/RatingProvider";
+import Main from './pages/Main';
 
 export default function Routes() {
     return (
         <NavigationContainer>
             <AppStack.Navigator screenOptions={{ headerShown: false }}>
+                <AppStack.Screen name="Main" component={Main} />
                 <AppStack.Screen name="RequestCategory" component={RequestCategory} />
                 <AppStack.Screen name="Login" component={Login} />
                 <AppStack.Screen name="Register" component={Register} />
