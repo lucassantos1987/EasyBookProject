@@ -4,12 +4,16 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const AuthStack = createStackNavigator();
 
-import Main from './pages/Main';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import RegisterCustomer from './pages/RegisterCustomer';
+import Main from '../pages/Main';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
+import RegisterCustomer from '../pages/RegisterCustomer';
+import RequestCategory from '../pages/RequestProvider/Category';
+import RequestProvider from '../pages/RequestProvider/Provider';
+import InfoProvider from '../pages/RequestProvider/InfoProvider';
 
-export default function Routes() {
+
+export default function AuthRoutes() {
     return (
         <NavigationContainer>
             <AuthStack.Navigator screenOptions={{ headerShown: false }}>

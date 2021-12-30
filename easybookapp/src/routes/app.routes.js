@@ -4,17 +4,17 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const AppStack = createStackNavigator();
 
-import MenuCustomer from './pages/MenuCustomer';
-import DataCustomer from './pages/DataCustomer';
-import RequestCategory from './pages/RequestProvider/Category';
-import RequestProvider from './pages/RequestProvider/Provider';
-import InfoProvider from './pages/RequestProvider/InfoProvider';
-import RatingProvider from "./pages/RequestProvider/RatingProvider";
-import Menu from './pages/Menu';
-import DataProvider from './pages/DataProvider/DataProvider';
+import MenuCustomer from '../pages/MenuCustomer';
+import DataCustomer from '../pages/DataCustomer';
+import RequestCategory from '../pages/RequestProvider/Category';
+import RequestProvider from '../pages/RequestProvider/Provider';
+import InfoProvider from '../pages/RequestProvider/InfoProvider';
+import RatingProvider from "../pages/RequestProvider/RatingProvider";
+import Menu from '../pages/Menu';
+import DataProvider from '../pages/DataProvider/DataProvider';
 
 
-export default function Routes() {
+export default function AppRoutes() {
     return (
         <NavigationContainer>
             <AppStack.Navigator screenOptions={{ headerShown: false }}>
