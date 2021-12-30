@@ -1,18 +1,20 @@
 const express = require('express');
-const routes = require('./src/routes');
-const cors = require('cors');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const multer = require('multer');
 const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
-const { response } = require('express');
+
+const routes = require('./src/routes');
 
 const port = 3333;
 const app = express();
 
 app.use(express.json());
 app.use(routes);
-app.use(cors());
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({extended: false}));
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {

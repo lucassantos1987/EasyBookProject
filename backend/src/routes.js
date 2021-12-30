@@ -1,14 +1,4 @@
 const express = require ('express');
-
-const CategoryController = require('./controller/CategoryController');
-const CustomerController = require('./controller/CustomerController');
-const CustomerUserController = require('./controller/CustomerUserController');
-const ProviderController = require('./controller/ProviderController');
-const ProviderUserController = require('./controller/ProviderUserController');
-const ProviderCategoryController = require('./controller/ProviderCategoryController');
-const SendEmailController = require('./controller/SendEmailController');
-const RatingPRoviderController = require('./controller/RatingProviderController');
-
 const routes = express.Router();
 
 const cors = require('cors'); 
@@ -21,15 +11,24 @@ routes.use(function(req, res, next) {
     next();
 });
 
+const CategoryController = require('./controller/CategoryController');
+const CustomerController = require('./controller/CustomerController');
+const CustomerUserController = require('./controller/CustomerUserController');
+const ProviderController = require('./controller/ProviderController');
+const ProviderUserController = require('./controller/ProviderUserController');
+const ProviderCategoryController = require('./controller/ProviderCategoryController');
+const SendEmailController = require('./controller/SendEmailController');
+const RatingPRoviderController = require('./controller/RatingProviderController');
+
 routes.get('/category_provider', CategoryController.getCategoryProvider);
 routes.get('/category', CategoryController.getCategory);
 routes.post('/category', CategoryController.saveCategory);
 routes.get('/check_category', CategoryController.checkCategory);
 
-routes.get('/customer', CustomerController.getCustomer);
-routes.post('/customer', CustomerController.saveCustomer);
-routes.post('/customer_update', CustomerController.updateCustomer);
-routes.post('/customer_update_photo', CustomerController.updateCustomerPhoto);
+routes.get('/customer', CustomerUserController.verifyJWT, CustomerController.getCustomer);
+routes.post('/customer', CustomerUserController.verifyJWT, CustomerController.saveCustomer);
+routes.post('/customer_update', CustomerUserController.verifyJWT, CustomerController.updateCustomer);
+routes.post('/customer_update_photo', CustomerUserController.verifyJWT, CustomerController.updateCustomerPhoto);
 routes.get('/customer_user', CustomerUserController.signIn);
 
 routes.get('/provider_category', ProviderCategoryController.getProviderCategory);

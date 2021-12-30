@@ -1,7 +1,7 @@
 const connection = require('../database/connection');
 
 async function getCustomer(request, response) {
-    const id_customer = request.query.id_customer;
+    const id_customer = 112;
 
     const result = await connection('customer')
     .select('first_name', 

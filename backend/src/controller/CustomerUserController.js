@@ -1,7 +1,11 @@
 const CustomerUserService = require('../service/CustomerUserService');
 
-async function signIn(request, response) {
+function signIn(request, response) {
     CustomerUserService.signIn(request, response);
 }
 
-module.exports = { signIn }
+function verifyJWT(request, response, next) {
+    CustomerUserService.verifyJWT(request, response, next);
+}
+
+module.exports = { signIn, verifyJWT }
