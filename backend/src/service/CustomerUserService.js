@@ -9,13 +9,13 @@ function signIn(request, response) {
     result.then(res => {
         if (res !== 0) {
             const token = jwt.sign({ userId: res }, SECRET, { expiresIn: 300 });
-            return response.json({ auth: true, token: token });
+            return response.json({ auth: true, token: token, user: res });
         } else {
-            return response.json({ auth: false, token: "Token Failed" });    
+            return response.json({ auth: false, token: "Token Failed", user: 0 });    
         }
     })
     .catch(error => {
-        return response.json({ auth: false, token: error + "Token Failed" });
+        return response.json({ auth: false, token: error + "Token Failed", user: 0 });
     });
 }
 
