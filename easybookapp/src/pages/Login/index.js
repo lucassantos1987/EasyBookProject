@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DropDownPicker from 'react-native-dropdown-picker';
 import i_login from '../../services/login';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import api from '../../services/api';
 import styles from './style';
@@ -36,14 +37,19 @@ export default function Login() {
         navigation.navigate('MenuCustomer');
     }
 
-    async function handleLogin() {
-        const response = await i_login.login();
-
-        console.log(response);
+    function handleLogin() {
+        i_login.login(email, password);    
     }
 
     return (
-        <View style={styles.container}>   
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <TouchableOpacity style={styles.buttonHeaderBack}
+                    onPress={() => navigation.goBack()}>
+                    <Icon name="home" size={26} color="#FFFFFF"/>
+                    <Text style={{ color: '#FFF', fontWeight: 'bold', fontSize: 18, marginLeft: 10}}>Tela Inicial</Text>
+                </TouchableOpacity>
+            </View>
             <View style={styles.login}>
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Text style={{ color: '#FFF', fontWeight: 'bold', fontSize: 40 }}>EASYBOOK</Text>

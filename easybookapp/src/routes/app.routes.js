@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const AppStack = createStackNavigator();
@@ -16,17 +15,15 @@ import DataProvider from '../pages/DataProvider/DataProvider';
 
 export default function AppRoutes() {
     return (
-        <NavigationContainer>
-            <AppStack.Navigator screenOptions={{ headerShown: false }}>
-                <AppStack.Screen name="MenuCustomer" component={MenuCustomer} />
-                <AppStack.Screen name="DataCustomer" component={DataCustomer} />
-                <AppStack.Screen name="RequestCategory" component={RequestCategory} />                
-                <AppStack.Screen name="RequestProvider" component={RequestProvider} />
-                <AppStack.Screen name="InfoProvider" component={InfoProvider} />
-                <AppStack.Screen name="RatingProvider" component={RatingProvider} />
-                <AppStack.Screen name="Menu" component={Menu} />
-                <AppStack.Screen name="DataProvider" component={DataProvider} />                
-            </AppStack.Navigator>
-        </NavigationContainer>
+        <AppStack.Navigator screenOptions={{ headerShown: false }}>
+            <AppStack.Screen name="MenuCustomer" component={MenuCustomer} />
+            <AppStack.Screen name="DataCustomer" component={DataCustomer} />
+            <AppStack.Screen name="RequestCategory" component={RequestCategory} />                
+            <AppStack.Screen name="RequestProvider" component={RequestProvider} />
+            <AppStack.Screen name="InfoProvider" component={InfoProvider} />
+            <AppStack.Screen name="RatingProvider" component={RatingProvider} />
+            <AppStack.Screen name="Menu" component={Menu} />
+            <AppStack.Screen name="DataProvider" component={DataProvider} />                
+        </AppStack.Navigator>
     );
 }

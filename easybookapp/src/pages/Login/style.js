@@ -8,8 +8,30 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center'
     },
+    header: {
+        flexDirection: 'row',
+        top: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 15,
+        position: 'absolute'
+    },
+    buttonHeaderBack: {
+        position: 'absolute',
+        left: 15,
+        top: 50,
+        width: 150,
+        flexDirection: 'row',
+        borderRadius: 10,
+        backgroundColor: '#8e44ad',
+        height: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderColor: '#f1c40f',
+        borderWidth: 1
+    },
     login: {
-        top: -60,
+        top: 0,
         left: 0,
         right: 0,
         bottom: 0,

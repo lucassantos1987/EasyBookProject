@@ -49,7 +49,9 @@ export default StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         borderRadius: 10,
-        backgroundColor: '#8e44ad'
+        backgroundColor: '#8e44ad',
+        borderColor: '#f1c40f',
+        borderWidth: 1
     },
     inputSearch: {
         top: 60,
