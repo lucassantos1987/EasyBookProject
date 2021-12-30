@@ -1,12 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { View, TouchableOpacity, TextInput, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DropDownPicker from 'react-native-dropdown-picker';
 import i_login from '../../services/login';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AuthContext from '../../contexts/auth';
 
-import api from '../../services/api';
 import styles from './style';
 
 
@@ -15,6 +15,10 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [type_user, setType_user] = useState('');
+
+    const { signed } = useContext(AuthContext);
+
+    console.log(signed);
 
     const navigation = useNavigation();
 
