@@ -1,8 +1,8 @@
 import api from "./api";
 
-const login = async (email, password) => {
+const signIn = async (email, password) => {
 
-    await api.get('customer_user', {params: {email: email, password: password}})
+    await api.get('customer_user_sigin', {params: {email: email, password: password}})
     .then(response => {
         console.log(response.data.token);
         console.log(response.data.user);
@@ -12,4 +12,4 @@ const login = async (email, password) => {
     });
 }
 
-module.exports = { login }
+module.exports = { signIn }

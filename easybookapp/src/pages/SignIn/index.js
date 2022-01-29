@@ -1,24 +1,15 @@
 import React, { useState, useRef, useContext } from 'react';
 import { View, TouchableOpacity, TextInput, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import DropDownPicker from 'react-native-dropdown-picker';
-import i_login from '../../services/login';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import AuthContext from '../../contexts/auth';
+import signInService from '../../services/signIn';
 
 import styles from './style';
 
-
-export default function Login() {
+export default function SignIn() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [type_user, setType_user] = useState('');
-
-    const { signed } = useContext(AuthContext);
-
-    console.log(signed);
 
     const navigation = useNavigation();
 
@@ -41,8 +32,8 @@ export default function Login() {
         navigation.navigate('MenuCustomer');
     }
 
-    function handleLogin() {
-        i_login.login(email, password);    
+    function handleSigIn() {
+        const response = signInService.signIn(email, password);
     }
 
     return (
@@ -80,21 +71,6 @@ export default function Login() {
                     autoCapitalize="none"
                     secureTextEntry
                 />
-
-                {/*<DropDownPicker
-                    items={[
-                        {label: 'CLIENTE', value:'C'},
-                        {label: 'PROFISSIONAL', value: 'P'}
-                    ]}
-                    containerStyle={{ height: 60 }}
-                    style={{ backgroundColor: '#FFFFFF', marginTop: 10}}
-                    itemStyle={{
-                        justifyContent: 'flex-start'
-                    }}
-                    value={type_user}
-                    onChangeItem={item => onChangeTypeUser(item.value)}
-                />*/}
-
             </View>
             <View style={styles.containerLogin}>
                 <TouchableOpacity
@@ -113,7 +89,7 @@ export default function Login() {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonLogin}
-                    onPress={handleLogin}>
+                    onPress={handleSigIn}>
                     <Text style={styles.textButtonLogin}>
                         Login
                     </Text>

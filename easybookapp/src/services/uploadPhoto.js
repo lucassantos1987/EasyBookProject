@@ -41,6 +41,4 @@ const uploadPhotoProfile = async (photo_profile) => {
 }
 
 
-module.exports = {
-    uploadPhotoProfile
-}
+module.exports = { uploadPhotoProfile }

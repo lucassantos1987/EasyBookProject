@@ -4,11 +4,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 const AuthStack = createStackNavigator();
 
 import Main from '../pages/Main';
-import Login from '../pages/Login';
-import Register from '../pages/Register';
+import SignIn from '../pages/SignIn';
 import RegisterCustomer from '../pages/RegisterCustomer';
-import RequestCategory from '../pages/RequestProvider/Category';
-import RequestProvider from '../pages/RequestProvider/Provider';
+import ListCategory from '../pages/RequestProvider/Category';
+import ListProvider from '../pages/RequestProvider/Provider';
 import InfoProvider from '../pages/RequestProvider/InfoProvider';
 
 
@@ -16,11 +15,10 @@ export default function AuthRoutes() {
     return (
         <AuthStack.Navigator screenOptions={{ headerShown: false }}>
             <AuthStack.Screen name="Main" component={Main} />
-            <AuthStack.Screen name="Login" component={Login} />
-            <AuthStack.Screen name="Register" component={Register} />
+            <AuthStack.Screen name="Login" component={SignIn} />
             <AuthStack.Screen name="RegisterCustomer" component={RegisterCustomer} />
-            <AuthStack.Screen name="RequestCategory" component={RequestCategory} />                
-            <AuthStack.Screen name="RequestProvider" component={RequestProvider} />
+            <AuthStack.Screen name="ListCategory" component={ListCategory} />                
+            <AuthStack.Screen name="ListProvider" component={ListProvider} />
             <AuthStack.Screen name="InfoProvider" component={InfoProvider} />
         </AuthStack.Navigator>
     );
