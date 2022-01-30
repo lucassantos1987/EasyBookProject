@@ -7,9 +7,7 @@ async function signIn(request, response) {
     const client = await connDB.connect();
 
     var sql = "select "
-                + "id_customer, "
-                + "email, "
-                + "password "
+                + "id_customer "
                 + "from customer_user "
                 + "where email = '" + email + "' "
                 + "and password = '" + password + "'";

@@ -1,20 +1,24 @@
 const connection = require('../database/connection');
+const connDB = require('../database/connDB');
 
 async function getCustomer(request, response) {
     const id_customer = 112;
+    const client = await connDB.connect();
 
-    const result = await connection('customer')
-    .select('first_name', 
-            'last_name', 
-            'photo',
-            'prefix_whatsapp',
-            'whatsapp'
-    )
-    .modify(function(queryBuilder) {
-        queryBuilder.where('id', '=', id_customer);
-    })
+    var sql = "SELECT \n"
+                + " id, \n"
+                + " first_name, \n"
+                + " last_name, \n"
+                + " photo, \n"
+                + " prefix_whatsapp, \n"
+                + " whatsapp \n"
+                + " FROM customer \n"
+                + " WHERE id = " + id_customer;
 
-    return response.json(result);
+    const result = await client.query(sql);
+    client.release();
+            
+    return response.json( result.rows );    
 }
 
 async function saveCustomer(request, response) {

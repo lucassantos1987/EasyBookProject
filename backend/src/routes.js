@@ -26,10 +26,11 @@ routes.post('/category', CategoryController.saveCategory);
 routes.get('/check_category', CategoryController.checkCategory);
 
 routes.get('/customer', CustomerUserController.verifyJWT, CustomerController.getCustomer);
-routes.post('/customer', CustomerUserController.verifyJWT, CustomerController.saveCustomer);
+routes.post('/customer', CustomerController.saveCustomer);
 routes.post('/customer_update', CustomerUserController.verifyJWT, CustomerController.updateCustomer);
 routes.post('/customer_update_photo', CustomerUserController.verifyJWT, CustomerController.updateCustomerPhoto);
-routes.get('/customer_user', CustomerUserController.signIn);
+routes.get('/customer_user_sigin', CustomerUserController.signIn);
+routes.post('/customer_user_logout', CustomerUserController.logout);
 
 routes.get('/provider_category', ProviderCategoryController.getProviderCategory);
 routes.get('/provider', ProviderController.getProvider);

@@ -2,7 +2,7 @@ import React, { useState, useRef, useContext } from 'react';
 import { View, TouchableOpacity, TextInput, Text, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import signInService from '../../services/signIn';
+import AuthContext from '../../contexts/auth';
 
 import styles from './style';
 
@@ -10,6 +10,10 @@ export default function SignIn() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const { signed } = useContext(AuthContext);
+    console.log(signed);
+
 
     const navigation = useNavigation();
 
@@ -33,7 +37,8 @@ export default function SignIn() {
     }
 
     function handleSigIn() {
-        const response = signInService.signIn(email, password);
+        //const response = signInService.signIn(email, password);
+        console.log("Logar");
     }
 
     return (
@@ -73,7 +78,7 @@ export default function SignIn() {
                 />
             </View>
             <View style={styles.containerLogin}>
-                <TouchableOpacity
+                {/*<TouchableOpacity
                     style={styles.buttonSignUpCustomer}
                     onPress={navigateToRegisterCustomer}>
                     <Text style={styles.textButtonSignUpCustomer}>
@@ -86,7 +91,7 @@ export default function SignIn() {
                     <Text style={styles.textButtonSignUpProvider}>
                         Sou profissional e não sou cadastradado
                     </Text>
-                </TouchableOpacity>
+                </TouchableOpacity>*/}
                 <TouchableOpacity
                     style={styles.buttonLogin}
                     onPress={handleSigIn}>

@@ -1,24 +1,20 @@
 import React, { useState, createContext } from 'react';
+import signInService from '../services/signIn';
 
-export const AuthContext = createContext();
+
+const AuthContext = createContext({ signed: Boolean(false), user: Object({}), signIn(email, password){} });
 
 export const AuthProvider = ({ children }) => {
 
-    const [user, setUser] = useState(null);
-
-    const login = (email, password) => {
-        console.log("login", { email, password });
-        setUser({ id: "123", email })
-    };
-
-    const logout = () => {
-        console.log("logout");
-    };
+    async function signIn(email, password) {
+        signInService.signIn(email, password);
+    }
 
     return(
-        <AuthContext.Provider 
-            value={{ authenticated: !!user, user, login, logout }}>
-            {children}
+        <AuthContext.Provider value={{ signed: false, user:{}, signIn(email, password){} }}>
+            { children }
         </AuthContext.Provider>
     )
 }
+
+export default AuthContext;

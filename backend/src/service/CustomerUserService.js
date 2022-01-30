@@ -19,6 +19,10 @@ function signIn(request, response) {
     });
 }
 
+function logout(request, response) {
+    response.end();
+}
+
 function verifyJWT(request, response, next) {
     const token = request.headers['x-access-token'];
     jwt.verify(token, SECRET, (err, decode) => {
@@ -29,4 +33,4 @@ function verifyJWT(request, response, next) {
     })
 }
 
-module.exports = { signIn, verifyJWT }
+module.exports = { signIn, logout, verifyJWT }
