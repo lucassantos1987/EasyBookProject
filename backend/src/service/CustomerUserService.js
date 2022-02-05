@@ -9,9 +9,9 @@ function signIn(request, response) {
     result.then(res => {
         if (res !== 0) {
             const token = jwt.sign({ userId: res }, SECRET, { expiresIn: 300 });
-            return response.json({ auth: true, token: token, user: res });
+            return response.json({ auth: true, token: token, user: res, signed: true });
         } else {
-            return response.json({ auth: false, token: "Token Failed", user: 0 });    
+            return response.json({ auth: false, token: "Token Failed", user: 0, signed: false });    
         }
     })
     .catch(error => {

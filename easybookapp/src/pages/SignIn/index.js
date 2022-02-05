@@ -11,10 +11,8 @@ export default function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { signed } = useContext(AuthContext);
-    console.log(signed);
-
-
+    const { signIn } = useContext(AuthContext);
+    
     const navigation = useNavigation();
 
     const email_input = useRef();
@@ -37,8 +35,7 @@ export default function SignIn() {
     }
 
     function handleSigIn() {
-        //const response = signInService.signIn(email, password);
-        console.log("Logar");
+        signIn(email, password);
     }
 
     return (

@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ConfirmDialog } from 'react-native-simple-dialogs';
 import * as ImagePicker from 'expo-image-picker';
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -11,10 +10,10 @@ import api from '../../services/api';
 import styles from './style';
 import { Alert } from 'react-native';
 
+import AuthContext from '../../contexts/auth';
+
 export default function MenuCustomer() {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [originalPhoto, setOriginalPhoto] = useState('');
     const [image, setImage] = useState('');
@@ -26,6 +25,8 @@ export default function MenuCustomer() {
 
     const navigation = useNavigation();
 
+    const { logOut, idUser } = useContext(AuthContext);
+
     const url = "http://192.168.0.109:3333";
 
     useEffect(() => {
@@ -35,9 +36,9 @@ export default function MenuCustomer() {
     async function loadInfoCustomerLoginUser() {
         setLoading(true);
 
-        const id_customer = await AsyncStorage.getItem('id_customer');
-        setEmail(await AsyncStorage.getItem('email'));
-        setPassword(await AsyncStorage.getItem('password'));
+        console.log(idUser);
+
+        const id_customer = 112;
 
         setMsg_Loading("Carregando dados...");
 
@@ -53,7 +54,7 @@ export default function MenuCustomer() {
                 setOriginalPhoto(url + "/photosprofileeasybook/resized/" + data.photo);
             }).catch(error => {
                 setLoading(false);
-                Alert.alert(error);
+                Alert.alert(error.message);
             })
     }
 
@@ -73,23 +74,16 @@ export default function MenuCustomer() {
         setDialog_Visible(true);
     }
 
-    async function logout() {
-        setLoading(true);
-        setMsg_Loading("Saindo...");
-        await AsyncStorage.removeItem('id_customer');
-        await AsyncStorage.removeItem('email');
-        await AsyncStorage.removeItem('password');
-        setLoading(false);
-        setDialog_Visible(false);
-        navigation.navigate('Login');
+    function logout() {
+        logOut();
     }
 
     function navigateToLocalization() {
         navigation.navigate('Localization');
     }
 
-    function navigateToRequestCategory() {
-        navigation.navigate('RequestCategory');
+    function navigateToListCategory() {
+        navigation.navigate('ListCategory');
     }
 
     async function _pickImage() {
@@ -158,7 +152,7 @@ export default function MenuCustomer() {
 
             if (success_upload) {
 
-                const id = await AsyncStorage.getItem('id_customer');
+                const id = idUser
                 const data = {
                     id,
                     photo
@@ -247,7 +241,7 @@ export default function MenuCustomer() {
 
             if (success_upload) {
 
-                const id = await AsyncStorage.getItem('id_customer');
+                const id = idUser;
                 const data = {
                     id,
                     photo
@@ -330,7 +324,7 @@ export default function MenuCustomer() {
             <View style={styles.containerMenuButtons}>
                 <TouchableOpacity
                     style={styles.buttonMenuMySpeciality}
-                    onPress={navigateToRequestCategory}>
+                    onPress={navigateToListCategory}>
                     <Text style={styles.textButtonMenu}>Pesquisar Serviços</Text>
                 </TouchableOpacity>
                 <TouchableOpacity

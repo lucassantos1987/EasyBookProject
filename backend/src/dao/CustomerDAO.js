@@ -2,7 +2,7 @@ const connection = require('../database/connection');
 const connDB = require('../database/connDB');
 
 async function getCustomer(request, response) {
-    const id_customer = 112;
+    const id_customer = request.query.id_customer;
     const client = await connDB.connect();
 
     var sql = "SELECT \n"

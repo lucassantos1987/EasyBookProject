@@ -25,7 +25,7 @@ routes.get('/category', CategoryController.getCategory);
 routes.post('/category', CategoryController.saveCategory);
 routes.get('/check_category', CategoryController.checkCategory);
 
-routes.get('/customer', CustomerUserController.verifyJWT, CustomerController.getCustomer);
+routes.get('/customer', CustomerController.getCustomer);
 routes.post('/customer', CustomerController.saveCustomer);
 routes.post('/customer_update', CustomerUserController.verifyJWT, CustomerController.updateCustomer);
 routes.post('/customer_update_photo', CustomerUserController.verifyJWT, CustomerController.updateCustomerPhoto);

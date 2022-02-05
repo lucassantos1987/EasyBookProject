@@ -16,8 +16,8 @@ export default function Category() {
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
 
-    function navigateToProvider(category) {
-        navigation.navigate('RequestProvider', { category });
+    function navigateToListProvider(category) {
+        navigation.navigate('ListProvider', { category });
     }
 
     async function loadCategories() {
@@ -73,7 +73,7 @@ export default function Category() {
                     return (<View style={{ height: 1, backgroundColor: "#dfe6e9"}}></View>)
                 }}
                 renderItem={({ item: category }) => (
-                    <ListItem onPress={() => navigateToProvider(category.id)}>
+                    <ListItem onPress={() => navigateToListProvider(category.id)}>
                         <ListItem.Content>
                             <ListItem.Title>
                                 {category.name}

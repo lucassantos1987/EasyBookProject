@@ -17,7 +17,7 @@ export default function AuthRoutes() {
             <AuthStack.Screen name="Main" component={Main} />
             <AuthStack.Screen name="Login" component={SignIn} />
             <AuthStack.Screen name="RegisterCustomer" component={RegisterCustomer} />
-            <AuthStack.Screen name="ListCategory" component={ListCategory} />                
+            <AuthStack.Screen name="ListCategory" component={ListCategory} />
             <AuthStack.Screen name="ListProvider" component={ListProvider} />
             <AuthStack.Screen name="InfoProvider" component={InfoProvider} />
         </AuthStack.Navigator>
