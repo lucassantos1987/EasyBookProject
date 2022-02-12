@@ -36,7 +36,7 @@ export default StyleSheet.create({
     textUser: {
         color: '#FFF',
         fontSize: 25,
-        marginTop: 30
+        marginTop: 10
     },
     buttonMenuMyPhoto: {
         backgroundColor: '#8c37ab',

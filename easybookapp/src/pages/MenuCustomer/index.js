@@ -38,7 +38,7 @@ export default function MenuCustomer() {
 
         console.log(idUser);
 
-        const id_customer = 112;
+        const id_customer = idUser;
 
         setMsg_Loading("Carregando dados...");
 

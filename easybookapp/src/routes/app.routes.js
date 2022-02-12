@@ -8,6 +8,7 @@ import DataCustomer from '../pages/DataCustomer';
 import ListCategory from '../pages/RequestProvider/Category';
 import ListProvider from '../pages/RequestProvider/Provider';
 import InfoProvider from '../pages/RequestProvider/InfoProvider';
+import RatingProvider from '../pages/RequestProvider/RatingProvider';
 
 
 export default function AppRoutes() {
@@ -18,6 +19,7 @@ export default function AppRoutes() {
             <AppStack.Screen name="ListCategory" component={ListCategory} />
             <AppStack.Screen name="ListProvider" component={ListProvider} />
             <AppStack.Screen name="InfoProvider" component={InfoProvider} />
+            <AppStack.Screen name="RatingProvider" component={RatingProvider} />
         </AppStack.Navigator>
     );
 }
