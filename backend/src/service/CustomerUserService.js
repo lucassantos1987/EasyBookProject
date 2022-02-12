@@ -25,6 +25,7 @@ function logout(request, response) {
 
 function verifyJWT(request, response, next) {
     const token = request.headers['x-access-token'];
+    console.log(token);
     jwt.verify(token, SECRET, (err, decode) => {
         if (err) return response.status(401).end();
 

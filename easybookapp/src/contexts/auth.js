@@ -17,7 +17,9 @@ export const AuthProvider = ({ children }) => {
             const storagedToken = await AsyncStorage.getItem('@EBAuth:token');
 
             if (storagedIdUser && storagedToken) {
+                api.defaults.headers['Authorization'] = `Bearer ${storagedToken}`;
                 setSigned(true);
+                setIdUser(storagedIdUser);
             }
         }
 
@@ -29,6 +31,8 @@ export const AuthProvider = ({ children }) => {
         .then(function(response) {
             setSigned(response.data.signed);
             setIdUser(response.data.user);
+
+            api.defaults.headers['Authorization'] = `Bearer ${response.data.token}`;
 
             AsyncStorage.setItem('@EBAuth:idUser', response.data.user);
             AsyncStorage.setItem('@EBAuth:token', response.data.token);
@@ -43,7 +47,10 @@ export const AuthProvider = ({ children }) => {
         .then(function(response) {
             console.log(response.status);
             if (response.status === 200) {
-                setSigned(false);
+                AsyncStorage.clear().then(() => {
+                    setSigned(false);
+                    setIdUser(0);
+                })                
             }
         })
         .catch(function(error) {
